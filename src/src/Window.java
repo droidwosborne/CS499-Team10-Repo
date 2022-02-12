@@ -5,13 +5,16 @@
  */
 package src;
 
+import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.FocusEvent;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -20,7 +23,7 @@ import javax.swing.table.JTableHeader;
  * Class declaration for Window class extending JPanel for component placement and
  * implementing ActionListener to allow for actions on button click and text entry.
  */
-public class Window extends JPanel implements ActionListener, MouseListener{
+public class Window extends JPanel implements ActionListener, MouseListener, FocusListener{
 
     //User pin for identification (currently set to work automatically for easy testing)
     public String pin = "KLOm9bAS";
@@ -63,7 +66,7 @@ public class Window extends JPanel implements ActionListener, MouseListener{
         helpLabel1 = new JLabel ("<html>Input pin for user login <br>to access gradebook.</html>");
         helpLabel1.setFont(labelFont);
         size =  helpLabel1.getPreferredSize();
-        helpLabel1.setBounds(700, 100, size.width, size.height);
+        helpLabel1.setBounds(700, 200, size.width, size.height);
         add(helpLabel1);
         helpLabel1.setVisible(false);
         
@@ -85,77 +88,72 @@ public class Window extends JPanel implements ActionListener, MouseListener{
         add(welcomeLabel);
         welcomeLabel.setVisible(false);
         
-        DefaultListModel<String> paneTabs = new DefaultListModel<String>();
-        paneTabs.addElement("Classes");
-        paneTabs.addElement("Grades");
-        paneTabs.addElement("Students");
+        overviewPaneTabs = new DefaultListModel<String>();
+        overviewPaneTabs.addElement("CS499");
+        //overviewPaneTabs.addElement("Grades");
+        //overviewPaneTabs.addElement("Roster");
 
-        paneList = new JList<>(paneTabs);
-        paneList.addMouseListener(this);
-        paneList.setPreferredSize(new Dimension(100,100));
-        paneList.setFont(new Font("Serif", Font.BOLD, 20));
-        size = paneList.getPreferredSize();
-        paneList.setBounds(50,100,size.width,size.height);
-        add(paneList);
-        paneList.setVisible(false);
+        overviewPaneList = new JList<>(overviewPaneTabs);
+        overviewPaneList.addMouseListener(this);
+        overviewPaneList.addFocusListener(this);
+        overviewPaneList.setPreferredSize(new Dimension(100,100));
+        overviewPaneList.setFont(new Font("Serif", Font.BOLD, 20));
+        size = overviewPaneList.getPreferredSize();
+        overviewPaneList.setBounds(50,100,size.width,size.height);
+        add(overviewPaneList);
+        overviewPaneList.setVisible(false);
+        
+        classPaneTabs = new DefaultListModel<String>();
+        classPaneTabs.addElement("Assignments");
+        classPaneTabs.addElement("Roster");
+
+        classPaneList = new JList<>(classPaneTabs);
+        classPaneList.addMouseListener(this);
+        classPaneList.addFocusListener(this);
+        classPaneList.setPreferredSize(new Dimension(150,100));
+        classPaneList.setFont(new Font("Serif", Font.BOLD, 20));
+        size = classPaneList.getPreferredSize();
+        classPaneList.setBounds(170,100,size.width,size.height);
+        add(classPaneList);
+        classPaneList.setVisible(false);
         
         
         /*
-         * Classes Page
+         * Assignments Page
          */
-        DefaultListModel<String> classesTabs = new DefaultListModel<String>();
-        classesTabs.addElement("CS 103 - Intro to C Programming");
-        classesTabs.addElement("CS 252 - Advanced C Programming");
-        classesTabs.addElement("CS 307 - Intro to Linux Development");
-        classesTabs.addElement("CS 430 - UNIX Kernel Development");
-        classesTabs.addElement("CS 486 - Senior Research Project");
+        assignmentsTableModel = new DefaultTableModel();
+        assignmentsTableModel.addColumn("Name");
+        assignmentsTableModel.addColumn("Category");
+        assignmentsTableModel.addColumn("Maximum Score");
 
-        classesList = new JList<>(classesTabs);
-        classesList.addMouseListener(this);
-        classesList.setPreferredSize(new Dimension(480,150));
-        classesList.setFont(new Font("Serif", Font.BOLD, 20));
-        size = classesList.getPreferredSize();
-        classesList.setBounds(200,100,size.width,size.height);
-        add(classesList);
-        classesList.setVisible(false);
-        
-        
-        /*
-         * Grade Page
-         */
-        gradesTableModel = new DefaultTableModel();
-        gradesTableModel.addColumn("Name");
-        gradesTableModel.addColumn("Category");
-        gradesTableModel.addColumn("Maximum Score");
-
-        gradesTable = new JTable(gradesTableModel);
-        gradesTable.setBackground(Color.lightGray);
-        JTableHeader gradeHeader = gradesTable.getTableHeader();
+        assignmentsTable = new JTable(assignmentsTableModel);
+        assignmentsTable.setBackground(Color.lightGray);
+        JTableHeader gradeHeader = assignmentsTable.getTableHeader();
         gradeHeader.setBackground(Color.white);
         gradeHeader.setFont(new Font("Serif", Font.BOLD, 14));
-        gradesPane = new JScrollPane(gradesTable);
-        gradesPane.setBounds(200, 100, 480, 250);
-        add(gradesPane);
-        gradesPane.setVisible(false);
+        assignmentsPane = new JScrollPane(assignmentsTable);
+        assignmentsPane.setBounds(350, 100, 480, 250);
+        add(assignmentsPane);
+        assignmentsPane.setVisible(false);
         
         
         /*
-         * Students Page
+         * Roster Page
          */
-        studentsTableModel = new DefaultTableModel();
-        studentsTableModel.addColumn("First Name");
-        studentsTableModel.addColumn("Last Name");
-        studentsTableModel.addColumn("Average");
+        rosterTableModel = new DefaultTableModel();
+        rosterTableModel.addColumn("First Name");
+        rosterTableModel.addColumn("Last Name");
+        rosterTableModel.addColumn("Average");
 
-        studentsTable = new JTable(studentsTableModel);
-        studentsTable.setBackground(Color.lightGray);
-        JTableHeader studentHeader = studentsTable.getTableHeader();
+        rosterTable = new JTable(rosterTableModel);
+        rosterTable.setBackground(Color.lightGray);
+        JTableHeader studentHeader = rosterTable.getTableHeader();
         studentHeader.setBackground(Color.white);
         studentHeader.setFont(new Font("Serif", Font.BOLD, 14));
-        studentsPane = new JScrollPane(studentsTable);
-        studentsPane.setBounds(200, 100, 480, 250);
-        add(studentsPane);
-        studentsPane.setVisible(false);
+        rosterPane = new JScrollPane(rosterTable);
+        rosterPane.setBounds(350, 100, 480, 250);
+        add(rosterPane);
+        rosterPane.setVisible(false);
         
         
         /*
@@ -167,7 +165,23 @@ public class Window extends JPanel implements ActionListener, MouseListener{
         helpButton.setBounds(850,450,size.width-35,size.height);
         add(helpButton);
 
+        addButton = new JButton("+");
+        size = addButton.getPreferredSize();
+        addButton.addActionListener(this);
+        addButton.setBounds(850,100,size.width-35,size.height);
+        add(addButton);
+        addButton.setVisible(false);
         
+        inputWindow = new JPanel();
+        inputWindow.setLayout(null);
+        Dimension smallerDim = new Dimension(200,100);
+        inputWindow.setMinimumSize(smallerDim);
+        inputWindow.setPreferredSize(smallerDim);
+        //setLayout(null);
+        inputWindow.setBackground(Color.lightGray);
+        inputWindow.setBounds(300,200, 500,300);
+        add(inputWindow);
+        //inputWindow.setVisible(false);
     }
 
     /*
@@ -187,8 +201,9 @@ public class Window extends JPanel implements ActionListener, MouseListener{
                 incorrectLoginLabel.setVisible(false);
                 
                 welcomeLabel.setVisible(true);
-                paneList.setVisible(true);
-                classesList.setVisible(true);
+                overviewPaneList.setVisible(true);
+                //classesList.setVisible(true);
+                //addButton.setVisible(true);
             } else {
                 incorrectLoginLabel.setVisible(true);
             }
@@ -204,6 +219,10 @@ public class Window extends JPanel implements ActionListener, MouseListener{
                 helpLabel1.setVisible(true);
             }
         }
+        if (action.getSource() == addButton)
+        {
+            inputWindow.setVisible(true);
+        }
     }
     
     public void mouseEntered(MouseEvent mouse){
@@ -216,57 +235,78 @@ public class Window extends JPanel implements ActionListener, MouseListener{
     
     public void mousePressed(MouseEvent mouse){
         if (mouse.getClickCount() == 1) {
-           String selectedItem = paneList.getSelectedValue();
+           String selectedOverviewItem = overviewPaneList.getSelectedValue();
+           if (selectedOverviewItem != null){
+               if (selectedOverviewItem.equals(overviewPaneTabs.get(0))){
+                   //classesList.setVisible(true);
+                   classPaneList.setVisible(true);
+                   screenNumber = 0;
+               }
+           }
+           String selectedClassItem = classPaneList.getSelectedValue();
            
-           if (selectedItem.equals("Classes")){
-               classesList.setVisible(true);
-               gradesPane.setVisible(false);
-               studentsPane.setVisible(false);
-               screenNumber = 0;
-           }
-           if (selectedItem.equals("Grades")){
-               classesList.setVisible(false);
-               gradesPane.setVisible(true);
-               studentsPane.setVisible(false);
-               screenNumber = 1;
-           }
-           if (selectedItem.equals("Students")){
-               classesList.setVisible(false);
-               gradesPane.setVisible(false);
-               studentsPane.setVisible(true);
-               screenNumber = 2;
-           }
+           if (selectedClassItem != null){
+               if (selectedClassItem.equals(classPaneTabs.get(0))){
+                   //classesList.setVisible(false);
+                   assignmentsPane.setVisible(true);
+                   addButton.setVisible(true);
+                   rosterPane.setVisible(false);
+                   screenNumber = 1;
+               }
+               if (selectedClassItem.equals(classPaneTabs.get(1))){
+                   //classesList.setVisible(false);
+                   assignmentsPane.setVisible(false);
+                   rosterPane.setVisible(true);
+                   addButton.setVisible(true);
+                   screenNumber = 2;
+               }
+            }
         }
     }
     
     public void mouseClicked(MouseEvent mouse) {
         if (mouse.getClickCount() == 1) {
-           String selectedItem = paneList.getSelectedValue();
+           String selectedOverviewItem = overviewPaneList.getSelectedValue();
            
-           if (selectedItem.equals("Classes")){
-               classesList.setVisible(true);
-               gradesPane.setVisible(false);
-               studentsPane.setVisible(false);
-               screenNumber = 0;
+           if (selectedOverviewItem != null){
+               if (selectedOverviewItem.equals(overviewPaneTabs.get(0))){
+                   //classesList.setVisible(true);
+                   assignmentsPane.setVisible(false);
+                   rosterPane.setVisible(false);
+                   screenNumber = 0;
+               }
            }
-           if (selectedItem.equals("Grades")){
-               classesList.setVisible(false);
-               gradesPane.setVisible(true);
-               studentsPane.setVisible(false);
-               screenNumber = 1;
-           }
-           if (selectedItem.equals("Students")){
-               classesList.setVisible(false);
-               gradesPane.setVisible(false);
-               studentsPane.setVisible(true);
-               screenNumber = 2;
-           }
+           String selectedClassItem = classPaneList.getSelectedValue();
+           
+           if (selectedClassItem != null){
+               if (selectedClassItem.equals(classPaneTabs.get(0))){
+                   //classesList.setVisible(false);
+                   assignmentsPane.setVisible(true);
+                   rosterPane.setVisible(false);
+                   screenNumber = 1;
+               }
+               if (selectedClassItem.equals(classPaneTabs.get(1))){
+                   //classesList.setVisible(false);
+                   assignmentsPane.setVisible(false);
+                   rosterPane.setVisible(true);
+                   screenNumber = 2;
+               }
+            }
         }
     }
     
-    
-    
     public void mouseExited(MouseEvent mouse){
+        
+    }
+    
+    public void focusLost(FocusEvent focus){
+        if (!overviewPaneList.getSelectionModel().isSelectionEmpty())
+            overviewPaneList.getSelectionModel().clearSelection();
+        if (!classPaneList.getSelectionModel().isSelectionEmpty())
+            classPaneList.getSelectionModel().clearSelection();
+    }
+    
+    public void focusGained(FocusEvent focus){
         
     }
 
@@ -277,21 +317,27 @@ public class Window extends JPanel implements ActionListener, MouseListener{
     private JLabel welcomeLabel;
 
     private JButton helpButton;
+    private JButton addButton;
     
     private JPasswordField pinField;
 
     
-    private JList<String> paneList;
-    private JList<String> classesList;
+    private JList<String> overviewPaneList;
+    private JList<String> classPaneList;
+    //private JList<String> classesList;
     
-    private JTable gradesTable;
-    private JTable studentsTable;
+    private JTable assignmentsTable;
+    private JTable rosterTable;
     
-    private JScrollPane gradesPane;
-    private JScrollPane studentsPane;
+    private JScrollPane assignmentsPane;
+    private JScrollPane rosterPane;
     
-    private DefaultTableModel gradesTableModel;
-    private DefaultTableModel studentsTableModel;
+    private JPanel inputWindow;
+    
+    private DefaultTableModel assignmentsTableModel;
+    private DefaultTableModel rosterTableModel;
+    private DefaultListModel<String> overviewPaneTabs;
+    private DefaultListModel<String> classPaneTabs;
 
     private Dimension size;
     private int screenNumber;
