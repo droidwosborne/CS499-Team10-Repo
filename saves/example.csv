@@ -1,3 +1,5 @@
-ided,oved,c1,c2ed,a1c1,a2c1,a3c2,a4c1,a5c2
-null,null,c1name,c2name,a1name,...,...,...
-stuData,...
+idED,lNameED,fNameED,asigh1cat2maxSc,asighn2cat1maxSCED,scaleED,catagory1,catagory2ED
+null,null,null,as1Name,as2name,scaleNUMS,c1Weight,c2weight
+1,McGee,Braden,90,87,88.5,,
+2,Gaunt,Davis,95,98,96.5,,
+3,Osborne,Will,99,100,99.5,,
