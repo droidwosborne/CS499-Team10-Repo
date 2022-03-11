@@ -81,42 +81,91 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         /*
          * Landing Page
          */
-        welcomeLabel = new JLabel("Welcome, Instructor");
-        welcomeLabel.setFont(new Font("Serif", Font.BOLD, 24));
-        size =  welcomeLabel.getPreferredSize();
-        welcomeLabel.setBounds(50, 50, size.width, size.height);
-        add(welcomeLabel);
-        welcomeLabel.setVisible(false);
+        titleLabel = new JLabel("Welcome, Instructor");
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
+        size =  titleLabel.getPreferredSize();
+        titleLabel.setBounds(50, 50, size.width, size.height);
+        add(titleLabel);
+        titleLabel.setVisible(false);
         
-        overviewPaneTabs = new DefaultListModel<String>();
-        overviewPaneTabs.addElement("CS499");
-        //overviewPaneTabs.addElement("Grades");
-        //overviewPaneTabs.addElement("Roster");
-
-        overviewPaneList = new JList<>(overviewPaneTabs);
-        overviewPaneList.addMouseListener(this);
-        overviewPaneList.addFocusListener(this);
-        overviewPaneList.setPreferredSize(new Dimension(100,100));
-        overviewPaneList.setFont(new Font("Serif", Font.BOLD, 20));
-        size = overviewPaneList.getPreferredSize();
-        overviewPaneList.setBounds(50,100,size.width,size.height);
-        add(overviewPaneList);
-        overviewPaneList.setVisible(false);
+        class1Button = new JButton("CS499");
+        size = class1Button.getPreferredSize();
+        class1Button.addActionListener(this);
+        class1Button.setBounds(50,100,size.width,size.height+30);
+        add(class1Button);
+        class1Button.setVisible(false);
         
-        classPaneTabs = new DefaultListModel<String>();
-        classPaneTabs.addElement("Assignments");
-        classPaneTabs.addElement("Roster");
-
-        classPaneList = new JList<>(classPaneTabs);
-        classPaneList.addMouseListener(this);
-        classPaneList.addFocusListener(this);
-        classPaneList.setPreferredSize(new Dimension(150,100));
-        classPaneList.setFont(new Font("Serif", Font.BOLD, 20));
-        size = classPaneList.getPreferredSize();
-        classPaneList.setBounds(170,100,size.width,size.height);
-        add(classPaneList);
-        classPaneList.setVisible(false);
+        class2Button = new JButton();
+        class2Button.setText(null);
+        size = class2Button.getPreferredSize();
+        class2Button.addActionListener(this);
+        class2Button.setBounds(400,100,size.width,size.height+30);
+        add(class2Button);
+        class2Button.setVisible(false);
         
+        class3Button = new JButton();
+        class3Button.setText(null);
+        size = class3Button.getPreferredSize();
+        class3Button.addActionListener(this);
+        class3Button.setBounds(750,100,size.width,size.height+30);
+        add(class3Button);
+        class3Button.setVisible(false);
+        
+        class4Button = new JButton();
+        class4Button.setText(null);
+        size = class4Button.getPreferredSize();
+        class4Button.addActionListener(this);
+        class4Button.setBounds(50,200,size.width,size.height+30);
+        add(class4Button);
+        class4Button.setVisible(false);
+        
+        class5Button = new JButton();
+        class5Button.setText(null);
+        size = class5Button.getPreferredSize();
+        class5Button.addActionListener(this);
+        class5Button.setBounds(400,200,size.width,size.height+30);
+        add(class5Button);
+        class5Button.setVisible(false);
+        
+        class6Button = new JButton();
+        class6Button.setText(null);
+        size = class6Button.getPreferredSize();
+        class6Button.addActionListener(this);
+        class6Button.setBounds(750,200,size.width,size.height+30);
+        add(class6Button);
+        class6Button.setVisible(false);
+        
+        class7Button = new JButton();
+        class7Button.setText(null);
+        size = class7Button.getPreferredSize();
+        class7Button.addActionListener(this);
+        class7Button.setBounds(400,300,size.width,size.height+30);
+        add(class7Button);
+        class7Button.setVisible(false);
+        
+        
+        classesButton = new JButton("Classes");
+        size = classesButton.getPreferredSize();
+        classesButton.addActionListener(this);
+        classesButton.setBounds(750,440,size.width,size.height+20);
+        add(classesButton);
+        classesButton.setVisible(false);
+        
+        /*
+         * Class Page
+         */
+        assignmentButton = new JButton("Assignments");
+        size = assignmentButton.getPreferredSize();
+        assignmentButton.addActionListener(this);
+        assignmentButton.setBounds(30,150,size.width,size.height+20);
+        add(assignmentButton);
+        assignmentButton.setVisible(false);
+        rosterButton = new JButton("Roster");
+        size = rosterButton.getPreferredSize();
+        rosterButton.addActionListener(this);
+        rosterButton.setBounds(30,200,size.width,size.height+20);
+        add(rosterButton);
+        rosterButton.setVisible(false);
         
         /*
          * Assignments Page
@@ -132,9 +181,17 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         gradeHeader.setBackground(Color.white);
         gradeHeader.setFont(new Font("Serif", Font.BOLD, 14));
         assignmentsPane = new JScrollPane(assignmentsTable);
-        assignmentsPane.setBounds(350, 100, 480, 250);
+        assignmentsPane.setBounds(200, 100, 480, 250);
         add(assignmentsPane);
         assignmentsPane.setVisible(false);
+        
+        assignmentAddButton = new JButton("+");
+        assignmentAddButton.setFont(new Font("Serif", Font.BOLD, 20));
+        size = assignmentAddButton.getPreferredSize();
+        assignmentAddButton.addActionListener(this);
+        assignmentAddButton.setBounds(70,150,size.width-35,size.height);
+        add(assignmentAddButton);
+        assignmentAddButton.setVisible(false);
         
         
         /*
@@ -143,6 +200,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         rosterTableModel = new DefaultTableModel();
         rosterTableModel.addColumn("First Name");
         rosterTableModel.addColumn("Last Name");
+        rosterTableModel.addColumn("Student ID");
         rosterTableModel.addColumn("Average");
 
         rosterTable = new JTable(rosterTableModel);
@@ -151,26 +209,36 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         studentHeader.setBackground(Color.white);
         studentHeader.setFont(new Font("Serif", Font.BOLD, 14));
         rosterPane = new JScrollPane(rosterTable);
-        rosterPane.setBounds(350, 100, 480, 250);
+        rosterPane.setBounds(200, 100, 550, 250);
         add(rosterPane);
         rosterPane.setVisible(false);
+        
+        rosterAddButton = new JButton("+");
+        rosterAddButton.setFont(new Font("Serif", Font.BOLD, 20));
+        size = rosterAddButton.getPreferredSize();
+        rosterAddButton.addActionListener(this);
+        rosterAddButton.setBounds(100,200,size.width-35,size.height);
+        add(rosterAddButton);
+        rosterAddButton.setVisible(false);
         
         
         /*
          * Multiple Pages
          */
         helpButton = new JButton("?");
+        helpButton.setFont(new Font("Serif", Font.BOLD, 20));
         size = helpButton.getPreferredSize();
         helpButton.addActionListener(this);
         helpButton.setBounds(850,450,size.width-35,size.height);
         add(helpButton);
 
-        addButton = new JButton("+");
-        size = addButton.getPreferredSize();
-        addButton.addActionListener(this);
-        addButton.setBounds(850,100,size.width-35,size.height);
-        add(addButton);
-        addButton.setVisible(false);
+        classAddButton = new JButton("+");
+        classAddButton.setFont(new Font("Serif", Font.BOLD, 20));
+        size = classAddButton.getPreferredSize();
+        classAddButton.addActionListener(this);
+        classAddButton.setBounds(850,100,size.width-35,size.height);
+        add(classAddButton);
+        classAddButton.setVisible(false);
         
         inputWindow = new JPanel();
         inputWindow.setLayout(null);
@@ -200,10 +268,24 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
                 pinField.setVisible(false);
                 incorrectLoginLabel.setVisible(false);
                 
-                welcomeLabel.setVisible(true);
-                overviewPaneList.setVisible(true);
-                //classesList.setVisible(true);
-                //addButton.setVisible(true);
+                titleLabel.setVisible(true);
+                
+                if (class1Button.getText() != null)
+                    class1Button.setVisible(true);
+                if (class2Button.getText() != null)
+                    class2Button.setVisible(true);
+                if (class3Button.getText() != null)
+                    class3Button.setVisible(true);
+                if (class4Button.getText() != null)    
+                    class4Button.setVisible(true);
+                if (class5Button.getText() != null)    
+                    class5Button.setVisible(true);
+                if (class6Button.getText() != null)    
+                    class6Button.setVisible(true);
+                if (class7Button.getText() != null)    
+                    class7Button.setVisible(true);
+                    
+                    classAddButton.setVisible(true);
             } else {
                 incorrectLoginLabel.setVisible(true);
             }
@@ -219,9 +301,172 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
                 helpLabel1.setVisible(true);
             }
         }
-        if (action.getSource() == addButton)
+        if (action.getSource() == classAddButton)
         {
             inputWindow.setVisible(true);
+        }
+        if (action.getSource() == class1Button)
+        {
+            assignmentButton.setVisible(true);
+            rosterButton.setVisible(true);
+            class1Button.setVisible(false);
+            class2Button.setVisible(false);
+            class3Button.setVisible(false);
+            class4Button.setVisible(false);
+            class5Button.setVisible(false);
+            class6Button.setVisible(false);
+            class7Button.setVisible(false);
+            classAddButton.setVisible(false);
+            titleLabel.setVisible(false);
+            classesButton.setVisible(true);
+        }
+        if (action.getSource() == class2Button)
+        {
+            assignmentButton.setVisible(true);
+            rosterButton.setVisible(true);
+            class1Button.setVisible(false);
+            class2Button.setVisible(false);
+            class3Button.setVisible(false);
+            class4Button.setVisible(false);
+            class5Button.setVisible(false);
+            class6Button.setVisible(false);
+            class7Button.setVisible(false);
+            classAddButton.setVisible(false);
+            titleLabel.setVisible(false);
+            classesButton.setVisible(true);
+        }
+        if (action.getSource() == class3Button)
+        {
+            assignmentButton.setVisible(true);
+            rosterButton.setVisible(true);
+            class1Button.setVisible(false);
+            class2Button.setVisible(false);
+            class3Button.setVisible(false);
+            class4Button.setVisible(false);
+            class5Button.setVisible(false);
+            class6Button.setVisible(false);
+            class7Button.setVisible(false);
+            classAddButton.setVisible(false);
+            titleLabel.setVisible(false);
+            classesButton.setVisible(true);
+        }
+        if (action.getSource() == class4Button)
+        {
+            assignmentButton.setVisible(true);
+            rosterButton.setVisible(true);
+            class1Button.setVisible(false);
+            class2Button.setVisible(false);
+            class3Button.setVisible(false);
+            class4Button.setVisible(false);
+            class5Button.setVisible(false);
+            class6Button.setVisible(false);
+            class7Button.setVisible(false);
+            classAddButton.setVisible(false);
+            titleLabel.setVisible(false);
+            classesButton.setVisible(true);
+        }
+        if (action.getSource() == class5Button)
+        {
+            assignmentButton.setVisible(true);
+            rosterButton.setVisible(true);
+            class1Button.setVisible(false);
+            class2Button.setVisible(false);
+            class3Button.setVisible(false);
+            class4Button.setVisible(false);
+            class5Button.setVisible(false);
+            class6Button.setVisible(false);
+            class7Button.setVisible(false);
+            classAddButton.setVisible(false);
+            titleLabel.setVisible(false);
+            classesButton.setVisible(true);
+        }
+        if (action.getSource() == class6Button)
+        {
+            assignmentButton.setVisible(true);
+            rosterButton.setVisible(true);
+            class1Button.setVisible(false);
+            class2Button.setVisible(false);
+            class3Button.setVisible(false);
+            class4Button.setVisible(false);
+            class5Button.setVisible(false);
+            class6Button.setVisible(false);
+            class7Button.setVisible(false);
+            classAddButton.setVisible(false);
+            titleLabel.setVisible(false);
+            classesButton.setVisible(true);
+        }
+        if (action.getSource() == class7Button)
+        {
+            assignmentButton.setVisible(true);
+            rosterButton.setVisible(true);
+            class1Button.setVisible(false);
+            class2Button.setVisible(false);
+            class3Button.setVisible(false);
+            class4Button.setVisible(false);
+            class5Button.setVisible(false);
+            class6Button.setVisible(false);
+            class7Button.setVisible(false);
+            classAddButton.setVisible(false);
+            titleLabel.setVisible(false);
+            classesButton.setVisible(true);
+        }
+        if (action.getSource() == assignmentButton)
+        {
+            assignmentsPane.setVisible(true);
+            assignmentButton.setVisible(false);
+            rosterButton.setVisible(true);
+            rosterPane.setVisible(false);
+            assignmentAddButton.setVisible(true);
+            rosterAddButton.setVisible(false);
+            
+            titleLabel.setText("Assignments");
+            //titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
+            size =  titleLabel.getPreferredSize();
+            titleLabel.setBounds(200, 50, size.width, size.height);
+            titleLabel.setVisible(true);
+        }
+        if (action.getSource() == rosterButton)
+        {
+            assignmentsPane.setVisible(false);
+            assignmentButton.setVisible(true);
+            rosterButton.setVisible(false);
+            rosterPane.setVisible(true);
+            assignmentAddButton.setVisible(false);
+            rosterAddButton.setVisible(true);
+            titleLabel.setText("Roster");
+            //titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
+            size =  titleLabel.getPreferredSize();
+            titleLabel.setBounds(200, 50, size.width, size.height);
+            titleLabel.setVisible(true);
+        }
+        if (action.getSource() == classesButton)
+        {
+            assignmentsPane.setVisible(false);
+            assignmentButton.setVisible(false);
+            rosterButton.setVisible(false);
+            rosterPane.setVisible(false);
+            assignmentAddButton.setVisible(false);
+            rosterAddButton.setVisible(false);
+            titleLabel.setText("Welcome, Instructor");
+            size =  titleLabel.getPreferredSize();
+            titleLabel.setBounds(50, 50, size.width, size.height);
+            classesButton.setVisible(false);
+            titleLabel.setVisible(true);
+            if (class1Button.getText() != null)
+                class1Button.setVisible(true);
+            if (class2Button.getText() != null)
+               class2Button.setVisible(true);
+            if (class3Button.getText() != null)
+                class3Button.setVisible(true);
+            if (class4Button.getText() != null)    
+                class4Button.setVisible(true);
+            if (class5Button.getText() != null)    
+                class5Button.setVisible(true);
+            if (class6Button.getText() != null)    
+                class6Button.setVisible(true);
+            if (class7Button.getText() != null)    
+                class7Button.setVisible(true);
+            classAddButton.setVisible(true);
         }
     }
     
@@ -234,65 +479,11 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
     }
     
     public void mousePressed(MouseEvent mouse){
-        if (mouse.getClickCount() == 1) {
-           String selectedOverviewItem = overviewPaneList.getSelectedValue();
-           if (selectedOverviewItem != null){
-               if (selectedOverviewItem.equals(overviewPaneTabs.get(0))){
-                   //classesList.setVisible(true);
-                   classPaneList.setVisible(true);
-                   screenNumber = 0;
-               }
-           }
-           String selectedClassItem = classPaneList.getSelectedValue();
-           
-           if (selectedClassItem != null){
-               if (selectedClassItem.equals(classPaneTabs.get(0))){
-                   //classesList.setVisible(false);
-                   assignmentsPane.setVisible(true);
-                   addButton.setVisible(true);
-                   rosterPane.setVisible(false);
-                   screenNumber = 1;
-               }
-               if (selectedClassItem.equals(classPaneTabs.get(1))){
-                   //classesList.setVisible(false);
-                   assignmentsPane.setVisible(false);
-                   rosterPane.setVisible(true);
-                   addButton.setVisible(true);
-                   screenNumber = 2;
-               }
-            }
-        }
+        
     }
     
     public void mouseClicked(MouseEvent mouse) {
-        if (mouse.getClickCount() == 1) {
-           String selectedOverviewItem = overviewPaneList.getSelectedValue();
-           
-           if (selectedOverviewItem != null){
-               if (selectedOverviewItem.equals(overviewPaneTabs.get(0))){
-                   //classesList.setVisible(true);
-                   assignmentsPane.setVisible(false);
-                   rosterPane.setVisible(false);
-                   screenNumber = 0;
-               }
-           }
-           String selectedClassItem = classPaneList.getSelectedValue();
-           
-           if (selectedClassItem != null){
-               if (selectedClassItem.equals(classPaneTabs.get(0))){
-                   //classesList.setVisible(false);
-                   assignmentsPane.setVisible(true);
-                   rosterPane.setVisible(false);
-                   screenNumber = 1;
-               }
-               if (selectedClassItem.equals(classPaneTabs.get(1))){
-                   //classesList.setVisible(false);
-                   assignmentsPane.setVisible(false);
-                   rosterPane.setVisible(true);
-                   screenNumber = 2;
-               }
-            }
-        }
+        
     }
     
     public void mouseExited(MouseEvent mouse){
@@ -300,10 +491,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
     }
     
     public void focusLost(FocusEvent focus){
-        if (!overviewPaneList.getSelectionModel().isSelectionEmpty())
-            overviewPaneList.getSelectionModel().clearSelection();
-        if (!classPaneList.getSelectionModel().isSelectionEmpty())
-            classPaneList.getSelectionModel().clearSelection();
+       
     }
     
     public void focusGained(FocusEvent focus){
@@ -314,17 +502,25 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
     private JLabel loginLabel;
     private JLabel incorrectLoginLabel;
     private JLabel helpLabel1;
-    private JLabel welcomeLabel;
+    private JLabel titleLabel;
 
     private JButton helpButton;
-    private JButton addButton;
+    private JButton classAddButton;
+    private JButton class1Button;
+    private JButton class2Button;
+    private JButton class3Button;
+    private JButton class4Button;
+    private JButton class5Button;
+    private JButton class6Button;
+    private JButton class7Button;
+    private JButton assignmentAddButton;
+    private JButton assignmentButton;
+    private JButton rosterAddButton;
+    private JButton rosterButton;
+    private JButton classesButton;
     
     private JPasswordField pinField;
 
-    
-    private JList<String> overviewPaneList;
-    private JList<String> classPaneList;
-    //private JList<String> classesList;
     
     private JTable assignmentsTable;
     private JTable rosterTable;
