@@ -19,4 +19,21 @@ public class CourseList {
         filepaths = new Vector<String>();
         
     }
+
+    // Get/Set
+    public Vector<String> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Vector<String> courses) {
+        this.courses = courses;
+    }
+
+    public Vector<String> getFilepaths() {
+        return filepaths;
+    }
+
+    public void setFilepaths(Vector<String> filepaths) {
+        this.filepaths = filepaths;
+    }
 }
