@@ -39,12 +39,12 @@ public class Course {
             // Adding to Overall Grade: first percentile for category is calculated, then modified by weight and added to overall
             overallGrade += ((catScores[i]/catMaxScores[i])*gradebook.getCatWeights().get(i));
             // Setting Overall Grade with assumption that it is the last entry in Scores
-            roster.get(StudentID).getScores().set(roster.get(StudentID).getScores().size()-1, overallGrade);
+            roster.get(StudentID).setScore(roster.get(StudentID).getScores().size()-1, overallGrade);
         }
     }
 
     public void setScore(int StudentID, int AssignmentID, float score){
-        roster.get(StudentID).getScores().set(AssignmentID, score);
+        roster.get(StudentID).setScore(AssignmentID, score);
     }
 
     // Get/Set
@@ -123,6 +123,10 @@ class Student {
 
     public void setScores(Vector<Float> scores) {
         this.scores = scores;
+    }
+
+    public void setScore(int AssignmentID, float score){
+        this.scores.set(AssignmentID, score);
     }
 };
 
