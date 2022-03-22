@@ -19,7 +19,7 @@ public class Course {
         roster = new Vector<Student>();
     }
 
-    // Functions
+    // Score Functions
     public void calculateOverallGrade(int StudentID){
         float[] catScores = new float[gradebook.getCatID().size()];
         float[] catMaxScores = new float[gradebook.getCatID().size()];
@@ -33,7 +33,7 @@ public class Course {
             catMaxScores[i]=0;
             // Loop to find applicable assignments
             for(int j=0; j<gradebook.getAssignments().size(); j++){
-                if(gradebook.getAssignments().get(j).getCategory() == i){
+                if(gradebook.getCatID().get(i).intValue() == gradebook.getAssignments().get(j).getCategory()){
                     catScores[i] += roster.get(StudentID).getScores().get(j);
                     catMaxScores[i] += gradebook.getAssignments().get(j).getMaxScore();
                 }
@@ -48,11 +48,68 @@ public class Course {
         // Finalizing Overall Grade
         overallGrade = overallGrade*(1/(totalWeight-excludedWeight))*100;
         // Setting Overall Grade with assumption that it is the last entry in Scores
-        roster.get(StudentID).setScore(roster.get(StudentID).getScores().size()-1, overallGrade);
+        roster.get(StudentID).setOverallGrade(overallGrade);
     }
 
     public void setScore(int StudentID, int AssignmentID, float score){
         roster.get(StudentID).setScore(AssignmentID, score);
+    }
+
+    // Roster Functions
+    public void addStudent(String firstName, String lastName){
+        Student student = new Student();
+        student.setFirstName(firstName);
+        student.setLastName(lastName);
+        // Empty roster contingency
+        if(roster.size() == 0) student.setID(0);
+        else student.setID(roster.lastElement().getID()+1);
+        roster.add(student);
+    }
+
+    public void deleteStudent(int StudentID){
+        for(int i=0; i<roster.size(); i++){
+            if(roster.get(i).getID()==StudentID){
+                roster.remove(i);
+                break;
+            }
+        }
+    }
+
+    // Gradebook Functions
+    public void addAssignment(String name, int category, int maxScore){
+        Assignment assignment = new Assignment();
+        assignment.setName(name);
+        assignment.setCategory(category);
+        assignment.setMaxScore(maxScore);
+        gradebook.getAssignments().add(assignment);
+    }
+
+    public void deleteAssignment(int AssignmentID){
+        gradebook.getAssignments().remove(AssignmentID);
+    }
+
+    public void addCategory(String categoryName, Float categoryWeight){
+        gradebook.getCatNames().add(categoryName);
+        gradebook.getCatID().add(gradebook.getCatID().lastElement()+1);
+        gradebook.getCatWeights().add(categoryWeight);
+    }
+
+    public void deleteCategory(Integer categoryID){
+        // First, unassigning all assignments in that category
+        for(int i=0; i<gradebook.getAssignments().size(); i++){
+            if(gradebook.getAssignments().get(i).getCategory()==categoryID){
+                gradebook.getAssignments().get(i).setCategory(0);
+            }
+        }
+        // Deleting category
+        for(int i=0; i<gradebook.getCatID().size(); i++){
+            if(gradebook.getCatID().get(i).equals(categoryID)){
+                gradebook.getCatNames().remove(i);
+                gradebook.getCatID().remove(i);
+                gradebook.getCatWeights().remove(i);
+                break;
+            }
+        }
     }
 
     // Get/Set
@@ -88,7 +145,7 @@ class Student {
         firstName = "Undefined firstName";
         lastName = "Undefined lastName";
         overallGrade = -4;
-        ID = -5;
+        ID = -2;
         scores = new Vector<Float>();
     }
 
@@ -149,8 +206,8 @@ class Assignment {
     // Constructor
     public Assignment(){
         name = "Undefined Assignment Name";
-        category = -6;
-        maxScore = -7;
+        category = 0;
+        maxScore = 0;
     }
 
     // Get/Set
