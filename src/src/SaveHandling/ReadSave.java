@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package src.SaveHandling;
-import java.util.ArrayList;
+import java.util.Vector;
+import java.util.Arrays;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -15,30 +16,34 @@ import java.util.Scanner;
  */
 public class ReadSave {
     
+    private static String teacherPath = "saves/teacher.csv";
+    
+    
     public ReadSave(){
         
         
         
     }
     
-    public ArrayList<String[]> teacherIn(){
-        ArrayList<String[]> teacherData = new ArrayList<String[]>();
+    public Vector<String> teacherIn(){
+        Vector<String> teacherData;
         
         
         try{
         
-            File fIn = new File("saves/teacher.csv");
+            File fIn = new File(teacherPath);
             Scanner inFile = new Scanner(fIn);
             String trash = inFile.nextLine();
             String raw = inFile.nextLine();
             
-            teacherData.add(raw.split(",",0));
+            teacherData = new Vector<String>(Arrays.asList(raw.split(",",0)));
             
             inFile.close();
             
         }catch(FileNotFoundException e){
         
             System.out.println("File not found");
+            teacherData = new Vector<String>();
             e.printStackTrace();
         
         }

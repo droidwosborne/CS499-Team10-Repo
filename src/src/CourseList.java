@@ -7,16 +7,28 @@
 package src;
 // Imports
 import java.util.*;
+import src.SaveHandling.ReadSave;
 
 public class CourseList {
     // Vars
     private Vector<String> courses;
-    private Vector<String> filepaths;
+    private String teacherLName;
+    private String teacherFName;
 
     // Constructor
-    public CourseList(String fileName){
+    public CourseList(){
+        
+        ReadSave tIn = new ReadSave();
+        
+        Vector<String> temp = new Vector<String>(tIn.teacherIn());
+        
+        teacherLName = temp.get(0);
+        teacherFName = temp.get(1);
+        
         courses = new Vector<String>();
-        filepaths = new Vector<String>();
+        
+        for (int i = 2; i < temp.size(); i++)
+            courses.add(temp.get(i));
         
     }
 
@@ -28,12 +40,21 @@ public class CourseList {
     public void setCourses(Vector<String> courses) {
         this.courses = courses;
     }
-
-    public Vector<String> getFilepaths() {
-        return filepaths;
+    
+    public String getTeacherLName(){
+        return teacherLName; 
     }
-
-    public void setFilepaths(Vector<String> filepaths) {
-        this.filepaths = filepaths;
+    
+    public void setTeacherLName(String lName){
+        teacherLName = lName;
     }
+    
+    public String getTeacherFName(){
+        return teacherFName; 
+    }
+    
+    public void setTeacherFName(String fName){
+        teacherFName = fName;
+    }
+    
 }

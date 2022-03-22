@@ -15,9 +15,8 @@ public class Main {
     public static void main(String[] args) {
 
         //readSaveTest
-        ReadSave rTest = new ReadSave();
-        ArrayList<String[]> tTest = new ArrayList<String[]>(rTest.teacherIn());
-        System.out.println(tTest.get(0)[0]);
+        CourseList clTest = new CourseList();
+        System.out.println(clTest.getTeacherLName());
         
         // Create the GUI
         Frame processWindow = new Frame();
