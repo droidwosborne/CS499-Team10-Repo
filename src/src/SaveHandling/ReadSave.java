@@ -53,4 +53,64 @@ public class ReadSave {
         return teacherData;
     }
     
+    public Vector <String> classDataIn(String clName){
+    
+        Vector<String> clData = new Vector<String>();
+        String clPath = "saves/"+clName+".csv";
+        char secSplit = 135;
+        char sbSplit = 137;
+        String sSplit = ""+secSplit;
+        String subSplit = ""+sbSplit;
+        int numAsighn;
+        int numCat;
+        Vector<String[]> asighnInfo = new Vector<String[]>();
+        String rawScale;
+        Vector<String[]> catInfo = new Vector<String[]>();
+        Vector<String[]> studentsInfo = new Vector<String[]>();
+        
+        try {
+        
+        File clFile = new File(clPath);
+        Scanner clIn = new Scanner(clFile);
+        String raw = clIn.nextLine();
+        String[] template = raw.split(sSplit,0);
+        String temp = template[3].substring(1);
+        String[] rawAsighn = temp.split(",",0);
+        numAsighn = rawAsighn.length;
+        for (int i = 0; i < numAsighn; i++){
+        
+            asighnInfo.add(rawAsighn[i].split(subSplit));  // assighnment information is saved in the format
+            //name of assighnment, assighnment catagory number, max score
+        
+        }
+        
+        rawScale = template[4].substring(1);
+        
+        temp = template[5].substring(1);
+        String[] rawCat = temp.split(",");
+        numCat = rawCat.length;
+        for (int i = 0; i < numCat; i++){
+            catInfo.add(rawCat[i].split(subSplit));
+        //catInof in the format Name of catagory, catagory weigh
+        }
+        String rawStudent;
+        while(clIn.hasNextLine()){
+        
+            rawStudent = clIn.nextLine();
+            studentsInfo.add(rawStudent.split(","));
+        
+        }
+        
+        }catch(FileNotFoundException e){
+        
+            System.out.println("File not found");
+            clData = new Vector<String>();
+            e.printStackTrace();
+        
+        }
+                
+        
+        return clData;
+    }
+    
 }
