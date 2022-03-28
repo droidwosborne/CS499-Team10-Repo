@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package src.SaveHandling;
+import src.*;
 import java.util.Vector;
 import java.util.Arrays;
 import java.io.File;
@@ -53,7 +54,7 @@ public class ReadSave {
         return teacherData;
     }
     
-    public Vector <String> classDataIn(String clName){
+    public Course classDataIn(String clName){
     
         Vector<String> clData = new Vector<String>();
         String clPath = "saves/"+clName+".csv";
@@ -64,9 +65,16 @@ public class ReadSave {
         int numAsighn;
         int numCat;
         Vector<String[]> asighnInfo = new Vector<String[]>();
-        String rawScale;
+        String rawScale = "";
         Vector<String[]> catInfo = new Vector<String[]>();
         Vector<String[]> studentsInfo = new Vector<String[]>();
+        Vector<Float> studentGrades = new Vector<Float>();
+        Vector<Student> studentVector = new Vector<Student>();
+        Vector<Assignment> assighnments = new Vector<Assignment>();
+        Vector<String> catNames = new Vector<String>();
+        Vector<Integer> catID = new Vector<Integer>();
+        Vector<Float> catWeight = new Vector<Float>();
+        Gradebook gradebook;
         
         try {
         
@@ -108,9 +116,36 @@ public class ReadSave {
             e.printStackTrace();
         
         }
-                
         
-        return clData;
+        for (int i=0; i<studentsInfo.size(); i++){
+            
+            
+            for (int j=3; j<studentsInfo.size()-1;j++){
+            
+                studentGrades.add(Float.parseFloat(studentsInfo.get(i)[j]));
+            
+            }
+            studentVector.add(new Student(studentsInfo.get(i)[2],studentsInfo.get(i)[1],Integer.parseInt(studentsInfo.get(i)[0]),Integer.parseInt(studentsInfo.get(i)[studentsInfo.get(i).length-1]),studentGrades));
+            studentGrades.clear();
+        
+        }
+        
+        for (int i=0; i<asighnInfo.size();i++){
+            
+            assighnments.add(new Assignment(asighnInfo.get(i)[0],Integer.parseInt(asighnInfo.get(i)[1]),Integer.parseInt(asighnInfo.get(i)[2])));
+            
+        }
+        for(int i=0; i<catInfo.size();i++){
+            catNames.add(catInfo.get(i)[0]);
+            catID.add(i);
+            catWeight.add(Float.parseFloat(catInfo.get(i)[1]));
+        }
+        String[] temp = rawScale.split(",");
+        int[] scale = new int[temp.length];
+        for(int i=0;i<scale.length;i++) scale[i] = Integer.parseInt(temp[i]);
+        gradebook = new Gradebook(assighnments, scale, catNames, catID, catWeight);
+        
+        return new Course(gradebook, studentVector);
     }
     
 }
