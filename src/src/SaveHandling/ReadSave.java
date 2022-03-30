@@ -140,7 +140,7 @@ public class ReadSave {
             catID.add(i);
             catWeight.add(Float.parseFloat(catInfo.get(i)[1]));
         }
-        String[] temp = rawScale.split(",");
+        String[] temp = rawScale.split(subSplit);
         int[] scale = new int[temp.length];
         for(int i=0;i<scale.length;i++) scale[i] = Integer.parseInt(temp[i]);
         gradebook = new Gradebook(assighnments, scale, catNames, catID, catWeight);
