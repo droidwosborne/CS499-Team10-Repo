@@ -1,2 +1,2 @@
-uName,pwHash,lName,fName
-testTeach,exPWhash,Teach,Example
+lName,fName,,
+Teach,Example,class1,class2
