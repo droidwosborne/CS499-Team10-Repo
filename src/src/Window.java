@@ -88,7 +88,13 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         add(titleLabel);
         titleLabel.setVisible(false);
         
-        class1Button = new JButton("CS499");
+        classLabel = new JLabel("");
+        classLabel.setFont(new Font("Serif", Font.BOLD, 24));
+        add(classLabel);
+        classLabel.setVisible(false);
+        
+        class1Button = new JButton();
+        class1Button.setText("CS499");
         size = class1Button.getPreferredSize();
         class1Button.addActionListener(this);
         class1Button.setBounds(50,100,size.width,size.height+30);
@@ -319,6 +325,11 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             classAddButton.setVisible(false);
             titleLabel.setVisible(false);
             classesButton.setVisible(true);
+            
+            classLabel.setText(class1Button.getText());
+            size =  classLabel.getPreferredSize();
+            classLabel.setBounds(50, 50, size.width, size.height);
+            classLabel.setVisible(true);
         }
         if (action.getSource() == class2Button)
         {
@@ -334,6 +345,11 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             classAddButton.setVisible(false);
             titleLabel.setVisible(false);
             classesButton.setVisible(true);
+            
+            classLabel.setText(class2Button.getText());
+            size =  classLabel.getPreferredSize();
+            classLabel.setBounds(50, 50, size.width, size.height);
+            classLabel.setVisible(true);
         }
         if (action.getSource() == class3Button)
         {
@@ -349,6 +365,11 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             classAddButton.setVisible(false);
             titleLabel.setVisible(false);
             classesButton.setVisible(true);
+            
+            classLabel.setText(class3Button.getText());
+            size =  classLabel.getPreferredSize();
+            classLabel.setBounds(50, 50, size.width, size.height);
+            classLabel.setVisible(true);
         }
         if (action.getSource() == class4Button)
         {
@@ -364,6 +385,11 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             classAddButton.setVisible(false);
             titleLabel.setVisible(false);
             classesButton.setVisible(true);
+            
+            classLabel.setText(class4Button.getText());
+            size =  classLabel.getPreferredSize();
+            classLabel.setBounds(50, 50, size.width, size.height);
+            classLabel.setVisible(true);
         }
         if (action.getSource() == class5Button)
         {
@@ -379,6 +405,11 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             classAddButton.setVisible(false);
             titleLabel.setVisible(false);
             classesButton.setVisible(true);
+            
+            classLabel.setText(class5Button.getText());
+            size =  classLabel.getPreferredSize();
+            classLabel.setBounds(50, 50, size.width, size.height);
+            classLabel.setVisible(true);
         }
         if (action.getSource() == class6Button)
         {
@@ -394,6 +425,11 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             classAddButton.setVisible(false);
             titleLabel.setVisible(false);
             classesButton.setVisible(true);
+            
+            classLabel.setText(class6Button.getText());
+            size =  classLabel.getPreferredSize();
+            classLabel.setBounds(50, 50, size.width, size.height);
+            classLabel.setVisible(true);
         }
         if (action.getSource() == class7Button)
         {
@@ -409,6 +445,11 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             classAddButton.setVisible(false);
             titleLabel.setVisible(false);
             classesButton.setVisible(true);
+            
+            classLabel.setText(class7Button.getText());
+            size =  classLabel.getPreferredSize();
+            classLabel.setBounds(50, 50, size.width, size.height);
+            classLabel.setVisible(true);
         }
         if (action.getSource() == assignmentButton)
         {
@@ -467,6 +508,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             if (class7Button.getText() != null)    
                 class7Button.setVisible(true);
             classAddButton.setVisible(true);
+            classLabel.setVisible(false);
         }
     }
     
@@ -503,6 +545,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
     private JLabel incorrectLoginLabel;
     private JLabel helpLabel1;
     private JLabel titleLabel;
+    private JLabel classLabel;
 
     private JButton helpButton;
     private JButton classAddButton;
