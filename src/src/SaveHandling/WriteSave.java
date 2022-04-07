@@ -57,7 +57,7 @@ public class WriteSave {
 
         }
         
-        outFile.write(lineOut+"/n");
+        outFile.write(lineOut+"\n");
         
         for(int i=0; i<stuOut.size();i++){
         
@@ -68,7 +68,7 @@ public class WriteSave {
             }
             lineOut = lineOut+stuOut.get(i).getOverallGrade();
             
-            outFile.write(lineOut+"/n");
+            outFile.write(lineOut+"\n");
             
         }
         
@@ -80,10 +80,12 @@ public class WriteSave {
     
         BufferedWriter outFile = new BufferedWriter(new FileWriter("saves/teacher.csv"));
         
-        outFile.write("lName,fName/n");
+        outFile.write("lName,fName\n");
         String outLine = cList.getTeacherLName()+","+cList.getTeacherFName();
         for(int i=0; i < cList.getCourses().size();i++) outLine = outLine+","+cList.getCourses().get(i);
         outFile.write(outLine);
+        
+        outFile.close();
     
     }
     
