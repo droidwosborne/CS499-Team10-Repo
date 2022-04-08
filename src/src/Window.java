@@ -18,6 +18,10 @@ import java.awt.event.FocusEvent;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import src.SaveHandling.*;
+import java.io.IOException;
+import java.util.Vector;
+
 
 /*
  * Class declaration for Window class extending JPanel for component placement and
@@ -29,6 +33,12 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
     public String pin = "KLOm9bAS";
     //public char[] pinA = new char[pin.length()];
     Font labelFont = new Font("Serif", Font.PLAIN, 16);
+    
+    ReadSave reader = new ReadSave();
+    Vector<String> teacher = reader.teacherIn();
+        
+    CourseList cList = new CourseList();
+    Vector<String> courses = cList.getCourses();
    
     //Constructor for Window class consisting of components in Panel
     public Window () {
@@ -40,7 +50,24 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         setBackground(Color.lightGray);
         screenNumber = -1;
         
+        /*cList.setTeacherFName("Yolanda");
+        cList.setTeacherLName("Fergueson");
+        Vector<String> temp = new Vector<String>(){{
+            add("CS456");
+            add("CS103");
+        }};
+        cList.setCourses(temp);
+        System.out.println(cList.getCourses().size());
+        System.out.println(cList.getTeacherFName());
+        System.out.println(cList.getTeacherLName());
         
+        WriteSave writer = new WriteSave();
+        try{
+        writer.saveClassList(cList);
+        }
+        catch (IOException e){
+            System.out.println("error");
+        }*/
         /*
          * Login Page
          */
@@ -81,7 +108,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         /*
          * Landing Page
          */
-        titleLabel = new JLabel("Welcome, Instructor");
+        titleLabel = new JLabel("Welcome, Professor " + teacher.get(0));
         titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
         size =  titleLabel.getPreferredSize();
         titleLabel.setBounds(50, 50, size.width, size.height);
@@ -94,7 +121,10 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         classLabel.setVisible(false);
         
         class1Button = new JButton();
-        class1Button.setText("CS499");
+        if (courses.size() >= 1)
+            class1Button.setText(courses.get(0));
+        else
+            class1Button.setText(null);
         size = class1Button.getPreferredSize();
         class1Button.addActionListener(this);
         class1Button.setBounds(50,100,size.width,size.height+30);
@@ -102,7 +132,10 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         class1Button.setVisible(false);
         
         class2Button = new JButton();
-        class2Button.setText(null);
+        if (courses.size() >= 2)
+            class2Button.setText(courses.get(1));
+        else
+            class2Button.setText(null);
         size = class2Button.getPreferredSize();
         class2Button.addActionListener(this);
         class2Button.setBounds(400,100,size.width,size.height+30);
@@ -110,7 +143,10 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         class2Button.setVisible(false);
         
         class3Button = new JButton();
-        class3Button.setText(null);
+        if (courses.size() >= 3)
+            class3Button.setText(courses.get(2));
+        else
+            class3Button.setText(null);
         size = class3Button.getPreferredSize();
         class3Button.addActionListener(this);
         class3Button.setBounds(750,100,size.width,size.height+30);
@@ -118,7 +154,10 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         class3Button.setVisible(false);
         
         class4Button = new JButton();
-        class4Button.setText(null);
+        if (courses.size() >= 4)
+            class4Button.setText(courses.get(3));
+        else
+            class4Button.setText(null);
         size = class4Button.getPreferredSize();
         class4Button.addActionListener(this);
         class4Button.setBounds(50,200,size.width,size.height+30);
@@ -126,7 +165,10 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         class4Button.setVisible(false);
         
         class5Button = new JButton();
-        class5Button.setText(null);
+        if (courses.size() >= 5)
+            class5Button.setText(courses.get(4));
+        else
+            class5Button.setText(null);
         size = class5Button.getPreferredSize();
         class5Button.addActionListener(this);
         class5Button.setBounds(400,200,size.width,size.height+30);
@@ -134,7 +176,10 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         class5Button.setVisible(false);
         
         class6Button = new JButton();
-        class6Button.setText(null);
+        if (courses.size() >= 6)
+            class6Button.setText(courses.get(5));
+        else
+            class6Button.setText(null);
         size = class6Button.getPreferredSize();
         class6Button.addActionListener(this);
         class6Button.setBounds(750,200,size.width,size.height+30);
@@ -142,7 +187,10 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         class6Button.setVisible(false);
         
         class7Button = new JButton();
-        class7Button.setText(null);
+        if (courses.size() >= 7)
+            class7Button.setText(courses.get(6));
+        else
+            class7Button.setText(null);
         size = class7Button.getPreferredSize();
         class7Button.addActionListener(this);
         class7Button.setBounds(400,300,size.width,size.height+30);
@@ -488,7 +536,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             rosterPane.setVisible(false);
             assignmentAddButton.setVisible(false);
             rosterAddButton.setVisible(false);
-            titleLabel.setText("Welcome, Instructor");
+            titleLabel.setText("Welcome, Professor " + teacher.get(0));
             size =  titleLabel.getPreferredSize();
             titleLabel.setBounds(50, 50, size.width, size.height);
             classesButton.setVisible(false);
