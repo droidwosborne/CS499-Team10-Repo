@@ -12,6 +12,7 @@ public class Course {
     // Vars
     private Vector<Student> roster;
     private Gradebook gradebook;
+    private String courseName;
 
     // Constructor
     public Course(){
@@ -19,10 +20,8 @@ public class Course {
         roster = new Vector<Student>();
     }
     public Course(Gradebook gb, Vector<Student> rost){
-    
         gradebook = gb;
         roster = new Vector<Student>(rost);
-    
     }
 
     // Score Functions
@@ -118,6 +117,22 @@ public class Course {
         }
     }
 
+    public void setMaxScore(int AssignmentID, int maxScore){
+        gradebook.getAssignments().get(AssignmentID).setMaxScore(maxScore);
+    }
+
+    public void setCatWeight(Integer categoryID, Float categoryWeight){
+        for(int i=0; i<gradebook.getCatID().size(); i++){
+            if(gradebook.getCatID().get(i).equals(categoryID)){
+                gradebook.getCatWeights().set(i, categoryWeight);
+            }
+        }
+    }
+
+    public void setScale(int[] scale){
+        gradebook.setScale(scale);
+    }
+
     // Get/Set
     public Vector<Student> getRoster() {
         return roster;
@@ -133,5 +148,13 @@ public class Course {
 
     public void setGradebook(Gradebook gradebook) {
         this.gradebook = gradebook;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 }
