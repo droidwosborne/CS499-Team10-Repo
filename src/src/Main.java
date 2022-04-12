@@ -4,7 +4,8 @@
  * Creates Frame and Window instances to produce GUI
  */
 package src;
-import src.SaveHandling.ReadSave;
+import java.io.IOException;
+import src.SaveHandling.*;
 import java.util.ArrayList;
 
 /*
@@ -12,11 +13,16 @@ import java.util.ArrayList;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         //readSaveTest
         CourseList clTest = new CourseList();
         System.out.println(clTest.getTeacherLName());
+        clTest.setPassword("testPword");
+        
+        WriteSave saveOut = new WriteSave();
+        
+        saveOut.saveClassList(clTest);
         
         // Create the GUI
         Frame processWindow = new Frame();

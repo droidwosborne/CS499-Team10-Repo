@@ -81,7 +81,7 @@ public class WriteSave {
         BufferedWriter outFile = new BufferedWriter(new FileWriter("saves/teacher.csv"));
         
         outFile.write("lName,fName\n");
-        String outLine = cList.getTeacherLName()+","+cList.getTeacherFName();
+        String outLine = cList.getTeacherLName()+","+cList.getTeacherFName()+","+cList.getPassword()+","+cList.getUserName();
         for(int i=0; i < cList.getCourses().size();i++) outLine = outLine+","+cList.getCourses().get(i);
         outFile.write(outLine);
         
