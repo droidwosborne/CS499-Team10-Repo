@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Student
+ * This class aggregates student info (name, overallGrade, individual assignment scores, and ID)
+ *
+ * @author Braden McGee, davis
  */
 package src;
 
 import java.util.Vector;
 
-/**
- *
- * @author davis
- */
 public class Student {
     private String firstName;
     private String lastName;

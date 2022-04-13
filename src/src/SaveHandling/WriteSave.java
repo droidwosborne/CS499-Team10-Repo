@@ -5,7 +5,8 @@
  */
 package src.SaveHandling;
 import java.io.BufferedWriter;
-import src.*;import java.util.Vector;
+import src.*;
+import java.util.Vector;
 import java.util.Arrays;
 import java.io.File;
 import java.io.FileWriter;
@@ -62,11 +63,11 @@ public class WriteSave {
         for(int i=0; i<stuOut.size();i++){
         
             lineOut = "";
-            lineOut = lineOut+stuOut.get(i).getID()+","+stuOut.get(i).getLastName()+","+stuOut.get(i).getLastName();
+            lineOut = lineOut+stuOut.get(i).getID()+","+stuOut.get(i).getLastName()+","+stuOut.get(i).getFirstName();
             for(int j=0; j<stuOut.get(i).getScores().size();j++){
-                lineOut = lineOut+ stuOut.get(i).getScores().get(j);
+                lineOut = lineOut+","+stuOut.get(i).getScores().get(j);
             }
-            lineOut = lineOut+stuOut.get(i).getOverallGrade();
+            lineOut = lineOut+","+stuOut.get(i).getOverallGrade();
             
             outFile.write(lineOut+"\n");
             
