@@ -6,7 +6,8 @@
 package src;
 import java.io.IOException;
 import src.SaveHandling.*;
-import java.util.ArrayList;
+
+import java.util.Vector;
 
 /*
  * Main class where the gradebook application is constructed
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        // Code to make an example course
+        boolean makeCourse1 = true;
+        if(makeCourse1) makeCourse1();
 
         //readSaveTest
         CourseList clTest = new CourseList();
@@ -30,5 +34,54 @@ public class Main {
         processWindow.add(processPanel);
         processWindow.pack();
         processWindow.setVisible(true);
+    }
+    public static void makeCourse1(){
+        // Roster population
+        Vector<Student> roster = new Vector<Student>();
+        Vector<Float> student1grades = new Vector<Float>();
+        Vector<Float> student2grades = new Vector<Float>();
+        Vector<Float> student3grades = new Vector<Float>();
+        for(int i = 0; i<3; i++){
+            student1grades.add((Float)((float)((100-i))));
+            student2grades.add((Float)((float)((90-i))));
+            student3grades.add((Float)((float)((80+i))));
+        }
+        Student student1 = new Student("Student1FirstName", "Student1LastName", 0, 0.00F, student1grades);
+        Student student2 = new Student("Student2firstname", "Student2lastname", 1, 0.00F, student2grades);
+        Student student3 = new Student("student3FirstName", "student3LastName", 2, 0.00F, student3grades);
+        roster.add(student1);
+        roster.add(student2);
+        roster.add(student3);
+        // Gradebook population
+        Vector<Assignment> assignments = new Vector<Assignment>();
+        Assignment assignment1 = new Assignment("Assignment1", 0, 100);
+        Assignment assignment2 = new Assignment("assignmentNumber2", 1, 200);
+        Assignment assignment3 = new Assignment("BigClassProject3", 2, 300);
+        assignments.add(assignment1);
+        assignments.add(assignment2);
+        assignments.add(assignment3);
+        int[] scale = {61, 71, 81, 89};
+        Vector<String> catNames = new Vector<String>();
+        catNames.add("Cat1");
+        catNames.add("Category2");
+        catNames.add("ThirdCategory");
+        Vector<Integer> catID = new Vector<Integer>();
+        for(Integer i=0; i<3; i++) catID.add(i);
+        Vector<Float> catWeights = new Vector<Float>();
+        catWeights.add(33.6F);
+        catWeights.add(20.0F);
+        catWeights.add(46.4F);
+        Gradebook gradebook = new Gradebook(assignments, scale, catNames, catID, catWeights);
+        // Final course stuff
+        Course course1 = new Course(gradebook, roster);
+        course1.calculateOverallGrade(0);
+        course1.calculateOverallGrade(1);
+        course1.calculateOverallGrade(2);
+        WriteSave writeSave= new WriteSave();
+        try {
+            writeSave.saveCourse(course1, "course1");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

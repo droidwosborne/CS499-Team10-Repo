@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package src.SaveHandling;
-import src.*;
+import src.Assignment;
+import src.Course;
+import src.Gradebook;
+import src.Student;
+
 import java.util.Vector;
 import java.util.Arrays;
 import java.io.File;

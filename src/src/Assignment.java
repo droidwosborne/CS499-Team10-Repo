@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Assignment
+ * This class contains assignment's data (name, category, max score)
+ *
+ * @author Braden McGee
  */
 package src;
 
-/**
- *
- * @author davis
- */
 public class Assignment {
     private String name;
     // Category that the assignment belongs to based on numerical ID of category
@@ -22,9 +19,9 @@ public class Assignment {
         category = -6;
         maxScore = -7;
     }
-    public Assignment(String name, int catagory, int maxScore){
+    public Assignment(String name, int category, int maxScore){
         this.name = name;
-        this.category = catagory;
+        this.category = category;
         this.maxScore = maxScore;
     }
 

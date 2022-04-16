@@ -5,7 +5,6 @@
  */
 package src;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,7 +18,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import src.SaveHandling.*;
-import java.io.IOException;
+
 import java.util.Vector;
 
 

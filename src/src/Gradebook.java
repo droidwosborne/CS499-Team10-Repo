@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Gradebook
+ * This class contains course grading information: vector of assignments, scale implemented by lower bounds of top four grades, and category info
+ *
+ * @author Braden McGee, davis
  */
 package src;
 
 import java.util.Vector;
 
-/**
- *
- * @author davis
- */
 public class Gradebook {
     private Vector<Assignment> assignments;
     // Scale works by integers setting cutoff per grade (I.E, if percent score is below scale[0], it is an F; if percent score is not below score[3], it must be an A)
