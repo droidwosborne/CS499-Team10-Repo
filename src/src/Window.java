@@ -29,12 +29,20 @@ import java.util.Vector;
 public class Window extends JPanel implements ActionListener, MouseListener, FocusListener{
 
     //User pin for identification (currently set to work automatically for easy testing)
-    public String pin = "KLOm9bAS";
+    //CourseList clTest = new CourseList();
+    //System.out.println(clTest.getTeacherLName());
+    String pin = "testPword";
+    
+    
     //public char[] pinA = new char[pin.length()];
     Font labelFont = new Font("Serif", Font.PLAIN, 16);
     
     ReadSave reader = new ReadSave();
     Vector<String> teacher = reader.teacherIn();
+    Course course1 = reader.classDataIn("course1");
+    Vector<Student> roster1 = course1.getRoster();
+    Gradebook gradebook1 = course1.getGradebook();
+    Vector<Assignment> assignments = course1.getGradebook().getAssignments();
         
     CourseList cList = new CourseList();
     Vector<String> courses = cList.getCourses();
@@ -49,6 +57,12 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         setBackground(Color.lightGray);
         screenNumber = -1;
         
+        cList.setPassword(pin);
+        if (courses.size() >= 1)
+            course1.setCourseName(courses.get(0));
+        else
+            course1.setCourseName(null);
+        //System.out.println(course1.getCourseName());
         /*cList.setTeacherFName("Yolanda");
         cList.setTeacherLName("Fergueson");
         Vector<String> temp = new Vector<String>(){{
@@ -196,7 +210,9 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         add(class7Button);
         class7Button.setVisible(false);
         
-        
+        /*
+         * Class Page
+         */
         classesButton = new JButton("Classes");
         size = classesButton.getPreferredSize();
         classesButton.addActionListener(this);
@@ -204,15 +220,14 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         add(classesButton);
         classesButton.setVisible(false);
         
-        /*
-         * Class Page
-         */
+        
         assignmentButton = new JButton("Assignments");
         size = assignmentButton.getPreferredSize();
         assignmentButton.addActionListener(this);
         assignmentButton.setBounds(30,150,size.width,size.height+20);
         add(assignmentButton);
         assignmentButton.setVisible(false);
+        
         rosterButton = new JButton("Roster");
         size = rosterButton.getPreferredSize();
         rosterButton.addActionListener(this);
@@ -227,16 +242,27 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         assignmentsTableModel.addColumn("Name");
         assignmentsTableModel.addColumn("Category");
         assignmentsTableModel.addColumn("Maximum Score");
+        assignmentsTableModel.addRow(new Object[]{"","","",""});
+        assignmentsTableModel.addRow(new Object[]{"","","",""});
+        assignmentsTableModel.addRow(new Object[]{"","","",""});
 
         assignmentsTable = new JTable(assignmentsTableModel);
         assignmentsTable.setBackground(Color.lightGray);
-        JTableHeader gradeHeader = assignmentsTable.getTableHeader();
-        gradeHeader.setBackground(Color.white);
-        gradeHeader.setFont(new Font("Serif", Font.BOLD, 14));
+        JTableHeader assignmentHeader = assignmentsTable.getTableHeader();
+        assignmentHeader.setBackground(Color.white);
+        assignmentHeader.setFont(new Font("Serif", Font.BOLD, 14));
         assignmentsPane = new JScrollPane(assignmentsTable);
         assignmentsPane.setBounds(200, 100, 480, 250);
         add(assignmentsPane);
         assignmentsPane.setVisible(false);
+        for (int i = 0; i < assignments.size(); i++)
+        {
+            assignmentsTable.setValueAt(assignments.get(i).getName(),i,0);
+            assignmentsTable.setValueAt(assignments.get(i).getCategory(),i,1);
+            assignmentsTable.setValueAt(assignments.get(i).getMaxScore(),i,2);
+        }
+        
+        
         
         assignmentAddButton = new JButton("+");
         assignmentAddButton.setFont(new Font("Serif", Font.BOLD, 20));
@@ -255,6 +281,9 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         rosterTableModel.addColumn("Last Name");
         rosterTableModel.addColumn("Student ID");
         rosterTableModel.addColumn("Average");
+        rosterTableModel.addRow(new Object[]{"","","",""});
+        rosterTableModel.addRow(new Object[]{"","","",""});
+        rosterTableModel.addRow(new Object[]{"","","",""});
 
         rosterTable = new JTable(rosterTableModel);
         rosterTable.setBackground(Color.lightGray);
@@ -266,6 +295,14 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         add(rosterPane);
         rosterPane.setVisible(false);
         
+        for (int i = 0; i < roster1.size(); i++)
+        {
+            rosterTable.setValueAt(roster1.get(i).getFirstName(),i,0);
+            rosterTable.setValueAt(roster1.get(i).getLastName(),i,1);
+            rosterTable.setValueAt(roster1.get(i).getID(),i,2);
+            rosterTable.setValueAt(roster1.get(i).getOverallGrade(),i,3);
+        }
+        
         rosterAddButton = new JButton("+");
         rosterAddButton.setFont(new Font("Serif", Font.BOLD, 20));
         size = rosterAddButton.getPreferredSize();
@@ -274,6 +311,55 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         add(rosterAddButton);
         rosterAddButton.setVisible(false);
         
+        
+        gradebookButton = new JButton("Gradebook");
+        size = gradebookButton.getPreferredSize();
+        gradebookButton.addActionListener(this);
+        gradebookButton.setBounds(30,250,size.width,size.height+20);
+        add(gradebookButton);
+        gradebookButton.setVisible(false);
+        
+        
+        /*
+         * Gradebook Page
+         */
+        gradebookTableModel = new DefaultTableModel();
+        gradebookTableModel.addColumn("Assignment");
+        gradebookTableModel.addColumn("Scale");
+        gradebookTableModel.addColumn("Category Name");
+        gradebookTableModel.addColumn("ID");
+        gradebookTableModel.addColumn("Weight");
+        gradebookTableModel.addRow(new Object[]{"","","","",""});
+        gradebookTableModel.addRow(new Object[]{"","","","",""});
+        gradebookTableModel.addRow(new Object[]{"","","","",""});
+
+        gradebookTable = new JTable(gradebookTableModel);
+        gradebookTable.setBackground(Color.lightGray);
+        JTableHeader gradebookHeader = gradebookTable.getTableHeader();
+        gradebookHeader.setBackground(Color.white);
+        gradebookHeader.setFont(new Font("Serif", Font.BOLD, 14));
+        gradebookPane = new JScrollPane(gradebookTable);
+        gradebookPane.setBounds(200, 100, 650, 250);
+        add(gradebookPane);
+        gradebookPane.setVisible(false);
+        for (int i = 0; i < assignments.size(); i++)
+        {
+            gradebookTable.setValueAt(assignments.get(i).getName(),i,0);
+            gradebookTable.setValueAt(gradebook1.getScale()[i],i,1);
+            gradebookTable.setValueAt(gradebook1.getCatNames().get(i),i,2);
+            gradebookTable.setValueAt(gradebook1.getCatID().get(i),i,3);
+            gradebookTable.setValueAt(gradebook1.getCatWeights().get(i),i,4);
+        }
+        
+        
+        
+        gradebookAddButton = new JButton("+");
+        gradebookAddButton.setFont(new Font("Serif", Font.BOLD, 20));
+        size = gradebookAddButton.getPreferredSize();
+        gradebookAddButton.addActionListener(this);
+        gradebookAddButton.setBounds(70,250,size.width-35,size.height);
+        add(gradebookAddButton);
+        gradebookAddButton.setVisible(false);
         
         /*
          * Multiple Pages
@@ -362,6 +448,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         {
             assignmentButton.setVisible(true);
             rosterButton.setVisible(true);
+            gradebookButton.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -382,6 +469,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         {
             assignmentButton.setVisible(true);
             rosterButton.setVisible(true);
+            gradebookButton.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -402,6 +490,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         {
             assignmentButton.setVisible(true);
             rosterButton.setVisible(true);
+            gradebookButton.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -422,6 +511,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         {
             assignmentButton.setVisible(true);
             rosterButton.setVisible(true);
+            gradebookButton.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -442,6 +532,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         {
             assignmentButton.setVisible(true);
             rosterButton.setVisible(true);
+            gradebookButton.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -462,6 +553,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         {
             assignmentButton.setVisible(true);
             rosterButton.setVisible(true);
+            gradebookButton.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -482,6 +574,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         {
             assignmentButton.setVisible(true);
             rosterButton.setVisible(true);
+            gradebookButton.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -501,11 +594,14 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         if (action.getSource() == assignmentButton)
         {
             assignmentsPane.setVisible(true);
+            gradebookPane.setVisible(false);
             assignmentButton.setVisible(false);
             rosterButton.setVisible(true);
+            gradebookButton.setVisible(true);
             rosterPane.setVisible(false);
             assignmentAddButton.setVisible(true);
             rosterAddButton.setVisible(false);
+            gradebookAddButton.setVisible(false);
             
             titleLabel.setText("Assignments");
             //titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
@@ -516,12 +612,34 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         if (action.getSource() == rosterButton)
         {
             assignmentsPane.setVisible(false);
+            gradebookPane.setVisible(false);
             assignmentButton.setVisible(true);
             rosterButton.setVisible(false);
+            gradebookButton.setVisible(true);
             rosterPane.setVisible(true);
             assignmentAddButton.setVisible(false);
             rosterAddButton.setVisible(true);
+            gradebookAddButton.setVisible(false);
+            
             titleLabel.setText("Roster");
+            //titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
+            size =  titleLabel.getPreferredSize();
+            titleLabel.setBounds(200, 50, size.width, size.height);
+            titleLabel.setVisible(true);
+        }
+        if (action.getSource() == gradebookButton)
+        {
+            assignmentsPane.setVisible(false);
+            rosterPane.setVisible(false);
+            assignmentButton.setVisible(true);
+            rosterButton.setVisible(true);
+            gradebookButton.setVisible(false);
+            gradebookPane.setVisible(true);
+            assignmentAddButton.setVisible(false);
+            rosterAddButton.setVisible(false);
+            gradebookAddButton.setVisible(true);
+            
+            titleLabel.setText("Gradebook");
             //titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
             size =  titleLabel.getPreferredSize();
             titleLabel.setBounds(200, 50, size.width, size.height);
@@ -533,8 +651,11 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             assignmentButton.setVisible(false);
             rosterButton.setVisible(false);
             rosterPane.setVisible(false);
+            gradebookButton.setVisible(false);
+            gradebookPane.setVisible(false);
             assignmentAddButton.setVisible(false);
             rosterAddButton.setVisible(false);
+            gradebookAddButton.setVisible(false);
             titleLabel.setText("Welcome, Professor " + teacher.get(0));
             size =  titleLabel.getPreferredSize();
             titleLabel.setBounds(50, 50, size.width, size.height);
@@ -607,6 +728,8 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
     private JButton assignmentButton;
     private JButton rosterAddButton;
     private JButton rosterButton;
+    private JButton gradebookAddButton;
+    private JButton gradebookButton;
     private JButton classesButton;
     
     private JPasswordField pinField;
@@ -614,14 +737,17 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
     
     private JTable assignmentsTable;
     private JTable rosterTable;
+    private JTable gradebookTable;
     
     private JScrollPane assignmentsPane;
     private JScrollPane rosterPane;
+    private JScrollPane gradebookPane;
     
     private JPanel inputWindow;
     
     private DefaultTableModel assignmentsTableModel;
     private DefaultTableModel rosterTableModel;
+    private DefaultTableModel gradebookTableModel;
     private DefaultListModel<String> overviewPaneTabs;
     private DefaultListModel<String> classPaneTabs;
 

@@ -21,8 +21,8 @@ public class Main {
 
         //readSaveTest
         CourseList clTest = new CourseList();
-        System.out.println(clTest.getTeacherLName());
-        clTest.setPassword("testPword");
+        //System.out.println(clTest.getTeacherLName());
+        //clTest.setPassword("testPword");
         
         WriteSave saveOut = new WriteSave();
         
@@ -46,25 +46,25 @@ public class Main {
             student2grades.add((Float)((float)((90-i))));
             student3grades.add((Float)((float)((80+i))));
         }
-        Student student1 = new Student("Student1FirstName", "Student1LastName", 0, 0.00F, student1grades);
-        Student student2 = new Student("Student2firstname", "Student2lastname", 1, 0.00F, student2grades);
-        Student student3 = new Student("student3FirstName", "student3LastName", 2, 0.00F, student3grades);
+        Student student1 = new Student("Yolanda", "Summers", 0, 0.00F, student1grades);
+        Student student2 = new Student("Kyle", "Williams", 1, 0.00F, student2grades);
+        Student student3 = new Student("Maria", "Jackson", 2, 0.00F, student3grades);
         roster.add(student1);
         roster.add(student2);
         roster.add(student3);
         // Gradebook population
         Vector<Assignment> assignments = new Vector<Assignment>();
-        Assignment assignment1 = new Assignment("Assignment1", 0, 100);
-        Assignment assignment2 = new Assignment("assignmentNumber2", 1, 200);
-        Assignment assignment3 = new Assignment("BigClassProject3", 2, 300);
+        Assignment assignment1 = new Assignment("Sections 1.4-2.1", 0, 100);
+        Assignment assignment2 = new Assignment("Chapter 2", 1, 200);
+        Assignment assignment3 = new Assignment("Chapters 1-3", 2, 300);
         assignments.add(assignment1);
         assignments.add(assignment2);
         assignments.add(assignment3);
         int[] scale = {61, 71, 81, 89};
         Vector<String> catNames = new Vector<String>();
-        catNames.add("Cat1");
-        catNames.add("Category2");
-        catNames.add("ThirdCategory");
+        catNames.add("Homework");
+        catNames.add("Quzzes");
+        catNames.add("Tests");
         Vector<Integer> catID = new Vector<Integer>();
         for(Integer i=0; i<3; i++) catID.add(i);
         Vector<Float> catWeights = new Vector<Float>();

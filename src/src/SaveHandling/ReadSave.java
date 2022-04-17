@@ -129,7 +129,7 @@ public class ReadSave {
                 studentGrades.add(Float.parseFloat(studentsInfo.get(i)[j]));
             
             }
-            studentVector.add(new Student(studentsInfo.get(i)[2],studentsInfo.get(i)[1],Integer.parseInt(studentsInfo.get(i)[0]),Integer.parseInt(studentsInfo.get(i)[studentsInfo.get(i).length-1]),studentGrades));
+            studentVector.add(new Student(studentsInfo.get(i)[2],studentsInfo.get(i)[1],Integer.parseInt(studentsInfo.get(i)[0]),Float.parseFloat(studentsInfo.get(i)[studentsInfo.get(i).length-1]),studentGrades));
             studentGrades.clear();
         
         }

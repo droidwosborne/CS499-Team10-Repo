@@ -92,7 +92,7 @@ public class CourseList {
         teacherFName = fName;
     }
     
-        public void setPassword(String pRaw){
+    public void setPassword(String pRaw){
         try {
             pwordHash = hash(pRaw);
         }
