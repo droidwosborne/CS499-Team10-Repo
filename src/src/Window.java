@@ -256,25 +256,41 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         /*
          * Assignments Page
          */
-        assignmentsTableModel = new DefaultTableModel();
-        assignmentsTableModel.addColumn("Name");
-        assignmentsTableModel.addColumn("Category");
-        assignmentsTableModel.addColumn("Maximum Score");
-        assignmentsTableModel.addRow(new Object[]{"","","",""});
-        assignmentsTableModel.addRow(new Object[]{"","","",""});
-        assignmentsTableModel.addRow(new Object[]{"","","",""});
+        assignmentsTableModel1 = new DefaultTableModel();
+        assignmentsTableModel1.addColumn("Name");
+        assignmentsTableModel1.addColumn("Category");
+        assignmentsTableModel1.addColumn("Maximum Score");
+        assignmentsTableModel1.addRow(new Object[]{"","","",""});
+        assignmentsTableModel1.addRow(new Object[]{"","","",""});
+        assignmentsTableModel1.addRow(new Object[]{"","","",""});
 
-        assignmentsTable = new JTable(assignmentsTableModel);
-        assignmentsTable.setBackground(Color.lightGray);
-        JTableHeader assignmentHeader = assignmentsTable.getTableHeader();
-        assignmentHeader.setBackground(Color.white);
-        assignmentHeader.setFont(new Font("Serif", Font.BOLD, 14));
-        assignmentsPane = new JScrollPane(assignmentsTable);
-        assignmentsPane.setBounds(200, 100, 480, 250);
-        add(assignmentsPane);
-        assignmentsPane.setVisible(false);
+        assignmentsTable1 = new JTable(assignmentsTableModel1);
+        assignmentsTable1.setBackground(Color.lightGray);
+        JTableHeader assignmentHeader1 = assignmentsTable1.getTableHeader();
+        assignmentHeader1.setBackground(Color.white);
+        assignmentHeader1.setFont(new Font("Serif", Font.BOLD, 14));
+        assignmentsPane1 = new JScrollPane(assignmentsTable1);
+        assignmentsPane1.setBounds(200, 100, 480, 250);
+        add(assignmentsPane1);
+        assignmentsPane1.setVisible(false);
         
-        
+        assignmentsTableModel2 = new DefaultTableModel();
+        assignmentsTableModel2.addColumn("Name");
+        assignmentsTableModel2.addColumn("Category");
+        assignmentsTableModel2.addColumn("Maximum Score");
+        assignmentsTableModel2.addRow(new Object[]{"","","",""});
+        assignmentsTableModel2.addRow(new Object[]{"","","",""});
+        assignmentsTableModel2.addRow(new Object[]{"","","",""});
+
+        assignmentsTable2 = new JTable(assignmentsTableModel2);
+        assignmentsTable2.setBackground(Color.lightGray);
+        JTableHeader assignmentHeader2 = assignmentsTable2.getTableHeader();
+        assignmentHeader2.setBackground(Color.white);
+        assignmentHeader2.setFont(new Font("Serif", Font.BOLD, 14));
+        assignmentsPane2 = new JScrollPane(assignmentsTable2);
+        assignmentsPane2.setBounds(200, 100, 480, 250);
+        add(assignmentsPane2);
+        assignmentsPane2.setVisible(false);
         
         
         assignmentAddButton1 = new JButton("+");
@@ -390,27 +406,45 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         /*
          * Gradebook Page
          */
-        gradebookTableModel = new DefaultTableModel();
-        gradebookTableModel.addColumn("Assignment");
-        gradebookTableModel.addColumn("Scale");
-        gradebookTableModel.addColumn("Category Name");
-        gradebookTableModel.addColumn("ID");
-        gradebookTableModel.addColumn("Weight");
-        gradebookTableModel.addRow(new Object[]{"","","","",""});
-        gradebookTableModel.addRow(new Object[]{"","","","",""});
-        gradebookTableModel.addRow(new Object[]{"","","","",""});
+        gradebookTableModel1 = new DefaultTableModel();
+        gradebookTableModel1.addColumn("Assignment");
+        gradebookTableModel1.addColumn("Scale");
+        gradebookTableModel1.addColumn("Category Name");
+        gradebookTableModel1.addColumn("ID");
+        gradebookTableModel1.addColumn("Weight");
+        gradebookTableModel1.addRow(new Object[]{"","","","",""});
+        gradebookTableModel1.addRow(new Object[]{"","","","",""});
+        gradebookTableModel1.addRow(new Object[]{"","","","",""});
 
-        gradebookTable = new JTable(gradebookTableModel);
-        gradebookTable.setBackground(Color.lightGray);
-        JTableHeader gradebookHeader = gradebookTable.getTableHeader();
-        gradebookHeader.setBackground(Color.white);
-        gradebookHeader.setFont(new Font("Serif", Font.BOLD, 14));
-        gradebookPane = new JScrollPane(gradebookTable);
-        gradebookPane.setBounds(200, 100, 650, 250);
-        add(gradebookPane);
-        gradebookPane.setVisible(false);
+        gradebookTable1 = new JTable(gradebookTableModel1);
+        gradebookTable1.setBackground(Color.lightGray);
+        JTableHeader gradebookHeader1 = gradebookTable1.getTableHeader();
+        gradebookHeader1.setBackground(Color.white);
+        gradebookHeader1.setFont(new Font("Serif", Font.BOLD, 14));
+        gradebookPane1 = new JScrollPane(gradebookTable1);
+        gradebookPane1.setBounds(200, 100, 650, 250);
+        add(gradebookPane1);
+        gradebookPane1.setVisible(false);
         
-        
+        gradebookTableModel2 = new DefaultTableModel();
+        gradebookTableModel2.addColumn("Assignment");
+        gradebookTableModel2.addColumn("Scale");
+        gradebookTableModel2.addColumn("Category Name");
+        gradebookTableModel2.addColumn("ID");
+        gradebookTableModel2.addColumn("Weight");
+        gradebookTableModel2.addRow(new Object[]{"","","","",""});
+        gradebookTableModel2.addRow(new Object[]{"","","","",""});
+        gradebookTableModel2.addRow(new Object[]{"","","","",""});
+
+        gradebookTable2 = new JTable(gradebookTableModel2);
+        gradebookTable2.setBackground(Color.lightGray);
+        JTableHeader gradebookHeader2 = gradebookTable2.getTableHeader();
+        gradebookHeader2.setBackground(Color.white);
+        gradebookHeader2.setFont(new Font("Serif", Font.BOLD, 14));
+        gradebookPane2 = new JScrollPane(gradebookTable2);
+        gradebookPane2.setBounds(200, 100, 650, 250);
+        add(gradebookPane2);
+        gradebookPane2.setVisible(false);
         
         
         gradebookAddButton1 = new JButton("+");
@@ -553,20 +587,20 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }*/
             for (int i = 0; i < assignments1.size(); i++)
             {
-                assignmentsTable.setValueAt(assignments1.get(i).getName(),i,0);
-                assignmentsTable.setValueAt(assignments1.get(i).getCategory(),i,1);
-                assignmentsTable.setValueAt(assignments1.get(i).getMaxScore(),i,2);
+                assignmentsTable1.setValueAt(assignments1.get(i).getName(),i,0);
+                assignmentsTable1.setValueAt(assignments1.get(i).getCategory(),i,1);
+                assignmentsTable1.setValueAt(assignments1.get(i).getMaxScore(),i,2);
                 
                 rosterTable1.setValueAt(roster1.get(i).getFirstName(),i,0);
                 rosterTable1.setValueAt(roster1.get(i).getLastName(),i,1);
                 rosterTable1.setValueAt(roster1.get(i).getID(),i,2);
                 rosterTable1.setValueAt(roster1.get(i).getOverallGrade(),i,3);
                 
-                gradebookTable.setValueAt(assignments1.get(i).getName(),i,0);
-                gradebookTable.setValueAt(gradebook1.getScale()[i],i,1);
-                gradebookTable.setValueAt(gradebook1.getCatNames().get(i),i,2);
-                gradebookTable.setValueAt(gradebook1.getCatID().get(i),i,3);
-                gradebookTable.setValueAt(gradebook1.getCatWeights().get(i),i,4);
+                gradebookTable1.setValueAt(assignments1.get(i).getName(),i,0);
+                gradebookTable1.setValueAt(gradebook1.getScale()[i],i,1);
+                gradebookTable1.setValueAt(gradebook1.getCatNames().get(i),i,2);
+                gradebookTable1.setValueAt(gradebook1.getCatID().get(i),i,3);
+                gradebookTable1.setValueAt(gradebook1.getCatWeights().get(i),i,4);
             }
         }
         if (action.getSource() == class2Button)
@@ -592,20 +626,20 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             
             for (int i = 0; i < assignments2.size(); i++)
             {
-                assignmentsTable.setValueAt(assignments2.get(i).getName(),i,0);
-                assignmentsTable.setValueAt(assignments2.get(i).getCategory(),i,1);
-                assignmentsTable.setValueAt(assignments2.get(i).getMaxScore(),i,2);
+                assignmentsTable2.setValueAt(assignments2.get(i).getName(),i,0);
+                assignmentsTable2.setValueAt(assignments2.get(i).getCategory(),i,1);
+                assignmentsTable2.setValueAt(assignments2.get(i).getMaxScore(),i,2);
                 
                 rosterTable2.setValueAt(roster2.get(i).getFirstName(),i,0);
                 rosterTable2.setValueAt(roster2.get(i).getLastName(),i,1);
                 rosterTable2.setValueAt(roster2.get(i).getID(),i,2);
                 rosterTable2.setValueAt(roster2.get(i).getOverallGrade(),i,3);
                 
-                gradebookTable.setValueAt(assignments2.get(i).getName(),i,0);
-                gradebookTable.setValueAt(gradebook2.getScale()[i],i,1);
-                gradebookTable.setValueAt(gradebook2.getCatNames().get(i),i,2);
-                gradebookTable.setValueAt(gradebook2.getCatID().get(i),i,3);
-                gradebookTable.setValueAt(gradebook2.getCatWeights().get(i),i,4);
+                gradebookTable2.setValueAt(assignments2.get(i).getName(),i,0);
+                gradebookTable2.setValueAt(gradebook2.getScale()[i],i,1);
+                gradebookTable2.setValueAt(gradebook2.getCatNames().get(i),i,2);
+                gradebookTable2.setValueAt(gradebook2.getCatID().get(i),i,3);
+                gradebookTable2.setValueAt(gradebook2.getCatWeights().get(i),i,4);
             }
         }
         if (action.getSource() == class3Button)
@@ -715,8 +749,8 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }
         if (action.getSource() == assignmentButton1)
         {
-            assignmentsPane.setVisible(true);
-            gradebookPane.setVisible(false);
+            assignmentsPane1.setVisible(true);
+            gradebookPane1.setVisible(false);
             assignmentButton1.setVisible(false);
             rosterButton1.setVisible(true);
             gradebookButton1.setVisible(true);
@@ -738,8 +772,8 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }
         if (action.getSource() == assignmentButton2)
         {
-            assignmentsPane.setVisible(true);
-            gradebookPane.setVisible(false);
+            assignmentsPane2.setVisible(true);
+            gradebookPane2.setVisible(false);
             assignmentButton2.setVisible(false);
             rosterButton2.setVisible(true);
             gradebookButton2.setVisible(true);
@@ -761,8 +795,8 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }
         if (action.getSource() == rosterButton1)
         {
-            assignmentsPane.setVisible(false);
-            gradebookPane.setVisible(false);
+            assignmentsPane1.setVisible(false);
+            gradebookPane1.setVisible(false);
             assignmentButton1.setVisible(true);
             rosterButton1.setVisible(false);
             gradebookButton1.setVisible(true);
@@ -779,8 +813,8 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }
         if (action.getSource() == rosterButton2)
         {
-            assignmentsPane.setVisible(false);
-            gradebookPane.setVisible(false);
+            assignmentsPane2.setVisible(false);
+            gradebookPane2.setVisible(false);
             assignmentButton2.setVisible(true);
             rosterButton2.setVisible(false);
             gradebookButton2.setVisible(true);
@@ -797,12 +831,12 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }
         if (action.getSource() == gradebookButton1)
         {
-            assignmentsPane.setVisible(false);
+            assignmentsPane1.setVisible(false);
             rosterPane1.setVisible(false);
             assignmentButton1.setVisible(true);
             rosterButton1.setVisible(true);
             gradebookButton1.setVisible(false);
-            gradebookPane.setVisible(true);
+            gradebookPane1.setVisible(true);
             assignmentAddButton1.setVisible(false);
             rosterAddButton1.setVisible(false);
             gradebookAddButton1.setVisible(true);
@@ -820,12 +854,12 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }
         if (action.getSource() == gradebookButton2)
         {
-            assignmentsPane.setVisible(false);
+            assignmentsPane2.setVisible(false);
             rosterPane2.setVisible(false);
             assignmentButton2.setVisible(true);
             rosterButton2.setVisible(true);
             gradebookButton2.setVisible(false);
-            gradebookPane.setVisible(true);
+            gradebookPane1.setVisible(true);
             assignmentAddButton2.setVisible(false);
             rosterAddButton2.setVisible(false);
             gradebookAddButton2.setVisible(true);
@@ -843,13 +877,15 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }
         if (action.getSource() == classesButton)
         {
-            assignmentsPane.setVisible(false);
+            assignmentsPane1.setVisible(false);
+            assignmentsPane2.setVisible(false);
             assignmentButton1.setVisible(false);
             rosterButton1.setVisible(false);
             rosterPane1.setVisible(false);
             rosterPane2.setVisible(false);
             gradebookButton1.setVisible(false);
-            gradebookPane.setVisible(false);
+            gradebookPane1.setVisible(false);
+            gradebookPane2.setVisible(false);
             assignmentAddButton1.setVisible(false);
             rosterAddButton1.setVisible(false);
             gradebookAddButton1.setVisible(false);
@@ -1014,22 +1050,28 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
     private JTextField firstNameEntry;
     private JTextField lastNameEntry;
     
-    private JTable assignmentsTable;
+    private JTable assignmentsTable1;
+    private JTable assignmentsTable2;
     private JTable rosterTable1;
     private JTable rosterTable2;
-    private JTable gradebookTable;
+    private JTable gradebookTable1;
+    private JTable gradebookTable2;
     
-    private JScrollPane assignmentsPane;
+    private JScrollPane assignmentsPane1;
+    private JScrollPane assignmentsPane2;
     private JScrollPane rosterPane1;
     private JScrollPane rosterPane2;
-    private JScrollPane gradebookPane;
+    private JScrollPane gradebookPane1;
+    private JScrollPane gradebookPane2;
     
     //private JPanel inputWindow;
     
-    private DefaultTableModel assignmentsTableModel;
+    private DefaultTableModel assignmentsTableModel1;
+    private DefaultTableModel assignmentsTableModel2;
     private DefaultTableModel rosterTableModel1;
     private DefaultTableModel rosterTableModel2;
-    private DefaultTableModel gradebookTableModel;
+    private DefaultTableModel gradebookTableModel1;
+    private DefaultTableModel gradebookTableModel2;
     private DefaultListModel<String> overviewPaneTabs;
     private DefaultListModel<String> classPaneTabs;
 
