@@ -18,7 +18,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import src.SaveHandling.*;
-
+import java.io.IOException;
 import java.util.Vector;
 
 
@@ -40,13 +40,17 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
     ReadSave reader = new ReadSave();
     Vector<String> teacher = reader.teacherIn();
     Course course1 = reader.classDataIn("course1");
+    Course course2 = reader.classDataIn("course2");
     Vector<Student> roster1 = course1.getRoster();
+    Vector<Student> roster2 = course2.getRoster();
     Gradebook gradebook1 = course1.getGradebook();
-    Vector<Assignment> assignments = course1.getGradebook().getAssignments();
+    Gradebook gradebook2 = course2.getGradebook();
+    Vector<Assignment> assignments1 = course1.getGradebook().getAssignments();
+    Vector<Assignment> assignments2 = course2.getGradebook().getAssignments();
         
     CourseList cList = new CourseList();
     Vector<String> courses = cList.getCourses();
-   
+    WriteSave writer = new WriteSave();
     //Constructor for Window class consisting of components in Panel
     public Window () {
         //Arbitrary size and color appearance of the window
@@ -221,19 +225,33 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         classesButton.setVisible(false);
         
         
-        assignmentButton = new JButton("Assignments");
-        size = assignmentButton.getPreferredSize();
-        assignmentButton.addActionListener(this);
-        assignmentButton.setBounds(30,150,size.width,size.height+20);
-        add(assignmentButton);
-        assignmentButton.setVisible(false);
+        assignmentButton1 = new JButton("Assignments");
+        size = assignmentButton1.getPreferredSize();
+        assignmentButton1.addActionListener(this);
+        assignmentButton1.setBounds(30,150,size.width,size.height+20);
+        add(assignmentButton1);
+        assignmentButton1.setVisible(false);
         
-        rosterButton = new JButton("Roster");
-        size = rosterButton.getPreferredSize();
-        rosterButton.addActionListener(this);
-        rosterButton.setBounds(30,200,size.width,size.height+20);
-        add(rosterButton);
-        rosterButton.setVisible(false);
+        assignmentButton2 = new JButton("Assignments");
+        size = assignmentButton2.getPreferredSize();
+        assignmentButton2.addActionListener(this);
+        assignmentButton2.setBounds(30,150,size.width,size.height+20);
+        add(assignmentButton2);
+        assignmentButton2.setVisible(false);
+        
+        rosterButton1 = new JButton("Roster");
+        size = rosterButton1.getPreferredSize();
+        rosterButton1.addActionListener(this);
+        rosterButton1.setBounds(30,200,size.width,size.height+20);
+        add(rosterButton1);
+        rosterButton1.setVisible(false);
+        
+        rosterButton2 = new JButton("Roster");
+        size = rosterButton2.getPreferredSize();
+        rosterButton2.addActionListener(this);
+        rosterButton2.setBounds(30,200,size.width,size.height+20);
+        add(rosterButton2);
+        rosterButton2.setVisible(false);
         
         /*
          * Assignments Page
@@ -255,69 +273,118 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         assignmentsPane.setBounds(200, 100, 480, 250);
         add(assignmentsPane);
         assignmentsPane.setVisible(false);
-        for (int i = 0; i < assignments.size(); i++)
-        {
-            assignmentsTable.setValueAt(assignments.get(i).getName(),i,0);
-            assignmentsTable.setValueAt(assignments.get(i).getCategory(),i,1);
-            assignmentsTable.setValueAt(assignments.get(i).getMaxScore(),i,2);
-        }
         
         
         
-        assignmentAddButton = new JButton("+");
-        assignmentAddButton.setFont(new Font("Serif", Font.BOLD, 20));
-        size = assignmentAddButton.getPreferredSize();
-        assignmentAddButton.addActionListener(this);
-        assignmentAddButton.setBounds(70,150,size.width-35,size.height);
-        add(assignmentAddButton);
-        assignmentAddButton.setVisible(false);
+        
+        assignmentAddButton1 = new JButton("+");
+        assignmentAddButton1.setFont(new Font("Serif", Font.BOLD, 20));
+        size = assignmentAddButton1.getPreferredSize();
+        assignmentAddButton1.addActionListener(this);
+        assignmentAddButton1.setBounds(70,150,size.width-35,size.height);
+        add(assignmentAddButton1);
+        assignmentAddButton1.setVisible(false);
+        
+        assignmentAddButton2 = new JButton("+");
+        assignmentAddButton2.setFont(new Font("Serif", Font.BOLD, 20));
+        size = assignmentAddButton2.getPreferredSize();
+        assignmentAddButton2.addActionListener(this);
+        assignmentAddButton2.setBounds(70,150,size.width-35,size.height);
+        add(assignmentAddButton2);
+        assignmentAddButton2.setVisible(false);
         
         
         /*
          * Roster Page
          */
-        rosterTableModel = new DefaultTableModel();
-        rosterTableModel.addColumn("First Name");
-        rosterTableModel.addColumn("Last Name");
-        rosterTableModel.addColumn("Student ID");
-        rosterTableModel.addColumn("Average");
-        rosterTableModel.addRow(new Object[]{"","","",""});
-        rosterTableModel.addRow(new Object[]{"","","",""});
-        rosterTableModel.addRow(new Object[]{"","","",""});
+        rosterTableModel1 = new DefaultTableModel();
+        rosterTableModel1.addColumn("First Name");
+        rosterTableModel1.addColumn("Last Name");
+        rosterTableModel1.addColumn("Student ID");
+        rosterTableModel1.addColumn("Average");
+        rosterTableModel1.addRow(new Object[]{"","","",""});
+        rosterTableModel1.addRow(new Object[]{"","","",""});
+        rosterTableModel1.addRow(new Object[]{"","","",""});
 
-        rosterTable = new JTable(rosterTableModel);
-        rosterTable.setBackground(Color.lightGray);
-        JTableHeader studentHeader = rosterTable.getTableHeader();
+        rosterTable1 = new JTable(rosterTableModel1);
+        rosterTable1.setBackground(Color.lightGray);
+        JTableHeader studentHeader1 = rosterTable1.getTableHeader();
+        studentHeader1.setBackground(Color.white);
+        studentHeader1.setFont(new Font("Serif", Font.BOLD, 14));
+        rosterPane1 = new JScrollPane(rosterTable1);
+        rosterPane1.setBounds(200, 100, 550, 250);
+        add(rosterPane1);
+        rosterPane1.setVisible(false);
+        
+        rosterTableModel2 = new DefaultTableModel();
+        rosterTableModel2.addColumn("First Name");
+        rosterTableModel2.addColumn("Last Name");
+        rosterTableModel2.addColumn("Student ID");
+        rosterTableModel2.addColumn("Average");
+        rosterTableModel2.addRow(new Object[]{"","","",""});
+        rosterTableModel2.addRow(new Object[]{"","","",""});
+        rosterTableModel2.addRow(new Object[]{"","","",""});
+
+        rosterTable2 = new JTable(rosterTableModel2);
+        rosterTable2.setBackground(Color.lightGray);
+        JTableHeader studentHeader = rosterTable2.getTableHeader();
         studentHeader.setBackground(Color.white);
         studentHeader.setFont(new Font("Serif", Font.BOLD, 14));
-        rosterPane = new JScrollPane(rosterTable);
-        rosterPane.setBounds(200, 100, 550, 250);
-        add(rosterPane);
-        rosterPane.setVisible(false);
+        rosterPane2 = new JScrollPane(rosterTable2);
+        rosterPane2.setBounds(200, 100, 550, 250);
+        add(rosterPane2);
+        rosterPane2.setVisible(false);
         
-        for (int i = 0; i < roster1.size(); i++)
-        {
-            rosterTable.setValueAt(roster1.get(i).getFirstName(),i,0);
-            rosterTable.setValueAt(roster1.get(i).getLastName(),i,1);
-            rosterTable.setValueAt(roster1.get(i).getID(),i,2);
-            rosterTable.setValueAt(roster1.get(i).getOverallGrade(),i,3);
-        }
+        rosterAddButton1 = new JButton("+");
+        rosterAddButton1.setFont(new Font("Serif", Font.BOLD, 20));
+        size = rosterAddButton1.getPreferredSize();
+        rosterAddButton1.addActionListener(this);
+        rosterAddButton1.setBounds(100,200,size.width-35,size.height);
+        add(rosterAddButton1);
+        rosterAddButton1.setVisible(false);
         
-        rosterAddButton = new JButton("+");
-        rosterAddButton.setFont(new Font("Serif", Font.BOLD, 20));
-        size = rosterAddButton.getPreferredSize();
-        rosterAddButton.addActionListener(this);
-        rosterAddButton.setBounds(100,200,size.width-35,size.height);
-        add(rosterAddButton);
-        rosterAddButton.setVisible(false);
+        rosterAddButton2 = new JButton("+");
+        rosterAddButton2.setFont(new Font("Serif", Font.BOLD, 20));
+        size = rosterAddButton2.getPreferredSize();
+        rosterAddButton2.addActionListener(this);
+        rosterAddButton2.setBounds(100,200,size.width-35,size.height);
+        add(rosterAddButton2);
+        rosterAddButton2.setVisible(false);
+        
+        nameLabel = new JLabel(" First Name:                   Last Name:");
+        size = nameLabel.getPreferredSize();
+        nameLabel.setBounds(50, 380, size.width, size.height);
+        nameLabel.setVisible(false);
+        add(nameLabel);
+        
+        firstNameEntry = new JTextField(10);
+        firstNameEntry.addActionListener(this);
+        size = firstNameEntry.getPreferredSize();
+        firstNameEntry.setBounds(50, 400, size.width, size.height);
+        firstNameEntry.setVisible(false);
+        add(firstNameEntry);
+        
+        lastNameEntry = new JTextField(10);
+        lastNameEntry.addActionListener(this);
+        size = lastNameEntry.getPreferredSize();
+        lastNameEntry.setBounds(200, 400, size.width, size.height);
+        lastNameEntry.setVisible(false);
+        add(lastNameEntry);
         
         
-        gradebookButton = new JButton("Gradebook");
-        size = gradebookButton.getPreferredSize();
-        gradebookButton.addActionListener(this);
-        gradebookButton.setBounds(30,250,size.width,size.height+20);
-        add(gradebookButton);
-        gradebookButton.setVisible(false);
+        gradebookButton1 = new JButton("Gradebook");
+        size = gradebookButton1.getPreferredSize();
+        gradebookButton1.addActionListener(this);
+        gradebookButton1.setBounds(30,250,size.width,size.height+20);
+        add(gradebookButton1);
+        gradebookButton1.setVisible(false);
+        
+        gradebookButton2 = new JButton("Gradebook");
+        size = gradebookButton2.getPreferredSize();
+        gradebookButton2.addActionListener(this);
+        gradebookButton2.setBounds(30,250,size.width,size.height+20);
+        add(gradebookButton2);
+        gradebookButton2.setVisible(false);
         
         
         /*
@@ -342,24 +409,25 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         gradebookPane.setBounds(200, 100, 650, 250);
         add(gradebookPane);
         gradebookPane.setVisible(false);
-        for (int i = 0; i < assignments.size(); i++)
-        {
-            gradebookTable.setValueAt(assignments.get(i).getName(),i,0);
-            gradebookTable.setValueAt(gradebook1.getScale()[i],i,1);
-            gradebookTable.setValueAt(gradebook1.getCatNames().get(i),i,2);
-            gradebookTable.setValueAt(gradebook1.getCatID().get(i),i,3);
-            gradebookTable.setValueAt(gradebook1.getCatWeights().get(i),i,4);
-        }
         
         
         
-        gradebookAddButton = new JButton("+");
-        gradebookAddButton.setFont(new Font("Serif", Font.BOLD, 20));
-        size = gradebookAddButton.getPreferredSize();
-        gradebookAddButton.addActionListener(this);
-        gradebookAddButton.setBounds(70,250,size.width-35,size.height);
-        add(gradebookAddButton);
-        gradebookAddButton.setVisible(false);
+        
+        gradebookAddButton1 = new JButton("+");
+        gradebookAddButton1.setFont(new Font("Serif", Font.BOLD, 20));
+        size = gradebookAddButton1.getPreferredSize();
+        gradebookAddButton1.addActionListener(this);
+        gradebookAddButton1.setBounds(70,250,size.width-35,size.height);
+        add(gradebookAddButton1);
+        gradebookAddButton1.setVisible(false);
+        
+        gradebookAddButton2 = new JButton("+");
+        gradebookAddButton2.setFont(new Font("Serif", Font.BOLD, 20));
+        size = gradebookAddButton2.getPreferredSize();
+        gradebookAddButton2.addActionListener(this);
+        gradebookAddButton2.setBounds(70,250,size.width-35,size.height);
+        add(gradebookAddButton2);
+        gradebookAddButton2.setVisible(false);
         
         /*
          * Multiple Pages
@@ -379,7 +447,21 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         add(classAddButton);
         classAddButton.setVisible(false);
         
-        inputWindow = new JPanel();
+        rosterChangesButton1 = new JButton("Submit");
+        size = rosterChangesButton1.getPreferredSize();
+        rosterChangesButton1.addActionListener(this);
+        rosterChangesButton1.setBounds(350,400,size.width,size.height+20);
+        add(rosterChangesButton1);
+        rosterChangesButton1.setVisible(false);
+        
+        rosterChangesButton2 = new JButton("Submit");
+        size = rosterChangesButton2.getPreferredSize();
+        rosterChangesButton2.addActionListener(this);
+        rosterChangesButton2.setBounds(350,400,size.width,size.height+20);
+        add(rosterChangesButton2);
+        rosterChangesButton2.setVisible(false);
+        
+        /*inputWindow = new JPanel();
         inputWindow.setLayout(null);
         Dimension smallerDim = new Dimension(200,100);
         inputWindow.setMinimumSize(smallerDim);
@@ -387,8 +469,9 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         //setLayout(null);
         inputWindow.setBackground(Color.lightGray);
         inputWindow.setBounds(300,200, 500,300);
-        add(inputWindow);
+        add(inputWindow);*/
         //inputWindow.setVisible(false);
+        
     }
 
     /*
@@ -442,13 +525,13 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }
         if (action.getSource() == classAddButton)
         {
-            inputWindow.setVisible(true);
+            //inputWindow.setVisible(true);
         }
         if (action.getSource() == class1Button)
         {
-            assignmentButton.setVisible(true);
-            rosterButton.setVisible(true);
-            gradebookButton.setVisible(true);
+            assignmentButton1.setVisible(true);
+            rosterButton1.setVisible(true);
+            gradebookButton1.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -464,12 +547,33 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             size =  classLabel.getPreferredSize();
             classLabel.setBounds(50, 50, size.width, size.height);
             classLabel.setVisible(true);
+            /*for (int i = 0; i < assignments1.size(); i++)
+        {
+            
+        }*/
+            for (int i = 0; i < assignments1.size(); i++)
+            {
+                assignmentsTable.setValueAt(assignments1.get(i).getName(),i,0);
+                assignmentsTable.setValueAt(assignments1.get(i).getCategory(),i,1);
+                assignmentsTable.setValueAt(assignments1.get(i).getMaxScore(),i,2);
+                
+                rosterTable1.setValueAt(roster1.get(i).getFirstName(),i,0);
+                rosterTable1.setValueAt(roster1.get(i).getLastName(),i,1);
+                rosterTable1.setValueAt(roster1.get(i).getID(),i,2);
+                rosterTable1.setValueAt(roster1.get(i).getOverallGrade(),i,3);
+                
+                gradebookTable.setValueAt(assignments1.get(i).getName(),i,0);
+                gradebookTable.setValueAt(gradebook1.getScale()[i],i,1);
+                gradebookTable.setValueAt(gradebook1.getCatNames().get(i),i,2);
+                gradebookTable.setValueAt(gradebook1.getCatID().get(i),i,3);
+                gradebookTable.setValueAt(gradebook1.getCatWeights().get(i),i,4);
+            }
         }
         if (action.getSource() == class2Button)
         {
-            assignmentButton.setVisible(true);
-            rosterButton.setVisible(true);
-            gradebookButton.setVisible(true);
+            assignmentButton2.setVisible(true);
+            rosterButton2.setVisible(true);
+            gradebookButton2.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -485,12 +589,30 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             size =  classLabel.getPreferredSize();
             classLabel.setBounds(50, 50, size.width, size.height);
             classLabel.setVisible(true);
+            
+            for (int i = 0; i < assignments2.size(); i++)
+            {
+                assignmentsTable.setValueAt(assignments2.get(i).getName(),i,0);
+                assignmentsTable.setValueAt(assignments2.get(i).getCategory(),i,1);
+                assignmentsTable.setValueAt(assignments2.get(i).getMaxScore(),i,2);
+                
+                rosterTable2.setValueAt(roster2.get(i).getFirstName(),i,0);
+                rosterTable2.setValueAt(roster2.get(i).getLastName(),i,1);
+                rosterTable2.setValueAt(roster2.get(i).getID(),i,2);
+                rosterTable2.setValueAt(roster2.get(i).getOverallGrade(),i,3);
+                
+                gradebookTable.setValueAt(assignments2.get(i).getName(),i,0);
+                gradebookTable.setValueAt(gradebook2.getScale()[i],i,1);
+                gradebookTable.setValueAt(gradebook2.getCatNames().get(i),i,2);
+                gradebookTable.setValueAt(gradebook2.getCatID().get(i),i,3);
+                gradebookTable.setValueAt(gradebook2.getCatWeights().get(i),i,4);
+            }
         }
         if (action.getSource() == class3Button)
         {
-            assignmentButton.setVisible(true);
-            rosterButton.setVisible(true);
-            gradebookButton.setVisible(true);
+            assignmentButton1.setVisible(true);
+            rosterButton1.setVisible(true);
+            gradebookButton1.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -509,9 +631,9 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }
         if (action.getSource() == class4Button)
         {
-            assignmentButton.setVisible(true);
-            rosterButton.setVisible(true);
-            gradebookButton.setVisible(true);
+            assignmentButton1.setVisible(true);
+            rosterButton1.setVisible(true);
+            gradebookButton1.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -530,9 +652,9 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }
         if (action.getSource() == class5Button)
         {
-            assignmentButton.setVisible(true);
-            rosterButton.setVisible(true);
-            gradebookButton.setVisible(true);
+            assignmentButton1.setVisible(true);
+            rosterButton1.setVisible(true);
+            gradebookButton1.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -551,9 +673,9 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }
         if (action.getSource() == class6Button)
         {
-            assignmentButton.setVisible(true);
-            rosterButton.setVisible(true);
-            gradebookButton.setVisible(true);
+            assignmentButton1.setVisible(true);
+            rosterButton1.setVisible(true);
+            gradebookButton1.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -572,9 +694,9 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
         }
         if (action.getSource() == class7Button)
         {
-            assignmentButton.setVisible(true);
-            rosterButton.setVisible(true);
-            gradebookButton.setVisible(true);
+            assignmentButton1.setVisible(true);
+            rosterButton1.setVisible(true);
+            gradebookButton1.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -591,35 +713,63 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             classLabel.setBounds(50, 50, size.width, size.height);
             classLabel.setVisible(true);
         }
-        if (action.getSource() == assignmentButton)
+        if (action.getSource() == assignmentButton1)
         {
             assignmentsPane.setVisible(true);
             gradebookPane.setVisible(false);
-            assignmentButton.setVisible(false);
-            rosterButton.setVisible(true);
-            gradebookButton.setVisible(true);
-            rosterPane.setVisible(false);
-            assignmentAddButton.setVisible(true);
-            rosterAddButton.setVisible(false);
-            gradebookAddButton.setVisible(false);
+            assignmentButton1.setVisible(false);
+            rosterButton1.setVisible(true);
+            gradebookButton1.setVisible(true);
+            rosterPane1.setVisible(false);
+            assignmentAddButton1.setVisible(true);
+            rosterAddButton1.setVisible(false);
+            gradebookAddButton1.setVisible(false);
             
             titleLabel.setText("Assignments");
             //titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
             size =  titleLabel.getPreferredSize();
             titleLabel.setBounds(200, 50, size.width, size.height);
             titleLabel.setVisible(true);
+            nameLabel.setVisible(false);
+            firstNameEntry.setVisible(false);
+            lastNameEntry.setVisible(false);
+            rosterChangesButton1.setVisible(false);
+            rosterChangesButton2.setVisible(false);
         }
-        if (action.getSource() == rosterButton)
+        if (action.getSource() == assignmentButton2)
+        {
+            assignmentsPane.setVisible(true);
+            gradebookPane.setVisible(false);
+            assignmentButton2.setVisible(false);
+            rosterButton2.setVisible(true);
+            gradebookButton2.setVisible(true);
+            rosterPane2.setVisible(false);
+            assignmentAddButton2.setVisible(true);
+            rosterAddButton2.setVisible(false);
+            gradebookAddButton2.setVisible(false);
+            
+            titleLabel.setText("Assignments");
+            //titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
+            size =  titleLabel.getPreferredSize();
+            titleLabel.setBounds(200, 50, size.width, size.height);
+            titleLabel.setVisible(true);
+            nameLabel.setVisible(false);
+            firstNameEntry.setVisible(false);
+            lastNameEntry.setVisible(false);
+            rosterChangesButton1.setVisible(false);
+            rosterChangesButton2.setVisible(false);
+        }
+        if (action.getSource() == rosterButton1)
         {
             assignmentsPane.setVisible(false);
             gradebookPane.setVisible(false);
-            assignmentButton.setVisible(true);
-            rosterButton.setVisible(false);
-            gradebookButton.setVisible(true);
-            rosterPane.setVisible(true);
-            assignmentAddButton.setVisible(false);
-            rosterAddButton.setVisible(true);
-            gradebookAddButton.setVisible(false);
+            assignmentButton1.setVisible(true);
+            rosterButton1.setVisible(false);
+            gradebookButton1.setVisible(true);
+            rosterPane1.setVisible(true);
+            assignmentAddButton1.setVisible(false);
+            rosterAddButton1.setVisible(true);
+            gradebookAddButton1 .setVisible(false);
             
             titleLabel.setText("Roster");
             //titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
@@ -627,35 +777,88 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
             titleLabel.setBounds(200, 50, size.width, size.height);
             titleLabel.setVisible(true);
         }
-        if (action.getSource() == gradebookButton)
+        if (action.getSource() == rosterButton2)
         {
             assignmentsPane.setVisible(false);
-            rosterPane.setVisible(false);
-            assignmentButton.setVisible(true);
-            rosterButton.setVisible(true);
-            gradebookButton.setVisible(false);
+            gradebookPane.setVisible(false);
+            assignmentButton2.setVisible(true);
+            rosterButton2.setVisible(false);
+            gradebookButton2.setVisible(true);
+            rosterPane2.setVisible(true);
+            assignmentAddButton2.setVisible(false);
+            rosterAddButton2.setVisible(true);
+            gradebookAddButton2.setVisible(false);
+            
+            titleLabel.setText("Roster");
+            //titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
+            size =  titleLabel.getPreferredSize();
+            titleLabel.setBounds(200, 50, size.width, size.height);
+            titleLabel.setVisible(true);
+        }
+        if (action.getSource() == gradebookButton1)
+        {
+            assignmentsPane.setVisible(false);
+            rosterPane1.setVisible(false);
+            assignmentButton1.setVisible(true);
+            rosterButton1.setVisible(true);
+            gradebookButton1.setVisible(false);
             gradebookPane.setVisible(true);
-            assignmentAddButton.setVisible(false);
-            rosterAddButton.setVisible(false);
-            gradebookAddButton.setVisible(true);
+            assignmentAddButton1.setVisible(false);
+            rosterAddButton1.setVisible(false);
+            gradebookAddButton1.setVisible(true);
             
             titleLabel.setText("Gradebook");
             //titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
             size =  titleLabel.getPreferredSize();
             titleLabel.setBounds(200, 50, size.width, size.height);
             titleLabel.setVisible(true);
+            nameLabel.setVisible(false);
+            firstNameEntry.setVisible(false);
+            lastNameEntry.setVisible(false);
+            rosterChangesButton1.setVisible(false);
+            rosterChangesButton2.setVisible(false);
+        }
+        if (action.getSource() == gradebookButton2)
+        {
+            assignmentsPane.setVisible(false);
+            rosterPane2.setVisible(false);
+            assignmentButton2.setVisible(true);
+            rosterButton2.setVisible(true);
+            gradebookButton2.setVisible(false);
+            gradebookPane.setVisible(true);
+            assignmentAddButton2.setVisible(false);
+            rosterAddButton2.setVisible(false);
+            gradebookAddButton2.setVisible(true);
+            
+            titleLabel.setText("Gradebook");
+            //titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
+            size =  titleLabel.getPreferredSize();
+            titleLabel.setBounds(200, 50, size.width, size.height);
+            titleLabel.setVisible(true);
+            nameLabel.setVisible(false);
+            firstNameEntry.setVisible(false);
+            lastNameEntry.setVisible(false);
+            rosterChangesButton1.setVisible(false);
+            rosterChangesButton2.setVisible(false);
         }
         if (action.getSource() == classesButton)
         {
             assignmentsPane.setVisible(false);
-            assignmentButton.setVisible(false);
-            rosterButton.setVisible(false);
-            rosterPane.setVisible(false);
-            gradebookButton.setVisible(false);
+            assignmentButton1.setVisible(false);
+            rosterButton1.setVisible(false);
+            rosterPane1.setVisible(false);
+            rosterPane2.setVisible(false);
+            gradebookButton1.setVisible(false);
             gradebookPane.setVisible(false);
-            assignmentAddButton.setVisible(false);
-            rosterAddButton.setVisible(false);
-            gradebookAddButton.setVisible(false);
+            assignmentAddButton1.setVisible(false);
+            rosterAddButton1.setVisible(false);
+            gradebookAddButton1.setVisible(false);
+            assignmentButton2.setVisible(false);
+            rosterButton2.setVisible(false);
+            gradebookButton2.setVisible(false);
+            assignmentAddButton2.setVisible(false);
+            rosterAddButton2.setVisible(false);
+            gradebookAddButton2.setVisible(false);
             titleLabel.setText("Welcome, Professor " + teacher.get(0));
             size =  titleLabel.getPreferredSize();
             titleLabel.setBounds(50, 50, size.width, size.height);
@@ -677,6 +880,71 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
                 class7Button.setVisible(true);
             classAddButton.setVisible(true);
             classLabel.setVisible(false);
+            nameLabel.setVisible(false);
+            firstNameEntry.setVisible(false);
+            lastNameEntry.setVisible(false);
+            rosterChangesButton1.setVisible(false);
+            rosterChangesButton2.setVisible(false);
+        }
+        if (action.getSource() == rosterAddButton1)
+        {
+            nameLabel.setVisible(true);
+            firstNameEntry.setVisible(true);
+            lastNameEntry.setVisible(true);
+            firstNameEntry.setText("");
+            lastNameEntry.setText("");
+            rosterChangesButton1.setVisible(true);
+        }
+        if (action.getSource() == rosterAddButton2)
+        {
+            nameLabel.setVisible(true);
+            firstNameEntry.setVisible(true);
+            lastNameEntry.setVisible(true);
+            firstNameEntry.setText("");
+            lastNameEntry.setText("");
+            rosterChangesButton2.setVisible(true);
+        }
+        if (action.getSource() == firstNameEntry)
+        {
+            
+        }
+        if (action.getSource() == lastNameEntry)
+        {
+            
+        }
+        if(action.getSource() ==  rosterChangesButton1)
+        {
+            rosterTableModel1.addRow(new Object[]{"","","",""});
+            String firstName = firstNameEntry.getText();
+            String lastName = lastNameEntry.getText();
+            course1.addStudent(firstName, lastName);
+            rosterTable1.setValueAt(firstName,rosterTableModel1.getRowCount()-1,0);
+            rosterTable1.setValueAt(lastName,rosterTableModel1.getRowCount()-1,1);
+            rosterTable1.setValueAt(roster1.get(rosterTableModel1.getRowCount()-1).getID(),rosterTableModel1.getRowCount()-1,2);
+            rosterTable1.setValueAt(roster1.get(rosterTableModel1.getRowCount()-1).getOverallGrade(),rosterTableModel1.getRowCount()-1,3);
+            
+            try{
+                writer.saveCourse(course1, "course1");
+            } catch (IOException e){
+                System.out.println("error saving");
+            }
+        }
+        if(action.getSource() ==  rosterChangesButton2)
+        {
+            rosterTableModel2.addRow(new Object[]{"","","",""});
+            String firstName = firstNameEntry.getText();
+            String lastName = lastNameEntry.getText();
+            course2.addStudent(firstName, lastName);
+            rosterTable2.setValueAt(firstName,rosterTableModel2.getRowCount()-1,0);
+            rosterTable2.setValueAt(lastName,rosterTableModel2.getRowCount()-1,1);
+            rosterTable2.setValueAt(roster2.get(rosterTableModel2.getRowCount()-1).getID(),rosterTableModel2.getRowCount()-1,2);
+            rosterTable2.setValueAt(roster2.get(rosterTableModel2.getRowCount()-1).getOverallGrade(),rosterTableModel2.getRowCount()-1,3);
+            
+            try{
+                writer.saveCourse(course2, "course2");
+            } catch (IOException e){
+                System.out.println("error saving");
+            }
         }
     }
     
@@ -714,6 +982,7 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
     private JLabel helpLabel1;
     private JLabel titleLabel;
     private JLabel classLabel;
+    private JLabel nameLabel;
 
     private JButton helpButton;
     private JButton classAddButton;
@@ -724,29 +993,42 @@ public class Window extends JPanel implements ActionListener, MouseListener, Foc
     private JButton class5Button;
     private JButton class6Button;
     private JButton class7Button;
-    private JButton assignmentAddButton;
-    private JButton assignmentButton;
-    private JButton rosterAddButton;
-    private JButton rosterButton;
-    private JButton gradebookAddButton;
-    private JButton gradebookButton;
+    private JButton assignmentAddButton1;
+    private JButton assignmentAddButton2;
+    private JButton assignmentButton1;
+    private JButton assignmentButton2;
+    private JButton rosterAddButton1;
+    private JButton rosterAddButton2;
+    private JButton rosterButton1;
+    private JButton rosterButton2;
+    private JButton gradebookAddButton1;
+    private JButton gradebookAddButton2;
+    private JButton gradebookButton1;
+    private JButton gradebookButton2;
     private JButton classesButton;
+    private JButton rosterChangesButton1;
+    private JButton rosterChangesButton2;
     
     private JPasswordField pinField;
 
+    private JTextField firstNameEntry;
+    private JTextField lastNameEntry;
     
     private JTable assignmentsTable;
-    private JTable rosterTable;
+    private JTable rosterTable1;
+    private JTable rosterTable2;
     private JTable gradebookTable;
     
     private JScrollPane assignmentsPane;
-    private JScrollPane rosterPane;
+    private JScrollPane rosterPane1;
+    private JScrollPane rosterPane2;
     private JScrollPane gradebookPane;
     
-    private JPanel inputWindow;
+    //private JPanel inputWindow;
     
     private DefaultTableModel assignmentsTableModel;
-    private DefaultTableModel rosterTableModel;
+    private DefaultTableModel rosterTableModel1;
+    private DefaultTableModel rosterTableModel2;
     private DefaultTableModel gradebookTableModel;
     private DefaultListModel<String> overviewPaneTabs;
     private DefaultListModel<String> classPaneTabs;

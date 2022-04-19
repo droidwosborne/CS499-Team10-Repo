@@ -18,6 +18,9 @@ public class Main {
         // Code to make an example course
         boolean makeCourse1 = true;
         if(makeCourse1) makeCourse1();
+        
+        boolean makeCourse2 = true;
+        if(makeCourse2) makeCourse2();
 
         //readSaveTest
         CourseList clTest = new CourseList();
@@ -68,9 +71,9 @@ public class Main {
         Vector<Integer> catID = new Vector<Integer>();
         for(Integer i=0; i<3; i++) catID.add(i);
         Vector<Float> catWeights = new Vector<Float>();
-        catWeights.add(33.6F);
-        catWeights.add(20.0F);
-        catWeights.add(46.4F);
+        catWeights.add(15.0F);
+        catWeights.add(40.0F);
+        catWeights.add(45.0F);
         Gradebook gradebook = new Gradebook(assignments, scale, catNames, catID, catWeights);
         // Final course stuff
         Course course1 = new Course(gradebook, roster);
@@ -80,6 +83,55 @@ public class Main {
         WriteSave writeSave= new WriteSave();
         try {
             writeSave.saveCourse(course1, "course1");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void makeCourse2(){
+        // Roster population
+        Vector<Student> roster = new Vector<Student>();
+        Vector<Float> student1grades = new Vector<Float>();
+        Vector<Float> student2grades = new Vector<Float>();
+        Vector<Float> student3grades = new Vector<Float>();
+        for(int i = 0; i<3; i++){
+            student1grades.add((Float)((float)((100-i))));
+            student2grades.add((Float)((float)((90-i))));
+            student3grades.add((Float)((float)((80+i))));
+        }
+        Student student1 = new Student("Kyra", "Robertson", 0, 0.00F, student1grades);
+        Student student2 = new Student("Utopia", "Ross", 1, 0.00F, student2grades);
+        Student student3 = new Student("Michael", "Sterling", 2, 0.00F, student3grades);
+        roster.add(student1);
+        roster.add(student2);
+        roster.add(student3);
+        // Gradebook population
+        Vector<Assignment> assignments = new Vector<Assignment>();
+        Assignment assignment1 = new Assignment("Lab Assignment", 0, 200);
+        Assignment assignment2 = new Assignment("Mid-Term", 1, 300);
+        Assignment assignment3 = new Assignment("Final", 2, 400);
+        assignments.add(assignment1);
+        assignments.add(assignment2);
+        assignments.add(assignment3);
+        int[] scale = {61, 71, 81, 89};
+        Vector<String> catNames = new Vector<String>();
+        catNames.add("Labs");
+        catNames.add("Exam");
+        catNames.add("Final");
+        Vector<Integer> catID = new Vector<Integer>();
+        for(Integer i=0; i<3; i++) catID.add(i);
+        Vector<Float> catWeights = new Vector<Float>();
+        catWeights.add(30.0F);
+        catWeights.add(35.0F);
+        catWeights.add(35.0F);
+        Gradebook gradebook = new Gradebook(assignments, scale, catNames, catID, catWeights);
+        // Final course stuff
+        Course course2 = new Course(gradebook, roster);
+        course2.calculateOverallGrade(0);
+        course2.calculateOverallGrade(1);
+        course2.calculateOverallGrade(2);
+        WriteSave writeSave= new WriteSave();
+        try {
+            writeSave.saveCourse(course2, "course2");
         } catch (IOException e) {
             e.printStackTrace();
         }
