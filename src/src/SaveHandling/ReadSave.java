@@ -124,9 +124,9 @@ public class ReadSave {
         for (int i=0; i<studentsInfo.size(); i++){
             
             
-            for (int j=3; j<studentsInfo.size()-1;j++){
+            for (int k = 3; k < studentsInfo.get(i).length-1; k++){
             
-                studentGrades.add(Float.parseFloat(studentsInfo.get(i)[j]));
+                studentGrades.add(Float.parseFloat(studentsInfo.get(i)[k]));
             
             }
             studentVector.add(new Student(studentsInfo.get(i)[2],studentsInfo.get(i)[1],Integer.parseInt(studentsInfo.get(i)[0]),Float.parseFloat(studentsInfo.get(i)[studentsInfo.get(i).length-1]),studentGrades));
