@@ -57,7 +57,7 @@ public class Main {
         roster.add(student3);
         // Gradebook population
         Vector<Assignment> assignments = new Vector<Assignment>();
-        Assignment assignment1 = new Assignment("Sections 1.4-2.1", 0, 100);
+        Assignment assignment1 = new Assignment("Sections 1-2", 0, 100);
         Assignment assignment2 = new Assignment("Chapter 2", 1, 200);
         Assignment assignment3 = new Assignment("Chapters 1-3", 2, 300);
         assignments.add(assignment1);
