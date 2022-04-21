@@ -37,12 +37,16 @@ public class Window extends JPanel implements ActionListener{
     Vector<String> teacher = reader.teacherIn();
     Course course1 = reader.classDataIn("course1");
     Course course2 = reader.classDataIn("course2");
+    Course courseWhatIf1 = reader.classDataIn("course1");
     Vector<Student> roster1 = course1.getRoster();
     Vector<Student> roster2 = course2.getRoster();
+    Vector<Student> rosterWhatIf1 = courseWhatIf1.getRoster();
     Gradebook gradebook1 = course1.getGradebook();
     Gradebook gradebook2 = course2.getGradebook();
+    Gradebook gradebookWhatIf1 = courseWhatIf1.getGradebook();
     Vector<Assignment> assignments1 = course1.getGradebook().getAssignments();
     Vector<Assignment> assignments2 = course2.getGradebook().getAssignments();
+    Vector<Assignment> assignmentsWhatIf1 = courseWhatIf1.getGradebook().getAssignments();
         
     CourseList cList = new CourseList();
     Vector<String> courses = cList.getCourses();
@@ -114,6 +118,13 @@ public class Window extends JPanel implements ActionListener{
         classLabel.setFont(new Font("Serif", Font.BOLD, 24));
         add(classLabel);
         classLabel.setVisible(false);
+        
+        whatIfLabel = new JLabel("What-If");
+        whatIfLabel.setFont(new Font("Serif", Font.BOLD, 24));
+        size =  whatIfLabel.getPreferredSize();
+        whatIfLabel.setBounds(50, 100, size.width, size.height);
+        add(whatIfLabel);
+        whatIfLabel.setVisible(false);
         
         class1Button = new JButton();
         if (courses.size() >= 1)
@@ -217,6 +228,13 @@ public class Window extends JPanel implements ActionListener{
         add(assignmentButton2);
         assignmentButton2.setVisible(false);
         
+        assignmentWhatIfButton1 = new JButton("Assignments");
+        size = assignmentWhatIfButton1.getPreferredSize();
+        assignmentWhatIfButton1.addActionListener(this);
+        assignmentWhatIfButton1.setBounds(30,150,size.width,size.height+20);
+        add(assignmentWhatIfButton1);
+        assignmentWhatIfButton1.setVisible(false);
+        
         rosterButton1 = new JButton("Roster");
         size = rosterButton1.getPreferredSize();
         rosterButton1.addActionListener(this);
@@ -230,6 +248,13 @@ public class Window extends JPanel implements ActionListener{
         rosterButton2.setBounds(30,200,size.width,size.height+20);
         add(rosterButton2);
         rosterButton2.setVisible(false);
+        
+        rosterWhatIfButton1 = new JButton("Roster");
+        size = rosterWhatIfButton1.getPreferredSize();
+        rosterWhatIfButton1.addActionListener(this);
+        rosterWhatIfButton1.setBounds(30,200,size.width,size.height+20);
+        add(rosterWhatIfButton1);
+        rosterWhatIfButton1.setVisible(false);
         
         /*
          * Assignments Page
@@ -251,6 +276,24 @@ public class Window extends JPanel implements ActionListener{
         assignmentsPane1.setBounds(200, 100, 300, 250);
         add(assignmentsPane1);
         assignmentsPane1.setVisible(false);
+        
+        assignmentsWhatIfTableModel1 = new DefaultTableModel();
+        assignmentsWhatIfTableModel1.addColumn("Name");
+        assignmentsWhatIfTableModel1.addColumn("Category");
+        assignmentsWhatIfTableModel1.addColumn("Max Score");
+        assignmentsWhatIfTableModel1.addRow(new Object[]{"","","",""});
+        assignmentsWhatIfTableModel1.addRow(new Object[]{"","","",""});
+        assignmentsWhatIfTableModel1.addRow(new Object[]{"","","",""});
+
+        assignmentsWhatIfTable1 = new JTable(assignmentsWhatIfTableModel1);
+        assignmentsWhatIfTable1.setBackground(Color.lightGray);
+        JTableHeader assignmentWhatIfHeader1 = assignmentsWhatIfTable1.getTableHeader();
+        assignmentWhatIfHeader1.setBackground(Color.white);
+        assignmentWhatIfHeader1.setFont(new Font("Serif", Font.BOLD, 14));
+        assignmentsWhatIfPane1 = new JScrollPane(assignmentsTable1);
+        assignmentsWhatIfPane1.setBounds(200, 100, 300, 250);
+        add(assignmentsWhatIfPane1);
+        assignmentsWhatIfPane1.setVisible(false);
         
         assignmentsTableModel2 = new DefaultTableModel();
         assignmentsTableModel2.addColumn("Name");
@@ -286,6 +329,14 @@ public class Window extends JPanel implements ActionListener{
         assignmentAddButton2.setBounds(370,50,size.width-35,size.height);
         add(assignmentAddButton2);
         assignmentAddButton2.setVisible(false);
+        
+        assignmentWhatIfAddButton1 = new JButton("+");
+        assignmentWhatIfAddButton1.setFont(new Font("Serif", Font.BOLD, 20));
+        size = assignmentWhatIfAddButton1.getPreferredSize();
+        assignmentWhatIfAddButton1.addActionListener(this);
+        assignmentWhatIfAddButton1.setBounds(370,50,size.width-35,size.height);
+        add(assignmentWhatIfAddButton1);
+        assignmentWhatIfAddButton1.setVisible(false);
         
         assignmentLabel = new JLabel(" Name:                           Category:                       Score:");
         size = assignmentLabel.getPreferredSize();
@@ -328,6 +379,13 @@ public class Window extends JPanel implements ActionListener{
         add(assignmentChangesButton2);
         assignmentChangesButton2.setVisible(false);
         
+        assignmentWhatIfChangesButton1 = new JButton("Submit");
+        size = assignmentWhatIfChangesButton1.getPreferredSize();
+        assignmentWhatIfChangesButton1.addActionListener(this);
+        assignmentWhatIfChangesButton1.setBounds(420,400,size.width,size.height+20);
+        add(assignmentWhatIfChangesButton1);
+        assignmentWhatIfChangesButton1.setVisible(false);
+        
         scoreButton1 = new JButton("Edit Scores");
         size = scoreButton1.getPreferredSize();
         scoreButton1.addActionListener(this);
@@ -342,6 +400,13 @@ public class Window extends JPanel implements ActionListener{
         add(scoreButton2);
         scoreButton2.setVisible(false);
         
+        scoreWhatIfButton1 = new JButton("Edit Scores");
+        size = scoreWhatIfButton1.getPreferredSize();
+        scoreWhatIfButton1.addActionListener(this);
+        scoreWhatIfButton1.setBounds(30,300,size.width,size.height+20);
+        add(scoreWhatIfButton1);
+        scoreWhatIfButton1.setVisible(false);
+        
         scoreChangesButton1 = new JButton("Submit");
         size = scoreChangesButton1.getPreferredSize();
         scoreChangesButton1.addActionListener(this);
@@ -355,6 +420,13 @@ public class Window extends JPanel implements ActionListener{
         scoreChangesButton2.setBounds(280,400,size.width,size.height+20);
         add(scoreChangesButton2);
         scoreChangesButton2.setVisible(false);
+        
+        scoreWhatIfChangesButton1 = new JButton("Submit");
+        size = scoreWhatIfChangesButton1.getPreferredSize();
+        scoreWhatIfChangesButton1.addActionListener(this);
+        scoreWhatIfChangesButton1.setBounds(280,400,size.width,size.height+20);
+        add(scoreWhatIfChangesButton1);
+        scoreWhatIfChangesButton1.setVisible(false);
         
         /*
          * Roster Page
@@ -397,6 +469,25 @@ public class Window extends JPanel implements ActionListener{
         add(rosterPane2);
         rosterPane2.setVisible(false);
         
+        rosterWhatIfTableModel1 = new DefaultTableModel();
+        rosterWhatIfTableModel1.addColumn("First Name");
+        rosterWhatIfTableModel1.addColumn("Last Name");
+        rosterWhatIfTableModel1.addColumn("Student ID");
+        rosterWhatIfTableModel1.addColumn("Average");
+        rosterWhatIfTableModel1.addRow(new Object[]{"","","",""});
+        rosterWhatIfTableModel1.addRow(new Object[]{"","","",""});
+        rosterWhatIfTableModel1.addRow(new Object[]{"","","",""});
+
+        rosterWhatIfTable1 = new JTable(rosterWhatIfTableModel1);
+        rosterWhatIfTable1.setBackground(Color.lightGray);
+        JTableHeader studentWhatIfHeader1 = rosterWhatIfTable1.getTableHeader();
+        studentWhatIfHeader1.setBackground(Color.white);
+        studentWhatIfHeader1.setFont(new Font("Serif", Font.BOLD, 14));
+        rosterWhatIfPane1 = new JScrollPane(rosterTable1);
+        rosterWhatIfPane1.setBounds(200, 100, 550, 250);
+        add(rosterWhatIfPane1);
+        rosterWhatIfPane1.setVisible(false);
+        
         rosterAddButton1 = new JButton("+");
         rosterAddButton1.setFont(new Font("Serif", Font.BOLD, 20));
         size = rosterAddButton1.getPreferredSize();
@@ -412,6 +503,14 @@ public class Window extends JPanel implements ActionListener{
         rosterAddButton2.setBounds(300,50,size.width-35,size.height);
         add(rosterAddButton2);
         rosterAddButton2.setVisible(false);
+        
+        rosterWhatIfAddButton1 = new JButton("+");
+        rosterWhatIfAddButton1.setFont(new Font("Serif", Font.BOLD, 20));
+        size = rosterWhatIfAddButton1.getPreferredSize();
+        rosterWhatIfAddButton1.addActionListener(this);
+        rosterWhatIfAddButton1.setBounds(300,50,size.width-35,size.height);
+        add(rosterWhatIfAddButton1);
+        rosterWhatIfAddButton1.setVisible(false);
         
         nameLabel = new JLabel(" First Name:                   Last Name:");
         size = nameLabel.getPreferredSize();
@@ -445,6 +544,26 @@ public class Window extends JPanel implements ActionListener{
         lastNameEntry.setVisible(false);
         add(lastNameEntry);
         
+        rosterChangesButton1 = new JButton("Submit");
+        size = rosterChangesButton1.getPreferredSize();
+        rosterChangesButton1.addActionListener(this);
+        rosterChangesButton1.setBounds(350,400,size.width,size.height+20);
+        add(rosterChangesButton1);
+        rosterChangesButton1.setVisible(false);
+        
+        rosterChangesButton2 = new JButton("Submit");
+        size = rosterChangesButton2.getPreferredSize();
+        rosterChangesButton2.addActionListener(this);
+        rosterChangesButton2.setBounds(350,400,size.width,size.height+20);
+        add(rosterChangesButton2);
+        rosterChangesButton2.setVisible(false);
+        
+        rosterWhatIfChangesButton1 = new JButton("Submit");
+        size = rosterWhatIfChangesButton1.getPreferredSize();
+        rosterWhatIfChangesButton1.addActionListener(this);
+        rosterWhatIfChangesButton1.setBounds(350,400,size.width,size.height+20);
+        add(rosterWhatIfChangesButton1);
+        rosterWhatIfChangesButton1.setVisible(false);
         
         /*
          * Gradebook Setup
@@ -484,6 +603,24 @@ public class Window extends JPanel implements ActionListener{
         gradebookPane2.setBounds(550, 100, 300, 250);
         add(gradebookPane2);
         gradebookPane2.setVisible(false);
+        
+        gradebookWhatIfTableModel1 = new DefaultTableModel();
+        gradebookWhatIfTableModel1.addColumn("Category");
+        gradebookWhatIfTableModel1.addColumn("ID");
+        gradebookWhatIfTableModel1.addColumn("Weight");
+        gradebookWhatIfTableModel1.addRow(new Object[]{"","",""});
+        gradebookWhatIfTableModel1.addRow(new Object[]{"","",""});
+        gradebookWhatIfTableModel1.addRow(new Object[]{"","",""});
+
+        gradebookWhatIfTable1 = new JTable(gradebookWhatIfTableModel1);
+        gradebookWhatIfTable1.setBackground(Color.lightGray);
+        JTableHeader gradebookWhatIfHeader1 = gradebookWhatIfTable1.getTableHeader();
+        gradebookWhatIfHeader1.setBackground(Color.white);
+        gradebookWhatIfHeader1.setFont(new Font("Serif", Font.BOLD, 14));
+        gradebookWhatIfPane1 = new JScrollPane(gradebookWhatIfTable1);
+        gradebookWhatIfPane1.setBounds(550, 100, 300, 250);
+        add(gradebookWhatIfPane1);
+        gradebookWhatIfPane1.setVisible(false);
         
         aScoreEntry = new JTextField(3);
         aScoreEntry.setText("90");
@@ -533,6 +670,14 @@ public class Window extends JPanel implements ActionListener{
         add(gradebookAddButton2);
         gradebookAddButton2.setVisible(false);
         
+        gradebookWhatIfAddButton1 = new JButton("+");
+        gradebookWhatIfAddButton1.setFont(new Font("Serif", Font.BOLD, 20));
+        size = gradebookWhatIfAddButton1.getPreferredSize();
+        gradebookWhatIfAddButton1.addActionListener(this);
+        gradebookWhatIfAddButton1.setBounds(770,50,size.width-35,size.height);
+        add(gradebookWhatIfAddButton1);
+        gradebookWhatIfAddButton1.setVisible(false);
+        
         newCategory = new JTextField(10);
         newCategory.addActionListener(this);
         size = newCategory.getPreferredSize();
@@ -567,7 +712,12 @@ public class Window extends JPanel implements ActionListener{
         add(gradebookChangesButton2);
         gradebookChangesButton2.setVisible(false);
         
-        
+        gradebookWhatIfChangesButton1 = new JButton("Submit");
+        size = gradebookWhatIfChangesButton1.getPreferredSize();
+        gradebookWhatIfChangesButton1.addActionListener(this);
+        gradebookWhatIfChangesButton1.setBounds(270,400,size.width,size.height+20);
+        add(gradebookWhatIfChangesButton1);
+        gradebookWhatIfChangesButton1.setVisible(false);
         
         /*
          * Multiple Pages
@@ -587,19 +737,20 @@ public class Window extends JPanel implements ActionListener{
         add(classAddButton);
         classAddButton.setVisible(false);
         
-        rosterChangesButton1 = new JButton("Submit");
-        size = rosterChangesButton1.getPreferredSize();
-        rosterChangesButton1.addActionListener(this);
-        rosterChangesButton1.setBounds(350,400,size.width,size.height+20);
-        add(rosterChangesButton1);
-        rosterChangesButton1.setVisible(false);
+        whatIfButton1 = new JButton("What-If");
+        size = whatIfButton1.getPreferredSize();
+        whatIfButton1.addActionListener(this);
+        whatIfButton1.setBounds(650,440,size.width,size.height+20);
+        add(whatIfButton1);
+        whatIfButton1.setVisible(false);
         
-        rosterChangesButton2 = new JButton("Submit");
-        size = rosterChangesButton2.getPreferredSize();
-        rosterChangesButton2.addActionListener(this);
-        rosterChangesButton2.setBounds(350,400,size.width,size.height+20);
-        add(rosterChangesButton2);
-        rosterChangesButton2.setVisible(false);
+        whatIfButton2 = new JButton("What-If");
+        whatIfButton2.setFont(new Font("Serif", Font.BOLD, 20));
+        size = whatIfButton2.getPreferredSize();
+        whatIfButton2.addActionListener(this);
+        whatIfButton2.setBounds(650,440,size.width,size.height+20);
+        add(whatIfButton2);
+        whatIfButton2.setVisible(false);
     }
 
     /*
@@ -646,7 +797,7 @@ public class Window extends JPanel implements ActionListener{
                 helpLabel1.setVisible(true);
             }
             else if ((screenNumber == 0) || (screenNumber == 1) || (screenNumber == 2)){
-                helpLabel1.setText("<html>Click the tab to display<br>the gradebook section.");
+                helpLabel1.setText("<html>Click the tab to display<br>the gradebook section.</html>");
                 size = helpLabel1.getPreferredSize();
                 helpLabel1.setVisible(true);
             }
@@ -659,6 +810,7 @@ public class Window extends JPanel implements ActionListener{
         {
             assignmentButton1.setVisible(true);
             rosterButton1.setVisible(true);
+            whatIfButton1.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -695,6 +847,7 @@ public class Window extends JPanel implements ActionListener{
         {
             assignmentButton2.setVisible(true);
             rosterButton2.setVisible(true);
+            whatIfButton2.setVisible(true);
             class1Button.setVisible(false);
             class2Button.setVisible(false);
             class3Button.setVisible(false);
@@ -996,6 +1149,8 @@ public class Window extends JPanel implements ActionListener{
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
             categoryLabel.setVisible(false);
+            whatIfButton1.setVisible(false);
+            whatIfButton2.setVisible(false);
             
             if (class1Button.getText() != null)
                 class1Button.setVisible(true);
@@ -1326,6 +1481,276 @@ public class Window extends JPanel implements ActionListener{
                 System.out.println("error saving");
             }
         }
+        if(action.getSource() == whatIfButton1)
+        {
+            assignmentsWhatIfPane1.setVisible(false);
+            assignmentWhatIfButton1.setVisible(false);
+            rosterWhatIfButton1.setVisible(false);
+            rosterPane1.setVisible(false);
+            gradebookWhatIfPane1.setVisible(false);
+            assignmentWhatIfAddButton1.setVisible(false);
+            rosterWhatIfAddButton1.setVisible(false);
+            //rosterWhatIfAddButton2.setVisible(false);
+            classesButton.setVisible(false);
+            nameLabel.setVisible(false);
+            firstNameEntry.setVisible(false);
+            lastNameEntry.setVisible(false);
+            rosterWhatIfChangesButton1.setVisible(false);
+            aScoreEntry.setVisible(false);
+            bScoreEntry.setVisible(false);
+            cScoreEntry.setVisible(false);
+            dScoreEntry.setVisible(false);
+            scoreWhatIfButton1.setVisible(false);
+            scoreWhatIfChangesButton1.setVisible(false);
+            assignmentWhatIfChangesButton1.setVisible(false);
+            assignmentLabel.setVisible(false);
+            scoreLabel.setVisible(false);
+            assignmentName.setVisible(false);
+            assignmentCategory.setVisible(false);
+            assignmentScore.setVisible(false);
+            noCategoryLabel.setVisible(false);
+            gradebookWhatIfAddButton1.setVisible(false);
+            gradebookWhatIfChangesButton1.setVisible(false);
+            newCategory.setVisible(false);
+            categoryWeight.setVisible(false);
+            categoryLabel.setVisible(false);
+            
+            whatIfButton1.setVisible(false);
+            whatIfLabel.setVisible(true);
+            assignmentWhatIfButton1.setVisible(true);
+            rosterWhatIfButton1.setVisible(true);
+            
+            for (int i = 0; i < assignmentsWhatIf1.size(); i++)
+            {
+                assignmentsWhatIfTable1.setValueAt(assignmentsWhatIf1.get(i).getName(),i,0);
+                assignmentsWhatIfTable1.setValueAt(gradebookWhatIf1.getCatNames().get(i),i,1);
+                assignmentsWhatIfTable1.setValueAt(assignmentsWhatIf1.get(i).getMaxScore(),i,2);
+                
+                rosterWhatIfTable1.setValueAt(rosterWhatIf1.get(i).getFirstName(),i,0);
+                rosterWhatIfTable1.setValueAt(rosterWhatIf1.get(i).getLastName(),i,1);
+                rosterWhatIfTable1.setValueAt(rosterWhatIf1.get(i).getID(),i,2);
+                rosterWhatIfTable1.setValueAt(rosterWhatIf1.get(i).getOverallGrade(),i,3);
+                
+                gradebookWhatIfTable1.setValueAt(gradebookWhatIf1.getCatNames().get(i),i,0);
+                gradebookWhatIfTable1.setValueAt(gradebookWhatIf1.getCatID().get(i),i,1);
+                gradebookWhatIfTable1.setValueAt(gradebookWhatIf1.getCatWeights().get(i),i,2);
+            }
+        }
+        if (action.getSource() == assignmentWhatIfButton1)
+        {
+            assignmentsWhatIfPane1.setVisible(true);
+            gradebookWhatIfPane1.setVisible(true);
+            assignmentWhatIfButton1.setVisible(false);
+            rosterWhatIfButton1.setVisible(true);
+            rosterWhatIfPane1.setVisible(false);
+            assignmentWhatIfAddButton1.setVisible(true);
+            rosterWhatIfAddButton1.setVisible(false);
+            
+            titleLabel.setText("Assignments                       Gradebook Setup");
+            size =  titleLabel.getPreferredSize();
+            titleLabel.setBounds(200, 50, size.width, size.height);
+            titleLabel.setVisible(true);
+            nameLabel.setVisible(false);
+            firstNameEntry.setVisible(false);
+            lastNameEntry.setVisible(false);
+            rosterWhatIfChangesButton1.setVisible(false);
+            scoreWhatIfButton1.setVisible(true);
+            gradebookWhatIfAddButton1.setVisible(true);
+            gradebookWhatIfChangesButton1.setVisible(false);
+            newCategory.setVisible(false);
+            categoryWeight.setVisible(false);
+            categoryLabel.setVisible(false);
+        }
+        if (action.getSource() == assignmentWhatIfAddButton1)
+        {
+            assignmentLabel.setVisible(!assignmentLabel.isVisible());
+            assignmentName.setVisible(!assignmentName.isVisible());
+            assignmentCategory.setVisible(!assignmentCategory.isVisible());
+            assignmentScore.setVisible(!assignmentScore.isVisible());
+            assignmentName.setText("");
+            assignmentCategory.setText("");
+            assignmentScore.setText("100");
+            assignmentWhatIfChangesButton1.setVisible(!assignmentWhatIfChangesButton1.isVisible());
+            noCategoryLabel.setVisible(false);
+            scoreLabel.setVisible(false);
+            aScoreEntry.setVisible(false);
+            bScoreEntry.setVisible(false);
+            cScoreEntry.setVisible(false);
+            dScoreEntry.setVisible(false);
+            scoreWhatIfChangesButton1.setVisible(false);
+            gradebookWhatIfChangesButton1.setVisible(false);
+            newCategory.setVisible(false);
+            categoryWeight.setVisible(false);
+            categoryLabel.setVisible(false);
+            noCategoryLabel.setVisible(false);
+        }
+        if(action.getSource() ==  assignmentWhatIfChangesButton1)
+        {
+            noCategoryLabel.setVisible(false);
+            String name = assignmentName.getText();
+            String cat = assignmentCategory.getText();
+            int catID = -1;
+            Vector<String> catNames = gradebookWhatIf1.getCatNames();
+            boolean catExists = false;
+            for (int i = 0; i < catNames.size(); i++)
+            {
+                if (cat.equals(catNames.get(i)))
+                {
+                    catExists = true;
+                    catID = gradebookWhatIf1.getCatID().get(i);
+                }
+            }
+            if(catExists == true)
+            {    
+                assignmentsWhatIfTableModel1.addRow(new Object[]{"","",""});
+                int score = Integer.parseInt(assignmentScore.getText());
+                courseWhatIf1.addAssignment(name, catID, score);
+                assignmentsWhatIfTable1.setValueAt(name,assignmentsWhatIfTable1.getRowCount()-1,0);
+                assignmentsWhatIfTable1.setValueAt(cat,assignmentsWhatIfTable1.getRowCount()-1,1);
+                assignmentsWhatIfTable1.setValueAt(score,assignmentsWhatIfTable1.getRowCount()-1,2);
+
+                /*try{
+                    writer.saveCourse(course1, "course1");
+                } catch (IOException e){
+                    System.out.println("error saving");
+                }*/
+            }
+            else
+            {
+                noCategoryLabel.setVisible(true);
+            }
+        }
+        if(action.getSource() == scoreWhatIfButton1)
+        {
+            aScoreEntry.setVisible(!aScoreEntry.isVisible());
+            bScoreEntry.setVisible(!bScoreEntry.isVisible());
+            cScoreEntry.setVisible(!cScoreEntry.isVisible());
+            dScoreEntry.setVisible(!dScoreEntry.isVisible());
+            scoreWhatIfChangesButton1.setVisible(!scoreWhatIfChangesButton1.isVisible());
+            scoreLabel.setVisible(!scoreLabel.isVisible());
+            assignmentLabel.setVisible(false);
+            assignmentName.setVisible(false);
+            assignmentCategory.setVisible(false);
+            assignmentScore.setVisible(false);
+            assignmentWhatIfChangesButton1.setVisible(false);
+            noCategoryLabel.setVisible(false);
+            gradebookWhatIfChangesButton1.setVisible(false);
+            newCategory.setVisible(false);
+            categoryWeight.setVisible(false);
+            categoryLabel.setVisible(false);
+            noCategoryLabel.setVisible(false);
+        }
+        if(action.getSource() ==  scoreWhatIfChangesButton1)
+        {
+            
+            int[] inputScale = new int[4];
+            inputScale[0] = Integer.parseInt(aScoreEntry.getText());
+            inputScale[1] = Integer.parseInt(bScoreEntry.getText());
+            inputScale[2] = Integer.parseInt(cScoreEntry.getText());
+            inputScale[3] = Integer.parseInt(dScoreEntry.getText());
+            gradebookWhatIf1.setScale(inputScale);
+            /*try{
+                writer.saveCourse(course1, "course1");
+            } catch (IOException e){
+                System.out.println("error saving");
+            }*/
+        }
+        if (action.getSource() == rosterWhatIfButton1)
+        {
+            assignmentsWhatIfPane1.setVisible(false);
+            gradebookWhatIfPane1.setVisible(false);
+            assignmentWhatIfButton1.setVisible(true);
+            rosterWhatIfButton1.setVisible(false);
+            rosterWhatIfPane1.setVisible(true);
+            assignmentWhatIfAddButton1.setVisible(false);
+            rosterWhatIfAddButton1.setVisible(true);
+            scoreWhatIfButton1.setVisible(false);
+            scoreWhatIfChangesButton1.setVisible(false);
+            aScoreEntry.setVisible(false);
+            bScoreEntry.setVisible(false);
+            cScoreEntry.setVisible(false);
+            dScoreEntry.setVisible(false);
+            assignmentWhatIfChangesButton1.setVisible(false);
+            assignmentLabel.setVisible(false);
+            scoreLabel.setVisible(false);
+            assignmentName.setVisible(false);
+            assignmentCategory.setVisible(false);
+            assignmentScore.setVisible(false);
+            noCategoryLabel.setVisible(false);
+            gradebookWhatIfAddButton1.setVisible(false);
+            gradebookWhatIfChangesButton1.setVisible(false);
+            newCategory.setVisible(false);
+            categoryWeight.setVisible(false);
+            categoryLabel.setVisible(false);
+            
+            titleLabel.setText("Roster");
+            size =  titleLabel.getPreferredSize();
+            titleLabel.setBounds(200, 50, size.width, size.height);
+            titleLabel.setVisible(true);
+        }
+        if (action.getSource() == rosterWhatIfAddButton1)
+        {
+            nameLabel.setVisible(!nameLabel.isVisible());
+            firstNameEntry.setVisible(!firstNameEntry.isVisible());
+            lastNameEntry.setVisible(!lastNameEntry.isVisible());
+            firstNameEntry.setText("");
+            lastNameEntry.setText("");
+            rosterWhatIfChangesButton1.setVisible(!rosterWhatIfChangesButton1.isVisible());
+        }
+        if(action.getSource() ==  rosterChangesButton1)
+        {
+            rosterWhatIfTableModel1.addRow(new Object[]{"","","",""});
+            String firstName = firstNameEntry.getText();
+            String lastName = lastNameEntry.getText();
+            courseWhatIf1.addStudent(firstName, lastName);
+            rosterWhatIfTable1.setValueAt(firstName,rosterWhatIfTableModel1.getRowCount()-1,0);
+            rosterWhatIfTable1.setValueAt(lastName,rosterWhatIfTableModel1.getRowCount()-1,1);
+            rosterWhatIfTable1.setValueAt(rosterWhatIf1.get(rosterWhatIfTableModel1.getRowCount()-1).getID(),rosterWhatIfTableModel1.getRowCount()-1,2);
+            rosterWhatIfTable1.setValueAt(rosterWhatIf1.get(rosterWhatIfTableModel1.getRowCount()-1).getOverallGrade(),rosterWhatIfTableModel1.getRowCount()-1,3);
+            
+            /*try{
+                writer.saveCourse(course1, "course1");
+            } catch (IOException e){
+                System.out.println("error saving");
+            }*/
+        }
+        if(action.getSource() == gradebookWhatIfAddButton1)
+        {
+            gradebookWhatIfChangesButton1.setVisible(!gradebookWhatIfChangesButton1.isVisible());
+            newCategory.setVisible(!newCategory.isVisible());
+            categoryWeight.setVisible(!categoryWeight.isVisible());
+            categoryLabel.setVisible(!categoryLabel.isVisible());
+            assignmentWhatIfChangesButton1.setVisible(false);
+            scoreWhatIfChangesButton1.setVisible(false);
+            assignmentLabel.setVisible(false);
+            assignmentName.setVisible(false);
+            assignmentCategory.setVisible(false);
+            assignmentScore.setVisible(false);
+            scoreLabel.setVisible(false);
+            aScoreEntry.setVisible(false);
+            bScoreEntry.setVisible(false);
+            cScoreEntry.setVisible(false);
+            dScoreEntry.setVisible(false);
+            noCategoryLabel.setVisible(false);
+            newCategory.setText("");
+            categoryWeight.setText("");
+        }
+        if(action.getSource() == gradebookWhatIfChangesButton1)
+        {
+            gradebookWhatIfTableModel1.addRow(new Object[]{"","","",""});
+            String name = newCategory.getText();
+            float weight = Float.parseFloat(categoryWeight.getText());
+            courseWhatIf1.addCategory(name, weight);
+            gradebookWhatIfTableModel1.setValueAt(name,gradebookWhatIfTableModel1.getRowCount()-1,0);
+            
+            gradebookWhatIfTableModel1.setValueAt(gradebookWhatIf1.getCatID().get(gradebookWhatIfTableModel1.getRowCount()-1),gradebookWhatIfTableModel1.getRowCount()-1,1);
+            gradebookWhatIfTableModel1.setValueAt(weight,gradebookWhatIfTableModel1.getRowCount()-1,2);
+            /*try{
+                writer.saveCourse(course1, "course1");
+            } catch (IOException e){
+                System.out.println("error saving");
+            }*/
+        }
     }
         
 
@@ -1340,6 +1765,7 @@ public class Window extends JPanel implements ActionListener{
     private JLabel assignmentLabel;
     private JLabel noCategoryLabel;
     private JLabel categoryLabel;
+    private JLabel whatIfLabel;
 
     private JButton helpButton;
     private JButton classAddButton;
@@ -1352,25 +1778,37 @@ public class Window extends JPanel implements ActionListener{
     private JButton class7Button;
     private JButton assignmentAddButton1;
     private JButton assignmentAddButton2;
+    private JButton assignmentWhatIfAddButton1;
     private JButton assignmentButton1;
     private JButton assignmentButton2;
+    private JButton assignmentWhatIfButton1;
     private JButton rosterAddButton1;
     private JButton rosterAddButton2;
+    private JButton rosterWhatIfAddButton1;
     private JButton gradebookAddButton1;
     private JButton gradebookAddButton2;
+    private JButton gradebookWhatIfAddButton1;
     private JButton rosterButton1;
     private JButton rosterButton2;
+    private JButton rosterWhatIfButton1;
     private JButton scoreButton1;
     private JButton scoreButton2;
+    private JButton scoreWhatIfButton1;
     private JButton scoreChangesButton1;
     private JButton scoreChangesButton2;
+    private JButton scoreWhatIfChangesButton1;
     private JButton classesButton;
     private JButton assignmentChangesButton1;
     private JButton assignmentChangesButton2;
+    private JButton assignmentWhatIfChangesButton1;
     private JButton rosterChangesButton1;
     private JButton rosterChangesButton2;
+    private JButton rosterWhatIfChangesButton1;
     private JButton gradebookChangesButton1;
     private JButton gradebookChangesButton2;
+    private JButton gradebookWhatIfChangesButton1;
+    private JButton whatIfButton1;
+    private JButton whatIfButton2;
     
     private JPasswordField pinField;
 
@@ -1388,26 +1826,35 @@ public class Window extends JPanel implements ActionListener{
     
     private JTable assignmentsTable1;
     private JTable assignmentsTable2;
+    private JTable assignmentsWhatIfTable1;
     private JTable rosterTable1;
     private JTable rosterTable2;
+    private JTable rosterWhatIfTable1;
     private JTable gradebookTable1;
     private JTable gradebookTable2;
+    private JTable gradebookWhatIfTable1;
     
     private JScrollPane assignmentsPane1;
     private JScrollPane assignmentsPane2;
+    private JScrollPane assignmentsWhatIfPane1;
     private JScrollPane rosterPane1;
     private JScrollPane rosterPane2;
+    private JScrollPane rosterWhatIfPane1;
     private JScrollPane gradebookPane1;
     private JScrollPane gradebookPane2;
+    private JScrollPane gradebookWhatIfPane1;
     
     private DefaultTableModel assignmentsTableModel1;
     private DefaultTableModel assignmentsTableModel2;
+    private DefaultTableModel assignmentsWhatIfTableModel1;
     private DefaultTableModel rosterTableModel1;
     private DefaultTableModel rosterTableModel2;
+    private DefaultTableModel rosterWhatIfTableModel1;
     private DefaultTableModel gradebookTableModel1;
     private DefaultTableModel gradebookTableModel2;
-    private DefaultListModel<String> overviewPaneTabs;
-    private DefaultListModel<String> classPaneTabs;
+    private DefaultTableModel gradebookWhatIfTableModel1;
+    //private DefaultListModel<String> overviewPaneTabs;
+    //private DefaultListModel<String> classPaneTabs;
 
     private Dimension size;
     private int screenNumber;
