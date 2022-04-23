@@ -114,7 +114,7 @@ public class CourseList {
     }
     
     
-    private String hash(String hTarget)throws NoSuchAlgorithmException{
+    public String hash(String hTarget)throws NoSuchAlgorithmException{
     
         MessageDigest md = MessageDigest.getInstance("SHA-512");
         byte[] messageDigest = md.digest(hTarget.getBytes());
@@ -122,6 +122,18 @@ public class CourseList {
         String hashtext = no.toString(16);
 
         return hashtext;
+    
+    }
+    
+    public void addCourse(String newCourse){
+    
+        courses.add(newCourse);
+    
+    }
+    
+    public void deleteCourse(int couseNum){
+    
+        courses.removeElementAt(couseNum);
     
     }
     
