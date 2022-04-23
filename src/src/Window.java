@@ -16,6 +16,7 @@ import javax.swing.table.JTableHeader;
 import src.SaveHandling.*;
 import java.io.IOException;
 import java.lang.ArrayIndexOutOfBoundsException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Vector;
 
 
@@ -37,7 +38,7 @@ public class Window extends JPanel implements ActionListener{
     Font labelFont = new Font("Serif", Font.PLAIN, 16);
     
     ReadSave reader = new ReadSave();
-    Vector<String> teacher = reader.teacherIn();
+    Vector<String> teacher = new Vector <String> (reader.teacherIn());
     Course course1 = reader.classDataIn("course1");
     Course course2 = reader.classDataIn("course2");
     Course courseWhatIf1 = reader.classDataIn("course1");
@@ -50,6 +51,7 @@ public class Window extends JPanel implements ActionListener{
     Vector<Assignment> assignments1 = course1.getGradebook().getAssignments();
     Vector<Assignment> assignments2 = course2.getGradebook().getAssignments();
     Vector<Assignment> assignmentsWhatIf1 = courseWhatIf1.getGradebook().getAssignments();
+    
         
     CourseList cList = new CourseList();
     Vector<String> courses = cList.getCourses();
@@ -917,11 +919,21 @@ public class Window extends JPanel implements ActionListener{
     * such as button click or text entry.
      */
     public void actionPerformed(ActionEvent action){
+        
+        
         if (action.getSource().equals(passwordField))
         {
             if(changeField.isVisible() == false)
             {
-                if(passwordField.getText().equals(password)) {
+                String pCheck = "";
+                try{
+                    pCheck = cList.hash(passwordField.getText());
+                 }
+                 catch(NoSuchAlgorithmException e){
+                     throw new RuntimeException(e);
+                 }
+                
+                if(pCheck.equals(cList.getPassword())) {
                     screenNumber = 0;
 
                     helpLabel1.setVisible(false);
@@ -1925,6 +1937,7 @@ public class Window extends JPanel implements ActionListener{
                changeField.setVisible(false);
                changeLabel.setVisible(false);
                changePwordButton.setVisible(true);
+               cList.setPassword(changeField.getText());
            }
            else
            {
