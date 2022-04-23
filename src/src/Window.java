@@ -772,19 +772,16 @@ public class Window extends JPanel implements ActionListener{
         
         assignment4Radio = new JRadioButton();
         assignment4Radio.setText(null);
-        
         add(assignment4Radio);
         assignment4Radio.setVisible(false);
         
         assignment5Radio = new JRadioButton();
         assignment5Radio.setText(null);
-        
         add(assignment5Radio);
         assignment5Radio.setVisible(false);
         
         assignment6Radio = new JRadioButton();
         assignment6Radio.setText(null);
-        
         add(assignment6Radio);
         assignment6Radio.setVisible(false);
         
@@ -811,25 +808,16 @@ public class Window extends JPanel implements ActionListener{
         
         student4Radio = new JRadioButton();
         student4Radio.setText(null);
-        size = student4Radio.getPreferredSize();
-        student4Radio.addActionListener(this);
-        student4Radio.setBounds(250,360,size.width,size.height+20);
         add(student4Radio);
         student4Radio.setVisible(false);
         
         student5Radio = new JRadioButton();
         student5Radio.setText(null);
-        size = student5Radio.getPreferredSize();
-        student5Radio.addActionListener(this);
-        student5Radio.setBounds(250,380,size.width,size.height+20);
         add(student5Radio);
         student5Radio.setVisible(false);
         
         student6Radio = new JRadioButton();
         student6Radio.setText(null);
-        size = student6Radio.getPreferredSize();
-        student6Radio.addActionListener(this);
-        student6Radio.setBounds(250,400,size.width,size.height+20);
         add(student6Radio);
         student6Radio.setVisible(false);
         
@@ -1374,14 +1362,23 @@ public class Window extends JPanel implements ActionListener{
             if(student4Radio.getText() == null)
             {
                 student4Radio.setText(roster1.get(3).getFirstName()+" "+roster1.get(3).getLastName());
+                size = student4Radio.getPreferredSize();
+                student4Radio.addActionListener(this);
+                student4Radio.setBounds(250,360,size.width,size.height+20);
             }
             else if(student5Radio.getText() == null)
             {
                 student5Radio.setText(roster1.get(4).getFirstName()+" "+roster1.get(4).getLastName());
+                size = student5Radio.getPreferredSize();
+                student5Radio.addActionListener(this);
+                student5Radio.setBounds(250,380,size.width,size.height+20);
             }
             else if(student6Radio.getText() == null)
             {
                 student6Radio.setText(roster1.get(5).getFirstName()+" "+roster1.get(5).getLastName());
+                size = student6Radio.getPreferredSize();
+                student6Radio.addActionListener(this);
+                student6Radio.setBounds(250,400,size.width,size.height+20);
             }
         }
         if(action.getSource() ==  rosterChangesButton2)
@@ -2143,6 +2140,9 @@ public class Window extends JPanel implements ActionListener{
         {
             assignment2Radio.setSelected(false);
             assignment3Radio.setSelected(false);
+            assignment4Radio.setSelected(false);
+            assignment5Radio.setSelected(false);
+            assignment6Radio.setSelected(false);
             if (assignment1Radio.isSelected() && student1Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(0).getScores().get(0)));
@@ -2157,107 +2157,441 @@ public class Window extends JPanel implements ActionListener{
             {
                 gradeChangeField.setText(Float.toString(roster1.get(2).getScores().get(0)));
                 gradeChange = 2;
+            }
+            if (assignment1Radio.isSelected() && student4Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(3).getScores().get(0)));
+                gradeChange = 3;
+            }
+            if (assignment1Radio.isSelected() && student5Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(4).getScores().get(0)));
+                gradeChange = 4;
+            }
+            if (assignment1Radio.isSelected() && student6Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(5).getScores().get(0)));
+                gradeChange = 5;
             }
         }
         if(action.getSource() == assignment2Radio)
         {
             assignment1Radio.setSelected(false);
             assignment3Radio.setSelected(false);
-            if (assignment1Radio.isSelected() && student1Radio.isSelected())
+            assignment4Radio.setSelected(false);
+            assignment5Radio.setSelected(false);
+            assignment6Radio.setSelected(false);
+            if (assignment2Radio.isSelected() && student1Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(0).getScores().get(1)));
-                gradeChange = 3;
+                gradeChange = 6;
             }
-            if (assignment1Radio.isSelected() && student2Radio.isSelected())
+            if (assignment2Radio.isSelected() && student2Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(1).getScores().get(1)));
-                gradeChange = 4;
+                gradeChange = 7;
             }
-            if (assignment1Radio.isSelected() && student3Radio.isSelected())
+            if (assignment2Radio.isSelected() && student3Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(2).getScores().get(1)));
-                gradeChange = 5;
+                gradeChange = 8;
+            }
+            if (assignment2Radio.isSelected() && student4Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(3).getScores().get(1)));
+                gradeChange = 9;
+            }
+            if (assignment2Radio.isSelected() && student5Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(4).getScores().get(1)));
+                gradeChange = 10;
+            }
+            if (assignment2Radio.isSelected() && student6Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(5).getScores().get(1)));
+                gradeChange = 11;
             }
         }
         if(action.getSource() == assignment3Radio)
         {
             assignment1Radio.setSelected(false);
             assignment2Radio.setSelected(false);
-            if (assignment1Radio.isSelected() && student1Radio.isSelected())
+            assignment4Radio.setSelected(false);
+            assignment5Radio.setSelected(false);
+            assignment6Radio.setSelected(false);
+            if (assignment3Radio.isSelected() && student1Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(0).getScores().get(2)));
-                gradeChange = 6;
+                gradeChange = 12;
             }
-            if (assignment1Radio.isSelected() && student2Radio.isSelected())
+            if (assignment3Radio.isSelected() && student2Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(1).getScores().get(2)));
-                gradeChange = 7;
+                gradeChange = 13;
             }
-            if (assignment1Radio.isSelected() && student3Radio.isSelected())
+            if (assignment3Radio.isSelected() && student3Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(2).getScores().get(2)));
-                gradeChange = 8;
+                gradeChange = 14;
+            }
+            if (assignment3Radio.isSelected() && student4Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(3).getScores().get(2)));
+                gradeChange = 15;
+            }
+            if (assignment3Radio.isSelected() && student5Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(4).getScores().get(2)));
+                gradeChange = 16;
+            }
+            if (assignment3Radio.isSelected() && student6Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(5).getScores().get(2)));
+                gradeChange = 17;
+            }
+        }
+        if(action.getSource() == assignment4Radio)
+        {
+            assignment1Radio.setSelected(false);
+            assignment2Radio.setSelected(false);
+            assignment3Radio.setSelected(false);
+            assignment5Radio.setSelected(false);
+            assignment6Radio.setSelected(false);
+            if (assignment4Radio.isSelected() && student1Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(0).getScores().get(3)));
+                gradeChange = 18;
+            }
+            if (assignment4Radio.isSelected() && student2Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(1).getScores().get(3)));
+                gradeChange = 19;
+            }
+            if (assignment4Radio.isSelected() && student3Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(2).getScores().get(3)));
+                gradeChange = 20;
+            }
+            if (assignment4Radio.isSelected() && student4Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(3).getScores().get(3)));
+                gradeChange = 21;
+            }
+            if (assignment4Radio.isSelected() && student5Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(4).getScores().get(3)));
+                gradeChange = 22;
+            }
+            if (assignment4Radio.isSelected() && student6Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(5).getScores().get(3)));
+                gradeChange = 23;
+            }
+        }
+        if(action.getSource() == assignment5Radio)
+        {
+            assignment1Radio.setSelected(false);
+            assignment2Radio.setSelected(false);
+            assignment3Radio.setSelected(false);
+            assignment4Radio.setSelected(false);
+            assignment6Radio.setSelected(false);
+            if (assignment5Radio.isSelected() && student1Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(0).getScores().get(4)));
+                gradeChange = 24;
+            }
+            if (assignment5Radio.isSelected() && student2Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(1).getScores().get(4)));
+                gradeChange = 25;
+            }
+            if (assignment5Radio.isSelected() && student3Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(2).getScores().get(4)));
+                gradeChange = 26;
+            }
+            if (assignment5Radio.isSelected() && student4Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(3).getScores().get(4)));
+                gradeChange = 27;
+            }
+            if (assignment5Radio.isSelected() && student5Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(4).getScores().get(4)));
+                gradeChange = 28;
+            }
+            if (assignment5Radio.isSelected() && student6Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(5).getScores().get(4)));
+                gradeChange = 29;
+            }
+        }
+        if(action.getSource() == assignment6Radio)
+        {
+            assignment1Radio.setSelected(false);
+            assignment2Radio.setSelected(false);
+            assignment3Radio.setSelected(false);
+            assignment4Radio.setSelected(false);
+            assignment5Radio.setSelected(false);
+            if (assignment6Radio.isSelected() && student1Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(0).getScores().get(5)));
+                gradeChange = 30;
+            }
+            if (assignment6Radio.isSelected() && student2Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(1).getScores().get(5)));
+                gradeChange = 31;
+            }
+            if (assignment6Radio.isSelected() && student3Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(2).getScores().get(5)));
+                gradeChange = 32;
+            }
+            if (assignment6Radio.isSelected() && student4Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(3).getScores().get(5)));
+                gradeChange = 33;
+            }
+            if (assignment6Radio.isSelected() && student5Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(4).getScores().get(5)));
+                gradeChange = 34;
+            }
+            if (assignment6Radio.isSelected() && student6Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(5).getScores().get(5)));
+                gradeChange = 35;
             }
         }
         if(action.getSource() == student1Radio)
         {
             student2Radio.setSelected(false);
             student3Radio.setSelected(false);
+            student4Radio.setSelected(false);
+            student5Radio.setSelected(false);
+            student6Radio.setSelected(false);
             if (assignment1Radio.isSelected() && student1Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(0).getScores().get(0)));
-                gradeChange = 0;
+                gradeChange = 36;
             }
             if (assignment2Radio.isSelected() && student1Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(0).getScores().get(1)));
-                gradeChange = 1;
+                gradeChange = 37;
             }
             if (assignment3Radio.isSelected() && student1Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(0).getScores().get(2)));
                 oldGrade = Float.parseFloat(gradeChangeField.getText());
-                gradeChange = 2;
+                gradeChange = 38;
+            }
+            if (assignment4Radio.isSelected() && student1Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(0).getScores().get(3)));
+                gradeChange = 39;
+            }
+            if (assignment5Radio.isSelected() && student1Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(0).getScores().get(4)));
+                gradeChange = 40;
+            }
+            if (assignment6Radio.isSelected() && student1Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(0).getScores().get(5)));
+                oldGrade = Float.parseFloat(gradeChangeField.getText());
+                gradeChange = 41;
             }
         }
         if(action.getSource() == student2Radio)
         {
             student1Radio.setSelected(false);
             student3Radio.setSelected(false);
+            student4Radio.setSelected(false);
+            student5Radio.setSelected(false);
+            student6Radio.setSelected(false);
             if (assignment1Radio.isSelected() && student2Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(1).getScores().get(0)));
-                gradeChange = 3;
+                gradeChange = 42;
             }
             if (assignment2Radio.isSelected() && student2Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(1).getScores().get(1)));
-                gradeChange = 4;
+                gradeChange = 43;
             }
             if (assignment3Radio.isSelected() && student2Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(1).getScores().get(2)));
-                gradeChange = 5;
+                gradeChange = 44;
+            }
+            if (assignment4Radio.isSelected() && student2Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(1).getScores().get(3)));
+                gradeChange = 45;
+            }
+            if (assignment5Radio.isSelected() && student2Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(1).getScores().get(4)));
+                gradeChange = 46;
+            }
+            if (assignment6Radio.isSelected() && student2Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(1).getScores().get(5)));
+                gradeChange = 47;
             }
         }
         if(action.getSource() == student3Radio)
         {
             student1Radio.setSelected(false);
             student2Radio.setSelected(false);
+            student4Radio.setSelected(false);
+            student5Radio.setSelected(false);
+            student6Radio.setSelected(false);
             if (assignment1Radio.isSelected() && student3Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(2).getScores().get(0)));
-                gradeChange = 6;
+                gradeChange = 48;
             }
             if (assignment2Radio.isSelected() && student3Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(2).getScores().get(1)));
-                gradeChange = 7;
+                gradeChange = 49;
             }
             if (assignment3Radio.isSelected() && student3Radio.isSelected())
             {
                 gradeChangeField.setText(Float.toString(roster1.get(2).getScores().get(2)));
-                gradeChange = 8;
+                gradeChange = 50;
+            }
+            if (assignment4Radio.isSelected() && student3Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(2).getScores().get(3)));
+                gradeChange = 51;
+            }
+            if (assignment5Radio.isSelected() && student3Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(2).getScores().get(4)));
+                gradeChange = 52;
+            }
+            if (assignment6Radio.isSelected() && student3Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(2).getScores().get(5)));
+                gradeChange = 53;
+            }
+        }
+        if(action.getSource() == student4Radio)
+        {
+            student1Radio.setSelected(false);
+            student2Radio.setSelected(false);
+            student3Radio.setSelected(false);
+            student5Radio.setSelected(false);
+            student6Radio.setSelected(false);
+            if (assignment1Radio.isSelected() && student4Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(3).getScores().get(0)));
+                gradeChange = 54;
+            }
+            if (assignment2Radio.isSelected() && student4Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(3).getScores().get(1)));
+                gradeChange = 55;
+            }
+            if (assignment3Radio.isSelected() && student4Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(3).getScores().get(2)));
+                gradeChange = 56;
+            }
+            if (assignment4Radio.isSelected() && student4Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(3).getScores().get(3)));
+                gradeChange = 57;
+            }
+            if (assignment5Radio.isSelected() && student4Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(3).getScores().get(4)));
+                gradeChange = 58;
+            }
+            if (assignment6Radio.isSelected() && student4Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(3).getScores().get(5)));
+                gradeChange = 59;
+            }
+        }
+        if(action.getSource() == student5Radio)
+        {
+            student1Radio.setSelected(false);
+            student2Radio.setSelected(false);
+            student3Radio.setSelected(false);
+            student4Radio.setSelected(false);
+            student6Radio.setSelected(false);
+            if (assignment1Radio.isSelected() && student5Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(4).getScores().get(0)));
+                gradeChange = 60;
+            }
+            if (assignment2Radio.isSelected() && student5Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(4).getScores().get(1)));
+                gradeChange = 61;
+            }
+            if (assignment3Radio.isSelected() && student5Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(4).getScores().get(2)));
+                gradeChange = 62;
+            }
+            if (assignment4Radio.isSelected() && student5Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(4).getScores().get(3)));
+                gradeChange = 63;
+            }
+            if (assignment5Radio.isSelected() && student5Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(4).getScores().get(4)));
+                gradeChange = 64;
+            }
+            if (assignment6Radio.isSelected() && student5Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(4).getScores().get(5)));
+                gradeChange = 65;
+            }
+        }
+        if(action.getSource() == student6Radio)
+        {
+            student1Radio.setSelected(false);
+            student2Radio.setSelected(false);
+            student3Radio.setSelected(false);
+            student4Radio.setSelected(false);
+            student5Radio.setSelected(false);
+            if (assignment1Radio.isSelected() && student6Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(5).getScores().get(0)));
+                gradeChange = 66;
+            }
+            if (assignment2Radio.isSelected() && student6Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(5).getScores().get(1)));
+                gradeChange = 67;
+            }
+            if (assignment3Radio.isSelected() && student6Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(5).getScores().get(2)));
+                gradeChange = 68;
+            }
+            if (assignment4Radio.isSelected() && student6Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(5).getScores().get(3)));
+                gradeChange = 69;
+            }
+            if (assignment5Radio.isSelected() && student6Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(5).getScores().get(4)));
+                gradeChange = 70;
+            }
+            if (assignment6Radio.isSelected() && student6Radio.isSelected())
+            {
+                gradeChangeField.setText(Float.toString(roster1.get(5).getScores().get(5)));
+                gradeChange = 71;
             }
         }
         if(action.getSource() == gradeChangeField)
@@ -2269,28 +2603,217 @@ public class Window extends JPanel implements ActionListener{
                     roster1.get(0).setScore(0, newGrade);
                     break;
                 case 1:
-                    roster1.get(0).setScore(1, newGrade);
-                    break;
-                case 2:
-                    roster1.get(0).setScore(2, newGrade);
-                    break;
-                case 3:
                     roster1.get(1).setScore(0, newGrade);
                     break;
-                case 4:
-                    roster1.get(1).setScore(1, newGrade);
-                    break;
-                case 5:
-                    roster1.get(1).setScore(2, newGrade);
-                    break;
-                case 6:
+                case 2:
                     roster1.get(2).setScore(0, newGrade);
                     break;
+                case 3:
+                    roster1.get(3).setScore(0, newGrade);
+                    break;
+                case 4:
+                    roster1.get(4).setScore(0, newGrade);
+                    break;
+                case 5:
+                    roster1.get(5).setScore(0, newGrade);
+                    break;
+                case 6:
+                    roster1.get(0).setScore(1, newGrade);
+                    break;
                 case 7:
+                    roster1.get(1).setScore(1, newGrade);
+                    break;
+                case 8:
                     roster1.get(2).setScore(1, newGrade);
                     break;
                 case 9:
+                    roster1.get(3).setScore(1, newGrade);
+                    break;
+                case 10:
+                    roster1.get(4).setScore(1, newGrade);
+                    break;
+                case 11:
+                    roster1.get(5).setScore(1, newGrade);
+                    break;
+                case 12:
+                    roster1.get(0).setScore(2, newGrade);
+                    break;
+                case 13:
+                    roster1.get(1).setScore(2, newGrade);
+                    break;
+                case 14:
                     roster1.get(2).setScore(2, newGrade);
+                    break;
+                case 15:
+                    roster1.get(3).setScore(2, newGrade);
+                    break;
+                case 16:
+                    roster1.get(4).setScore(2, newGrade);
+                    break;
+                case 17:
+                    roster1.get(5).setScore(2, newGrade);
+                    break;
+                case 18:
+                    roster1.get(0).setScore(3, newGrade);
+                    break;
+                case 19:
+                    roster1.get(1).setScore(3, newGrade);
+                    break;
+                case 20:
+                    roster1.get(2).setScore(3, newGrade);
+                    break;
+                case 21:
+                    roster1.get(3).setScore(3, newGrade);
+                    break;
+                case 22:
+                    roster1.get(4).setScore(3, newGrade);
+                    break;
+                case 23:
+                    roster1.get(5).setScore(3, newGrade);
+                    break;
+                case 24:
+                    roster1.get(0).setScore(4, newGrade);
+                    break;
+                case 25:
+                    roster1.get(1).setScore(4, newGrade);
+                    break;
+                case 26:
+                    roster1.get(2).setScore(4, newGrade);
+                    break;
+                case 27:
+                    roster1.get(3).setScore(4, newGrade);
+                    break;
+                case 28:
+                    roster1.get(4).setScore(4, newGrade);
+                    break;
+                case 29:
+                    roster1.get(5).setScore(4, newGrade);
+                    break;
+                case 30:
+                    roster1.get(0).setScore(5, newGrade);
+                    break;
+                case 31:
+                    roster1.get(1).setScore(5, newGrade);
+                    break;
+                case 32:
+                    roster1.get(2).setScore(5, newGrade);
+                    break;
+                case 33:
+                    roster1.get(3).setScore(5, newGrade);
+                    break;
+                case 34:
+                    roster1.get(4).setScore(5, newGrade);
+                    break;
+                case 35:
+                    roster1.get(5).setScore(5, newGrade);
+                    break;
+                case 36:
+                    roster1.get(0).setScore(0, newGrade);
+                    break;
+                case 37:
+                    roster1.get(0).setScore(1, newGrade);
+                    break;
+                case 38:
+                    roster1.get(0).setScore(2, newGrade);
+                    break;
+                case 39:
+                    roster1.get(0).setScore(3, newGrade);
+                    break;
+                case 40:
+                    roster1.get(0).setScore(4, newGrade);
+                    break;
+                case 41:
+                    roster1.get(0).setScore(5, newGrade);
+                    break;
+                case 42:
+                    roster1.get(1).setScore(0, newGrade);
+                    break;
+                case 43:
+                    roster1.get(1).setScore(1, newGrade);
+                    break;
+                case 44:
+                    roster1.get(1).setScore(2, newGrade);
+                    break;
+                case 45:
+                    roster1.get(1).setScore(3, newGrade);
+                    break;
+                case 46:
+                    roster1.get(1).setScore(4, newGrade);
+                    break;
+                case 47:
+                    roster1.get(1).setScore(5, newGrade);
+                    break;
+                case 48:
+                    roster1.get(2).setScore(0, newGrade);
+                    break;
+                case 49:
+                    roster1.get(2).setScore(1, newGrade);
+                    break;
+                case 50:
+                    roster1.get(2).setScore(2, newGrade);
+                    break;
+                case 51:
+                    roster1.get(2).setScore(3, newGrade);
+                    break;
+                case 52:
+                    roster1.get(2).setScore(4, newGrade);
+                    break;
+                case 53:
+                    roster1.get(2).setScore(5, newGrade);
+                    break;
+                case 54:
+                    roster1.get(3).setScore(0, newGrade);
+                    break;
+                case 55:
+                    roster1.get(3).setScore(1, newGrade);
+                    break;
+                case 56:
+                    roster1.get(3).setScore(2, newGrade);
+                    break;
+                case 57:
+                    roster1.get(3).setScore(3, newGrade);
+                    break;
+                case 58:
+                    roster1.get(3).setScore(4, newGrade);
+                    break;
+                case 59:
+                    roster1.get(3).setScore(5, newGrade);
+                    break;
+                case 60:
+                    roster1.get(4).setScore(0, newGrade);
+                    break;
+                case 61:
+                    roster1.get(4).setScore(1, newGrade);
+                    break;
+                case 62:
+                    roster1.get(4).setScore(2, newGrade);
+                    break;
+                case 63:
+                    roster1.get(4).setScore(3, newGrade);
+                    break;
+                case 64:
+                    roster1.get(4).setScore(4, newGrade);
+                    break;
+                case 65:
+                    roster1.get(4).setScore(5, newGrade);
+                    break;
+                case 66:
+                    roster1.get(5).setScore(0, newGrade);
+                    break;
+                case 67:
+                    roster1.get(5).setScore(1, newGrade);
+                    break;
+                case 68:
+                    roster1.get(5).setScore(2, newGrade);
+                    break;
+                case 69:
+                    roster1.get(5).setScore(3, newGrade);
+                    break;
+                case 70:
+                    roster1.get(5).setScore(4, newGrade);
+                    break;
+                case 71:
+                    roster1.get(5).setScore(5, newGrade);
                     break;
             }
             try{
