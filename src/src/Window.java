@@ -919,7 +919,6 @@ public class Window extends JPanel implements ActionListener{
         whatIfButton1.setVisible(false);
         
         whatIfButton2 = new JButton("What-If");
-        whatIfButton2.setFont(new Font("Serif", Font.BOLD, 20));
         size = whatIfButton2.getPreferredSize();
         whatIfButton2.addActionListener(this);
         whatIfButton2.setBounds(650,440,size.width,size.height+20);
