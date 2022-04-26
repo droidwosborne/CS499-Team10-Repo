@@ -365,6 +365,14 @@ public class Window extends JPanel implements ActionListener{
         add(assignmentAddButton2);
         assignmentAddButton2.setVisible(false);
         
+        assignmentDeleteButton1 = new JButton("-");
+        assignmentDeleteButton1.setFont(new Font("Serif", Font.BOLD, 20));
+        size = assignmentDeleteButton1.getPreferredSize();
+        assignmentDeleteButton1.addActionListener(this);
+        assignmentDeleteButton1.setBounds(420,50,size.width-35,size.height);
+        add(assignmentDeleteButton1);
+        assignmentDeleteButton1.setVisible(false);
+        
         assignmentWhatIfAddButton1 = new JButton("+");
         assignmentWhatIfAddButton1.setFont(new Font("Serif", Font.BOLD, 20));
         size = assignmentWhatIfAddButton1.getPreferredSize();
@@ -537,6 +545,14 @@ public class Window extends JPanel implements ActionListener{
         rosterAddButton1.setBounds(300,50,size.width-35,size.height);
         add(rosterAddButton1);
         rosterAddButton1.setVisible(false);
+        
+        rosterDeleteButton1 = new JButton("+");
+        rosterDeleteButton1.setFont(new Font("Serif", Font.BOLD, 20));
+        size = rosterDeleteButton1.getPreferredSize();
+        rosterDeleteButton1.addActionListener(this);
+        rosterDeleteButton1.setBounds(350,50,size.width-35,size.height);
+        add(rosterDeleteButton1);
+        rosterDeleteButton1.setVisible(false);
         
         rosterAddButton2 = new JButton("+");
         rosterAddButton2.setFont(new Font("Serif", Font.BOLD, 20));
@@ -712,6 +728,14 @@ public class Window extends JPanel implements ActionListener{
         add(gradebookAddButton2);
         gradebookAddButton2.setVisible(false);
         
+        gradebookDeleteButton1 = new JButton("-");
+        gradebookDeleteButton1.setFont(new Font("Serif", Font.BOLD, 20));
+        size = gradebookDeleteButton1.getPreferredSize();
+        gradebookDeleteButton1.addActionListener(this);
+        gradebookDeleteButton1.setBounds(820,50,size.width-35,size.height);
+        add(gradebookDeleteButton1);
+        gradebookDeleteButton1.setVisible(false);
+        
         gradebookWhatIfAddButton1 = new JButton("+");
         gradebookWhatIfAddButton1.setFont(new Font("Serif", Font.BOLD, 20));
         size = gradebookWhatIfAddButton1.getPreferredSize();
@@ -873,7 +897,6 @@ public class Window extends JPanel implements ActionListener{
         gradeChangeField.addActionListener(this);
         size = gradeChangeField.getPreferredSize();
         gradeChangeField.setBounds(450, 350, size.width, size.height);
-        gradeChangeField.setVisible(false);
         add(gradeChangeField);
         gradeChangeField.setVisible(false);
         
@@ -891,9 +914,37 @@ public class Window extends JPanel implements ActionListener{
         classAddButton.setFont(new Font("Serif", Font.BOLD, 20));
         size = classAddButton.getPreferredSize();
         classAddButton.addActionListener(this);
-        classAddButton.setBounds(850,100,size.width-35,size.height);
+        classAddButton.setBounds(400,50,size.width-35,size.height);
         add(classAddButton);
         classAddButton.setVisible(false);
+        
+        classDeleteButton = new JButton("-");
+        classDeleteButton.setFont(new Font("Serif", Font.BOLD, 20));
+        size = classDeleteButton.getPreferredSize();
+        classDeleteButton.addActionListener(this);
+        classDeleteButton.setBounds(450,50,size.width-35,size.height);
+        add(classDeleteButton);
+        classDeleteButton.setVisible(false);
+        
+        courseLabel = new JLabel();
+        add(courseLabel);
+        courseLabel.setVisible(false);
+        
+        courseAddField = new JTextField(20);
+        courseAddField.addActionListener(this);
+        size = courseAddField.getPreferredSize();
+        courseAddField.setBounds(500, 50, size.width, size.height);
+        courseAddField.setVisible(false);
+        add(courseAddField);
+        courseAddField.setVisible(false);
+        
+        courseDeleteField = new JTextField(20);
+        courseDeleteField.addActionListener(this);
+        size = courseDeleteField.getPreferredSize();
+        courseDeleteField.setBounds(500, 50, size.width, size.height);
+        courseDeleteField.setVisible(false);
+        add(courseDeleteField);
+        courseDeleteField.setVisible(false);
         
         whatIfButton1 = new JButton("What-If");
         size = whatIfButton1.getPreferredSize();
@@ -910,7 +961,6 @@ public class Window extends JPanel implements ActionListener{
         deleteStudentButton.setVisible(false);
         
         whatIfButton2 = new JButton("What-If");
-        whatIfButton2.setFont(new Font("Serif", Font.BOLD, 20));
         size = whatIfButton2.getPreferredSize();
         whatIfButton2.addActionListener(this);
         whatIfButton2.setBounds(650,440,size.width,size.height+20);
@@ -977,8 +1027,9 @@ public class Window extends JPanel implements ActionListener{
                         class6Button.setVisible(true);
                     if (class7Button.getText() != null)    
                         class7Button.setVisible(true);
-
-                        classAddButton.setVisible(true);
+                    
+                    classAddButton.setVisible(true);
+                    classDeleteButton.setVisible(true);
                 } else {
                     incorrectLoginLabel.setText("<html><font color = 'FF0000'>Incorrect Password</font></html>");
                     size = incorrectLoginLabel.getPreferredSize();
@@ -1000,6 +1051,187 @@ public class Window extends JPanel implements ActionListener{
         }
         if (action.getSource() == classAddButton)
         {
+            courseLabel.setText("Course to Add:");
+            size = courseLabel.getPreferredSize();
+            courseLabel.setBounds(500, 30, size.width, size.height);
+            courseLabel.setVisible(true);
+            courseAddField.setText("");
+            courseAddField.setVisible(true);
+            
+        }
+        if (action.getSource() == classDeleteButton)
+        {
+            courseLabel.setText("Course to Delete:");
+            size = courseLabel.getPreferredSize();
+            courseLabel.setBounds(500, 30, size.width, size.height);
+            courseLabel.setVisible(true);
+            courseDeleteField.setText("");
+            courseDeleteField.setVisible(true);
+        }
+        if (action.getSource() == courseAddField)
+        {
+            courseLabel.setVisible(false);
+            courseAddField.setVisible(false);
+            cList.addCourse(courseAddField.getText());
+            courses = cList.getCourses();
+            int numCourses = courses.size();
+            switch(numCourses){
+                case 3:
+                    class3Button.setText(courses.get(2));
+                    size = class3Button.getPreferredSize();
+                    class3Button.addActionListener(this);
+                    class3Button.setBounds(750,100,size.width,size.height+30);
+                    add(class3Button);
+                    class3Button.setVisible(true);
+                    break;
+                case 4:
+                    class4Button.setText(courses.get(3));
+                    size = class4Button.getPreferredSize();
+                    class4Button.addActionListener(this);
+                    class4Button.setBounds(50,200,size.width,size.height+30);
+                    add(class4Button);
+                    class4Button.setVisible(true);
+                    break;
+                case 5:
+                    class5Button.setText(courses.get(4));
+                    size = class5Button.getPreferredSize();
+                    class5Button.addActionListener(this);
+                    class5Button.setBounds(400,200,size.width,size.height+30);
+                    add(class5Button);
+                    class5Button.setVisible(true);
+                    break;
+                case 6:
+                    class6Button.setText(courses.get(5));
+                    size = class6Button.getPreferredSize();
+                    class6Button.addActionListener(this);
+                    class6Button.setBounds(750,200,size.width,size.height+30);
+                    add(class6Button);
+                    class6Button.setVisible(true);
+                    break;
+                case 7:
+                    class7Button.setText(courses.get(6));
+                    size = class7Button.getPreferredSize();
+                    class7Button.addActionListener(this);
+                    class7Button.setBounds(400,300,size.width,size.height+30);
+                    add(class7Button);
+                    class7Button.setVisible(true);
+                    break;
+            }
+            try{
+                writer.saveClassList(cList);
+            } catch (IOException e){
+                System.out.println("error saving");
+            }
+        }
+        if (action.getSource() == courseDeleteField)
+        {
+            courseLabel.setVisible(false);
+            courseDeleteField.setVisible(false);
+            //Vector<String> currentCourses = cList.getCourses();
+            String deleteCourse = courseDeleteField.getText();
+            Boolean courseFound = false;
+            for(int i = 0; i < courses.size(); i++)
+            {
+                if(courses.get(i).equals(deleteCourse))
+                {
+                    cList.deleteCourse(i);
+                    courses = cList.getCourses();
+                    courseFound = true;
+                    
+                    if (courses.size() >= 1)
+                    {
+                        class1Button.setText(courses.get(0));
+                        size = class2Button.getPreferredSize();
+                        class1Button.setBounds(50,100,size.width,size.height+30);
+                        class1Button.setVisible(true);
+                    }
+                    else
+                    {
+                        class1Button.setText(null);
+                        class1Button.setVisible(false);
+                    }
+                    if (courses.size() >= 2)
+                    {
+                        class2Button.setText(courses.get(1));
+                        size = class2Button.getPreferredSize();
+                        class2Button.setBounds(400,100,size.width,size.height+30);
+                        class2Button.setVisible(true);
+                    }
+                    else
+                    {
+                        class2Button.setText(null);
+                        class2Button.setVisible(false);
+                    }
+                    if (courses.size() >= 3)
+                    {
+                        class3Button.setText(courses.get(2));
+                        size = class3Button.getPreferredSize();
+                        class3Button.setBounds(750,100,size.width,size.height+30);
+                        class3Button.setVisible(true);   
+                    }
+                    else
+                    {
+                        class3Button.setText(null);
+                        class3Button.setVisible(false);
+                    }
+                    if (courses.size() >= 4)
+                    {
+                        class4Button.setText(courses.get(3));
+                        size = class4Button.getPreferredSize();
+                        class4Button.setBounds(50,200,size.width,size.height+30);
+                        class4Button.setVisible(true);
+                    }
+                    else
+                    {
+                        class4Button.setText(null);
+                        class4Button.setVisible(false);
+                    }
+                    if (courses.size() >= 5)
+                    {
+                        class5Button.setText(courses.get(4));
+                        size = class5Button.getPreferredSize();
+                        class5Button.setBounds(400,200,size.width,size.height+30);
+                        class5Button.setVisible(true);
+                    }
+                    else
+                    {
+                        class5Button.setText(null);
+                        class5Button.setVisible(false);
+                    }
+                    if (courses.size() >= 6)
+                    {
+                        class6Button.setText(courses.get(5));
+                        size = class6Button.getPreferredSize();
+                        class6Button.setBounds(750,200,size.width,size.height+30);
+                        class6Button.setVisible(true);
+                    }
+                    else
+                    {
+                        class6Button.setText(null);
+                        class6Button.setVisible(false);
+                    }
+                    if (courses.size() >= 7){
+                        class7Button.setText(courses.get(6));
+                        size = class7Button.getPreferredSize();
+                        class7Button.setBounds(400,300,size.width,size.height+30);
+                        class7Button.setVisible(false);
+                    } 
+                    else
+                    {
+                        class7Button.setText(null);
+                        class7Button.setVisible(false);
+                    }
+                }
+            }
+            try{
+                writer.saveClassList(cList);
+            } catch (IOException e){
+                System.out.println("error saving");
+            }
+            if(courseFound != true)
+            {
+                System.out.println("Course does not exist.");
+            }
             
         }
         if (action.getSource() == class1Button)
@@ -1016,6 +1248,7 @@ public class Window extends JPanel implements ActionListener{
             class6Button.setVisible(false);
             class7Button.setVisible(false);
             classAddButton.setVisible(false);
+            classDeleteButton.setVisible(false);
             titleLabel.setVisible(false);
             classesButton.setVisible(true);
             
@@ -1054,6 +1287,7 @@ public class Window extends JPanel implements ActionListener{
             class6Button.setVisible(false);
             class7Button.setVisible(false);
             classAddButton.setVisible(false);
+            classDeleteButton.setVisible(false);
             titleLabel.setVisible(false);
             classesButton.setVisible(true);
             
@@ -1091,6 +1325,7 @@ public class Window extends JPanel implements ActionListener{
             class6Button.setVisible(false);
             class7Button.setVisible(false);
             classAddButton.setVisible(false);
+            classDeleteButton.setVisible(false);
             titleLabel.setVisible(false);
             classesButton.setVisible(true);
             
@@ -1112,6 +1347,7 @@ public class Window extends JPanel implements ActionListener{
             class6Button.setVisible(false);
             class7Button.setVisible(false);
             classAddButton.setVisible(false);
+            classDeleteButton.setVisible(false);
             titleLabel.setVisible(false);
             classesButton.setVisible(true);
             
@@ -1130,7 +1366,7 @@ public class Window extends JPanel implements ActionListener{
             rosterPane1.setVisible(false);
             assignmentAddButton1.setVisible(true);
             rosterAddButton1.setVisible(false);
-            
+            rosterDeleteButton1.setVisible(false);
             titleLabel.setText("Assignments                       Gradebook Setup");
             size =  titleLabel.getPreferredSize();
             titleLabel.setBounds(200, 50, size.width, size.height);
@@ -1143,6 +1379,8 @@ public class Window extends JPanel implements ActionListener{
             scoreButton1.setVisible(true);
             gradeButton1.setVisible(true);
             gradebookAddButton1.setVisible(true);
+            assignmentDeleteButton1.setVisible(true);
+            gradebookDeleteButton1.setVisible(true);
             gradebookChangesButton1.setVisible(false);
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
@@ -1190,6 +1428,7 @@ public class Window extends JPanel implements ActionListener{
             rosterPane1.setVisible(true);
             assignmentAddButton1.setVisible(false);
             rosterAddButton1.setVisible(true);
+            rosterDeleteButton1.setVisible(true);
             scoreButton1.setVisible(false);
             gradeButton1.setVisible(false);
             scoreChangesButton1.setVisible(false);
@@ -1205,6 +1444,8 @@ public class Window extends JPanel implements ActionListener{
             assignmentScore.setVisible(false);
             noCategoryLabel.setVisible(false);
             gradebookAddButton1.setVisible(false);
+            assignmentDeleteButton1.setVisible(false);
+            gradebookDeleteButton1.setVisible(false);
             gradebookChangesButton1.setVisible(false);
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
@@ -1264,6 +1505,7 @@ public class Window extends JPanel implements ActionListener{
             gradebookPane2.setVisible(false);
             assignmentAddButton1.setVisible(false);
             rosterAddButton1.setVisible(false);
+            rosterDeleteButton1.setVisible(false);
             assignmentButton2.setVisible(false);
             rosterButton2.setVisible(false);
             assignmentAddButton2.setVisible(false);
@@ -1274,6 +1516,7 @@ public class Window extends JPanel implements ActionListener{
             classesButton.setVisible(false);
             titleLabel.setVisible(true);
             classAddButton.setVisible(true);
+            classDeleteButton.setVisible(true);
             classLabel.setVisible(false);
             nameLabel.setVisible(false);
             firstNameEntry.setVisible(false);
@@ -1298,6 +1541,8 @@ public class Window extends JPanel implements ActionListener{
             assignmentScore.setVisible(false);
             noCategoryLabel.setVisible(false);
             gradebookAddButton1.setVisible(false);
+            assignmentDeleteButton1.setVisible(false);
+            gradebookDeleteButton1.setVisible(false);
             gradebookAddButton2.setVisible(false);
             gradebookChangesButton1.setVisible(false);
             gradebookChangesButton2.setVisible(false);
@@ -1696,6 +1941,7 @@ public class Window extends JPanel implements ActionListener{
             gradebookPane1.setVisible(false);
             assignmentAddButton1.setVisible(false);
             rosterAddButton1.setVisible(false);
+            rosterDeleteButton1.setVisible(false);
             classesButton.setVisible(false);
             nameLabel.setVisible(false);
             firstNameEntry.setVisible(false);
@@ -1715,6 +1961,8 @@ public class Window extends JPanel implements ActionListener{
             assignmentScore.setVisible(false);
             noCategoryLabel.setVisible(false);
             gradebookAddButton1.setVisible(false);
+            assignmentDeleteButton1.setVisible(false);
+            gradebookDeleteButton1.setVisible(false);
             gradebookChangesButton1.setVisible(false);
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
@@ -1982,33 +2230,54 @@ public class Window extends JPanel implements ActionListener{
                incorrectLoginLabel.setVisible(true);
             }
         }
-        if(action.getSource() == saveWhatIfButton1)
-        {
-            if(roster1.size() < rosterWhatIf1.size()){
-                rosterTableModel1.addRow(new Object[]{"","","",""});
-            }
-            try{
+        if(action.getSource() == saveWhatIfButton1) {
+            try {
                 writer.saveCourse(courseWhatIf1, "course1");
-            } catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("error saving");
             }
-            
+
             course1 = courseWhatIf1;
             roster1 = courseWhatIf1.getRoster();
             gradebook1 = courseWhatIf1.getGradebook();
             assignments1 = courseWhatIf1.getGradebook().getAssignments();
+
+            // This is the code I added - Braden
+            while (true){
+                if (assignments1.size() > assignmentsTable1.getRowCount()) {
+                    assignmentsTableModel1.addRow(new Object[]{"", "", ""});
+                }
+                else break;
+            }
+
+            while (true){
+                if (roster1.size() > rosterTable1.getRowCount()) {
+                    rosterTableModel1.addRow(new Object[]{"", "", ""});
+                }
+                else break;
+            }
+
+            while (true){
+                if (gradebook1.getCatID().size() > gradebookTable1.getRowCount()) {
+                    gradebookTableModel1.addRow(new Object[]{"", "", ""});
+                }
+                else break;
+            }
             
-            for (int i = 0; i < assignments1.size(); i++)
-            {
+            for (int i = 0; i < assignments1.size(); i++){
                 assignmentsTable1.setValueAt(assignments1.get(i).getName(),i,0);
                 assignmentsTable1.setValueAt(gradebook1.getCatNames().get(i),i,1);
                 assignmentsTable1.setValueAt(assignments1.get(i).getMaxScore(),i,2);
-                
+            }
+
+            for (int i = 0; i < roster1.size(); i++){
                 rosterTable1.setValueAt(roster1.get(i).getFirstName(),i,0);
                 rosterTable1.setValueAt(roster1.get(i).getLastName(),i,1);
                 rosterTable1.setValueAt(roster1.get(i).getID(),i,2);
                 rosterTable1.setValueAt(roster1.get(i).getOverallGrade(),i,3);
-                
+            }
+
+            for (int i = 0; i< gradebook1.getCatID().size(); i++){
                 gradebookTable1.setValueAt(gradebook1.getCatNames().get(i),i,0);
                 gradebookTable1.setValueAt(gradebook1.getCatID().get(i),i,1);
                 gradebookTable1.setValueAt(gradebook1.getCatWeights().get(i),i,2);
@@ -2119,6 +2388,7 @@ public class Window extends JPanel implements ActionListener{
             gradebookPane1.setVisible(false);
             assignmentAddButton1.setVisible(false);
             rosterAddButton1.setVisible(false);
+            rosterDeleteButton1.setVisible(false);
             classesButton.setVisible(false);
             nameLabel.setVisible(false);
             firstNameEntry.setVisible(false);
@@ -2138,6 +2408,8 @@ public class Window extends JPanel implements ActionListener{
             assignmentScore.setVisible(false);
             noCategoryLabel.setVisible(false);
             gradebookAddButton1.setVisible(false);
+            assignmentDeleteButton1.setVisible(false);
+            gradebookDeleteButton1.setVisible(false);
             gradebookChangesButton1.setVisible(false);
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
@@ -2933,10 +3205,12 @@ public class Window extends JPanel implements ActionListener{
     private JLabel categoryLabel;
     private JLabel whatIfLabel;
     private JLabel gradeLabel;
+    private JLabel courseLabel;
 
     private JButton helpButton;
     private JButton changePwordButton;
     private JButton classAddButton;
+    private JButton classDeleteButton;
     private JButton class1Button;
     private JButton class2Button;
     private JButton class3Button;
@@ -2951,6 +3225,7 @@ public class Window extends JPanel implements ActionListener{
     private JButton assignmentButton2;
     private JButton assignmentWhatIfButton1;
     private JButton rosterAddButton1;
+    private JButton rosterDeleteButton1;
     private JButton rosterAddButton2;
     private JButton rosterWhatIfAddButton1;
     private JButton gradebookAddButton1;
@@ -2982,6 +3257,9 @@ public class Window extends JPanel implements ActionListener{
     private JButton deleteWhatIfButton1;
     private JButton backButton;
     private JButton deleteStudentButton;
+    private JButton gradebookDeleteButton1;
+    private JButton assignmentDeleteButton1;
+    private JButton overallGradeButton;
     
     private JRadioButton assignment1Radio;
     private JRadioButton assignment2Radio;
@@ -3011,6 +3289,8 @@ public class Window extends JPanel implements ActionListener{
     private JTextField newCategory;
     private JTextField categoryWeight;
     private JTextField gradeChangeField;
+    private JTextField courseAddField;
+    private JTextField courseDeleteField;
     
     private JTable assignmentsTable1;
     private JTable assignmentsTable2;
