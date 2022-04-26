@@ -2159,33 +2159,54 @@ public class Window extends JPanel implements ActionListener{
                incorrectLoginLabel.setVisible(true);
             }
         }
-        if(action.getSource() == saveWhatIfButton1)
-        {
-            if(roster1.size() < rosterWhatIf1.size()){
-                rosterTableModel1.addRow(new Object[]{"","","",""});
-            }
-            try{
+        if(action.getSource() == saveWhatIfButton1) {
+            try {
                 writer.saveCourse(courseWhatIf1, "course1");
-            } catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("error saving");
             }
-            
+
             course1 = courseWhatIf1;
             roster1 = courseWhatIf1.getRoster();
             gradebook1 = courseWhatIf1.getGradebook();
             assignments1 = courseWhatIf1.getGradebook().getAssignments();
+
+            // This is the code I added - Braden
+            while (true){
+                if (assignments1.size() > assignmentsTable1.getRowCount()) {
+                    assignmentsTableModel1.addRow(new Object[]{"", "", ""});
+                }
+                else break;
+            }
+
+            while (true){
+                if (roster1.size() > rosterTable1.getRowCount()) {
+                    rosterTableModel1.addRow(new Object[]{"", "", ""});
+                }
+                else break;
+            }
+
+            while (true){
+                if (gradebook1.getCatID().size() > gradebookTable1.getRowCount()) {
+                    gradebookTableModel1.addRow(new Object[]{"", "", ""});
+                }
+                else break;
+            }
             
-            for (int i = 0; i < assignments1.size(); i++)
-            {
+            for (int i = 0; i < assignments1.size(); i++){
                 assignmentsTable1.setValueAt(assignments1.get(i).getName(),i,0);
                 assignmentsTable1.setValueAt(gradebook1.getCatNames().get(i),i,1);
                 assignmentsTable1.setValueAt(assignments1.get(i).getMaxScore(),i,2);
-                
+            }
+
+            for (int i = 0; i < roster1.size(); i++){
                 rosterTable1.setValueAt(roster1.get(i).getFirstName(),i,0);
                 rosterTable1.setValueAt(roster1.get(i).getLastName(),i,1);
                 rosterTable1.setValueAt(roster1.get(i).getID(),i,2);
                 rosterTable1.setValueAt(roster1.get(i).getOverallGrade(),i,3);
-                
+            }
+
+            for (int i = 0; i< gradebook1.getCatID().size(); i++){
                 gradebookTable1.setValueAt(gradebook1.getCatNames().get(i),i,0);
                 gradebookTable1.setValueAt(gradebook1.getCatID().get(i),i,1);
                 gradebookTable1.setValueAt(gradebook1.getCatWeights().get(i),i,2);
