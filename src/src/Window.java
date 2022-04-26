@@ -354,6 +354,14 @@ public class Window extends JPanel implements ActionListener{
         add(assignmentAddButton2);
         assignmentAddButton2.setVisible(false);
         
+        assignmentDeleteButton1 = new JButton("-");
+        assignmentDeleteButton1.setFont(new Font("Serif", Font.BOLD, 20));
+        size = assignmentDeleteButton1.getPreferredSize();
+        assignmentDeleteButton1.addActionListener(this);
+        assignmentDeleteButton1.setBounds(420,50,size.width-35,size.height);
+        add(assignmentDeleteButton1);
+        assignmentDeleteButton1.setVisible(false);
+        
         assignmentWhatIfAddButton1 = new JButton("+");
         assignmentWhatIfAddButton1.setFont(new Font("Serif", Font.BOLD, 20));
         size = assignmentWhatIfAddButton1.getPreferredSize();
@@ -526,6 +534,14 @@ public class Window extends JPanel implements ActionListener{
         rosterAddButton1.setBounds(300,50,size.width-35,size.height);
         add(rosterAddButton1);
         rosterAddButton1.setVisible(false);
+        
+        rosterDeleteButton1 = new JButton("+");
+        rosterDeleteButton1.setFont(new Font("Serif", Font.BOLD, 20));
+        size = rosterDeleteButton1.getPreferredSize();
+        rosterDeleteButton1.addActionListener(this);
+        rosterDeleteButton1.setBounds(350,50,size.width-35,size.height);
+        add(rosterDeleteButton1);
+        rosterDeleteButton1.setVisible(false);
         
         rosterAddButton2 = new JButton("+");
         rosterAddButton2.setFont(new Font("Serif", Font.BOLD, 20));
@@ -700,6 +716,14 @@ public class Window extends JPanel implements ActionListener{
         gradebookAddButton2.setBounds(770,50,size.width-35,size.height);
         add(gradebookAddButton2);
         gradebookAddButton2.setVisible(false);
+        
+        gradebookDeleteButton1 = new JButton("-");
+        gradebookDeleteButton1.setFont(new Font("Serif", Font.BOLD, 20));
+        size = gradebookDeleteButton1.getPreferredSize();
+        gradebookDeleteButton1.addActionListener(this);
+        gradebookDeleteButton1.setBounds(820,50,size.width-35,size.height);
+        add(gradebookDeleteButton1);
+        gradebookDeleteButton1.setVisible(false);
         
         gradebookWhatIfAddButton1 = new JButton("+");
         gradebookWhatIfAddButton1.setFont(new Font("Serif", Font.BOLD, 20));
@@ -1319,7 +1343,7 @@ public class Window extends JPanel implements ActionListener{
             rosterPane1.setVisible(false);
             assignmentAddButton1.setVisible(true);
             rosterAddButton1.setVisible(false);
-            
+            rosterDeleteButton1.setVisible(false);
             titleLabel.setText("Assignments                       Gradebook Setup");
             size =  titleLabel.getPreferredSize();
             titleLabel.setBounds(200, 50, size.width, size.height);
@@ -1332,6 +1356,8 @@ public class Window extends JPanel implements ActionListener{
             scoreButton1.setVisible(true);
             gradeButton1.setVisible(true);
             gradebookAddButton1.setVisible(true);
+            assignmentDeleteButton1.setVisible(true);
+            gradebookDeleteButton1.setVisible(true);
             gradebookChangesButton1.setVisible(false);
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
@@ -1372,6 +1398,7 @@ public class Window extends JPanel implements ActionListener{
             rosterPane1.setVisible(true);
             assignmentAddButton1.setVisible(false);
             rosterAddButton1.setVisible(true);
+            rosterDeleteButton1.setVisible(true);
             scoreButton1.setVisible(false);
             gradeButton1.setVisible(false);
             scoreChangesButton1.setVisible(false);
@@ -1387,6 +1414,8 @@ public class Window extends JPanel implements ActionListener{
             assignmentScore.setVisible(false);
             noCategoryLabel.setVisible(false);
             gradebookAddButton1.setVisible(false);
+            assignmentDeleteButton1.setVisible(false);
+            gradebookDeleteButton1.setVisible(false);
             gradebookChangesButton1.setVisible(false);
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
@@ -1442,6 +1471,7 @@ public class Window extends JPanel implements ActionListener{
             gradebookPane2.setVisible(false);
             assignmentAddButton1.setVisible(false);
             rosterAddButton1.setVisible(false);
+            rosterDeleteButton1.setVisible(false);
             assignmentButton2.setVisible(false);
             rosterButton2.setVisible(false);
             assignmentAddButton2.setVisible(false);
@@ -1477,6 +1507,8 @@ public class Window extends JPanel implements ActionListener{
             assignmentScore.setVisible(false);
             noCategoryLabel.setVisible(false);
             gradebookAddButton1.setVisible(false);
+            assignmentDeleteButton1.setVisible(false);
+            gradebookDeleteButton1.setVisible(false);
             gradebookAddButton2.setVisible(false);
             gradebookChangesButton1.setVisible(false);
             gradebookChangesButton2.setVisible(false);
@@ -1874,6 +1906,7 @@ public class Window extends JPanel implements ActionListener{
             gradebookPane1.setVisible(false);
             assignmentAddButton1.setVisible(false);
             rosterAddButton1.setVisible(false);
+            rosterDeleteButton1.setVisible(false);
             classesButton.setVisible(false);
             nameLabel.setVisible(false);
             firstNameEntry.setVisible(false);
@@ -1893,6 +1926,8 @@ public class Window extends JPanel implements ActionListener{
             assignmentScore.setVisible(false);
             noCategoryLabel.setVisible(false);
             gradebookAddButton1.setVisible(false);
+            assignmentDeleteButton1.setVisible(false);
+            gradebookDeleteButton1.setVisible(false);
             gradebookChangesButton1.setVisible(false);
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
@@ -2317,6 +2352,7 @@ public class Window extends JPanel implements ActionListener{
             gradebookPane1.setVisible(false);
             assignmentAddButton1.setVisible(false);
             rosterAddButton1.setVisible(false);
+            rosterDeleteButton1.setVisible(false);
             classesButton.setVisible(false);
             nameLabel.setVisible(false);
             firstNameEntry.setVisible(false);
@@ -2336,6 +2372,8 @@ public class Window extends JPanel implements ActionListener{
             assignmentScore.setVisible(false);
             noCategoryLabel.setVisible(false);
             gradebookAddButton1.setVisible(false);
+            assignmentDeleteButton1.setVisible(false);
+            gradebookDeleteButton1.setVisible(false);
             gradebookChangesButton1.setVisible(false);
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
@@ -3139,6 +3177,7 @@ public class Window extends JPanel implements ActionListener{
     private JButton assignmentButton2;
     private JButton assignmentWhatIfButton1;
     private JButton rosterAddButton1;
+    private JButton rosterDeleteButton1;
     private JButton rosterAddButton2;
     private JButton rosterWhatIfAddButton1;
     private JButton gradebookAddButton1;
@@ -3169,6 +3208,9 @@ public class Window extends JPanel implements ActionListener{
     private JButton saveWhatIfButton1;
     private JButton deleteWhatIfButton1;
     private JButton backButton;
+    private JButton gradebookDeleteButton1;
+    private JButton assignmentDeleteButton1;
+    private JButton overallGradeButton;
     
     private JRadioButton assignment1Radio;
     private JRadioButton assignment2Radio;
