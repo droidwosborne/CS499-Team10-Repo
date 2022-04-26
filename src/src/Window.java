@@ -52,12 +52,23 @@ public class Window extends JPanel implements ActionListener{
     Vector<Assignment> assignments2 = course2.getGradebook().getAssignments();
     Vector<Assignment> assignmentsWhatIf1 = courseWhatIf1.getGradebook().getAssignments();
     
-        
+    Vector<Course> courseCList = new Vector<Course>();
+     
     CourseList cList = new CourseList();
     Vector<String> courses = cList.getCourses();
     WriteSave writer = new WriteSave();
+    
+    
+    
     //Constructor for Window class consisting of components in Panel
     public Window () {
+        
+        for(int i = 0; i  < courses.size(); i++){
+
+            courseCList.add(reader.classDataIn(courses.get(i)));
+
+        }
+        
         //Arbitrary size and color appearance of the window
         Dimension dim = new Dimension(900, 500);
         setMinimumSize(dim);
@@ -942,6 +953,13 @@ public class Window extends JPanel implements ActionListener{
         add(whatIfButton1);
         whatIfButton1.setVisible(false);
         
+        deleteStudentButton = new JButton("Delete-Student");
+        size = deleteStudentButton.getPreferredSize();
+        deleteStudentButton.addActionListener(this);
+        deleteStudentButton.setBounds(500,440,size.width+10,size.height+20);
+        add(deleteStudentButton);
+        deleteStudentButton.setVisible(false);
+        
         whatIfButton2 = new JButton("What-If");
         size = whatIfButton2.getPreferredSize();
         whatIfButton2.addActionListener(this);
@@ -994,7 +1012,7 @@ public class Window extends JPanel implements ActionListener{
                     changePwordButton.setVisible(false);
 
                     titleLabel.setVisible(true);
-
+                    
                     if (class1Button.getText() != null)
                         class1Button.setVisible(true);
                     if (class2Button.getText() != null)
@@ -1218,6 +1236,7 @@ public class Window extends JPanel implements ActionListener{
         }
         if (action.getSource() == class1Button)
         {
+            activeCourse = 0;
             assignmentButton1.setVisible(true);
             rosterButton1.setVisible(true);
             whatIfButton1.setVisible(true);
@@ -1256,6 +1275,7 @@ public class Window extends JPanel implements ActionListener{
         }
         if (action.getSource() == class2Button)
         {
+            activeCourse = 1;
             assignmentButton2.setVisible(true);
             rosterButton2.setVisible(true);
             whatIfButton2.setVisible(true);
@@ -1294,6 +1314,7 @@ public class Window extends JPanel implements ActionListener{
         }
         if (action.getSource() == class3Button)
         {
+            activeCourse = 2;
             assignmentButton1.setVisible(true);
             rosterButton1.setVisible(true);
             class1Button.setVisible(false);
@@ -1315,6 +1336,7 @@ public class Window extends JPanel implements ActionListener{
         }
         if (action.getSource() == class4Button)
         {
+            activeCourse = 3;
             assignmentButton1.setVisible(true);
             rosterButton1.setVisible(true);
             class1Button.setVisible(false);
@@ -1336,6 +1358,7 @@ public class Window extends JPanel implements ActionListener{
         }
         if (action.getSource() == assignmentButton1)
         {
+            
             assignmentsPane1.setVisible(true);
             gradebookPane1.setVisible(true);
             assignmentButton1.setVisible(false);
@@ -1362,9 +1385,14 @@ public class Window extends JPanel implements ActionListener{
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
             categoryLabel.setVisible(false);
+            deleteStudentButton.setVisible(false);
+            
+            stuNameUpdate(rosterTable1, activeCourse);
+            
         }
         if (action.getSource() == assignmentButton2)
         {
+            
             assignmentsPane2.setVisible(true);
             gradebookPane2.setVisible(true);
             assignmentButton2.setVisible(false);
@@ -1388,6 +1416,8 @@ public class Window extends JPanel implements ActionListener{
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
             categoryLabel.setVisible(false);
+            deleteStudentButton.setVisible(false);
+            stuNameUpdate(rosterTable1, activeCourse);
         }
         if (action.getSource() == rosterButton1)
         {
@@ -1420,6 +1450,7 @@ public class Window extends JPanel implements ActionListener{
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
             categoryLabel.setVisible(false);
+            deleteStudentButton.setVisible(true);
             
             titleLabel.setText("Roster");
             size =  titleLabel.getPreferredSize();
@@ -1453,6 +1484,7 @@ public class Window extends JPanel implements ActionListener{
             newCategory.setVisible(false);
             categoryWeight.setVisible(false);
             categoryLabel.setVisible(false);
+            deleteStudentButton.setVisible(true);
             
             titleLabel.setText("Roster");
             size =  titleLabel.getPreferredSize();
@@ -1461,6 +1493,8 @@ public class Window extends JPanel implements ActionListener{
         }
         if (action.getSource() == classesButton)
         {
+            stuNameUpdate(rosterTable1, activeCourse);
+            
             assignmentsPane1.setVisible(false);
             assignmentsPane2.setVisible(false);
             assignmentButton1.setVisible(false);
@@ -1517,6 +1551,7 @@ public class Window extends JPanel implements ActionListener{
             categoryLabel.setVisible(false);
             whatIfButton1.setVisible(false);
             whatIfButton2.setVisible(false);
+            deleteStudentButton.setVisible(false);
             
             if (class1Button.getText() != null)
                 class1Button.setVisible(true);
@@ -1939,6 +1974,7 @@ public class Window extends JPanel implements ActionListener{
             deleteWhatIfButton1.setVisible(true);
             assignmentWhatIfButton1.setVisible(true);
             rosterWhatIfButton1.setVisible(true);
+            deleteStudentButton.setVisible(false);
             
             for (int i = 0; i < assignmentsWhatIf1.size(); i++)
             {
@@ -2381,6 +2417,7 @@ public class Window extends JPanel implements ActionListener{
             titleLabel.setVisible(false);
             whatIfButton1.setVisible(false);
             gradeButton1.setVisible(false);
+            deleteStudentButton.setVisible(false);
             
             assignment1Radio.setVisible(true);
             assignment2Radio.setVisible(true);
@@ -3140,6 +3177,17 @@ public class Window extends JPanel implements ActionListener{
             classLabel.setVisible(true);
             classesButton.setVisible(true);
         }
+        if (action.getSource() == deleteStudentButton){
+        
+            if(activeCourse == 0){
+                deleteStu(rosterTable1, rosterTableModel1);
+            }
+            else if(activeCourse == 1){
+                deleteStu(rosterTable2, rosterTableModel2);
+            }
+        
+        }
+
     }
         
 
@@ -3208,6 +3256,7 @@ public class Window extends JPanel implements ActionListener{
     private JButton saveWhatIfButton1;
     private JButton deleteWhatIfButton1;
     private JButton backButton;
+    private JButton deleteStudentButton;
     private JButton gradebookDeleteButton1;
     private JButton assignmentDeleteButton1;
     private JButton overallGradeButton;
@@ -3278,4 +3327,46 @@ public class Window extends JPanel implements ActionListener{
 
     private Dimension size;
     private int screenNumber;
+    private int activeCourse = 0;
+    
+    private void stuNameUpdate(JTable roster, int classNum){
+    
+        for (int row = 0; row < 2; row ++){
+        
+            
+            if(!roster.getValueAt(row, 0).toString().equals(courseCList.get(classNum).getRoster().get(row).getFirstName()) && !"".equals(roster.getValueAt(row,0).toString())){
+                courseCList.get(classNum).getRoster().get(row).setFirstName(roster.getValueAt(row, 0).toString());
+                try{
+                    writer.saveCourse(courseCList.get(classNum), courses.get(classNum));
+                } catch (IOException e){
+                    System.out.println("error saving");
+                }
+            }
+            if(!roster.getValueAt(row, 1).toString().equals(courseCList.get(classNum).getRoster().get(row).getFirstName()) && !"".equals(roster.getValueAt(row,1).toString())){
+                courseCList.get(classNum).getRoster().get(row).setLastName(roster.getValueAt(row, 1).toString());
+                try{
+                    writer.saveCourse(courseCList.get(classNum), courses.get(classNum));
+                } catch (IOException e){
+                    System.out.println("error saving");
+                }
+            }
+            
+        }
+        
+        
+        
+    }
+    
+    private void deleteStu(JTable roster , DefaultTableModel model /*int classNum, int stuNum*/){
+    
+        courseCList.get(activeCourse).getRoster().remove(roster.getSelectedRow());
+        model.removeRow(roster.getSelectedRow());
+        
+        try{
+            writer.saveCourse(courseCList.get(activeCourse), courses.get(activeCourse));
+        } catch (IOException e){
+            System.out.println("error saving");
+        }      
+    
+    }
 }

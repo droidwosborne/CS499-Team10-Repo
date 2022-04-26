@@ -89,6 +89,8 @@ public class ReadSave {
         String temp = template[3].substring(1);
         String[] rawAsighn = temp.split(",",0);
         numAsighn = rawAsighn.length;
+        
+        
         for (int i = 0; i < numAsighn; i++){
         
             asighnInfo.add(rawAsighn[i].split(subSplit));  // assighnment information is saved in the format
@@ -112,6 +114,7 @@ public class ReadSave {
             studentsInfo.add(rawStudent.split(","));
         
         }
+        clIn.close();
         
         }catch(FileNotFoundException e){
         
