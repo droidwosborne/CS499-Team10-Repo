@@ -107,11 +107,16 @@ public class Course {
     // Roster Functions
     public void addStudent(String firstName, String lastName){
         Student student = new Student();
+        Vector<Float> scores = new Vector<Float>();
         student.setFirstName(firstName);
         student.setLastName(lastName);
         // Empty roster contingency
         if(roster.size() == 0) student.setID(0);
         else student.setID(roster.lastElement().getID()+1);
+        for(int i = 0; i<gradebook.getAssignments().size(); i++){
+            scores.add(0.0F);
+        }
+        student.setScores(scores);
         roster.add(student);
     }
 
@@ -131,10 +136,16 @@ public class Course {
         assignment.setCategory(category);
         assignment.setMaxScore(maxScore);
         gradebook.getAssignments().add(assignment);
+        for(int i = 0; i<roster.size(); i++){
+            roster.get(i).getScores().add(0.0F);
+        }
     }
 
     public void deleteAssignment(int AssignmentID){
         gradebook.getAssignments().remove(AssignmentID);
+        for(int i = 0; i<roster.size(); i++){
+            roster.get(i).getScores().remove(AssignmentID);
+        }
     }
 
     public void addCategory(String categoryName, Float categoryWeight){
