@@ -150,7 +150,7 @@ public class Course {
 
     public void addCategory(String categoryName, Float categoryWeight){
         gradebook.getCatNames().add(categoryName);
-        gradebook.getCatID().add(gradebook.getCatID().lastElement()+1);
+        gradebook.getCatID().add(gradebook.getCatNames().size()-1);
         gradebook.getCatWeights().add(categoryWeight);
     }
 

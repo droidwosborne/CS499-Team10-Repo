@@ -131,7 +131,7 @@ public class Main {
         course2.calculateOverallGrade(2);
         WriteSave writeSave= new WriteSave();
         try {
-            writeSave.saveCourse(course2, "course2");
+            writeSave.saveCourse(course2, "class2");
         } catch (IOException e) {
             e.printStackTrace();
         }
