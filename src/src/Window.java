@@ -39,8 +39,8 @@ public class Window extends JPanel implements ActionListener{
     
     ReadSave reader = new ReadSave();
     Vector<String> teacher = new Vector <String> (reader.teacherIn());
-    Course course1 = reader.classDataIn("course1");
-    Course course2 = reader.classDataIn("course2");
+    //Course course1 = reader.classDataIn("course1");
+    //Course course2 = reader.classDataIn("course2");
     Course courseWhatIf1 = reader.classDataIn("course1");
     //Vector<Student> roster1 = course1.getRoster();
     //Vector<Student> roster2 = course2.getRoster();
@@ -78,10 +78,10 @@ public class Window extends JPanel implements ActionListener{
         screenNumber = -1;
         
         cList.setPassword(password);
-        if (courses.size() >= 1)
-            course1.setCourseName(courses.get(0));
-        else
-            course1.setCourseName(null);
+//        if (courses.size() >= 1)
+//            course1.setCourseName(courses.get(0));
+//        else
+//            course1.setCourseName(null);
         
         /*
          * Login Page
@@ -1058,6 +1058,7 @@ public class Window extends JPanel implements ActionListener{
             courseAddField.setText("");
             courseAddField.setVisible(true);
             
+            
         }
         if (action.getSource() == classDeleteButton)
         {
@@ -1073,6 +1074,7 @@ public class Window extends JPanel implements ActionListener{
             courseLabel.setVisible(false);
             courseAddField.setVisible(false);
             cList.addCourse(courseAddField.getText());
+            courseCList.add(new Course());
             courses = cList.getCourses();
             int numCourses = courses.size();
             switch(numCourses){
@@ -1333,6 +1335,21 @@ public class Window extends JPanel implements ActionListener{
             size =  classLabel.getPreferredSize();
             classLabel.setBounds(50, 50, size.width, size.height);
             classLabel.setVisible(true);
+            for (int i = 0; i < courseCList.get(activeCourse).getGradebook().getAssignments().size(); i++)
+            {
+                assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getAssignments().get(i).getName(),i,0);
+                assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatNames().get(i),i,1);
+                assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getAssignments().get(i).getMaxScore(),i,2);
+                
+                rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getFirstName(),i,0);
+                rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getLastName(),i,1);
+                rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getID(),i,2);
+                rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getOverallGrade(),i,3);
+                
+                gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatNames().get(i),i,0);
+                gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatID().get(i),i,1);
+                gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatWeights().get(i),i,2);
+            }
         }
         if (action.getSource() == class4Button)
         {
@@ -1387,7 +1404,10 @@ public class Window extends JPanel implements ActionListener{
             categoryLabel.setVisible(false);
             deleteStudentButton.setVisible(false);
             
-            stuNameUpdate(rosterTable1, activeCourse);
+            if(rosterTable1.getRowCount() >= 2){
+                stuNameUpdate(rosterTable1, activeCourse);
+            }
+            
             
         }
         /*if (action.getSource() == assignmentButton2)
@@ -1638,14 +1658,14 @@ public class Window extends JPanel implements ActionListener{
             rosterTableModel1.addRow(new Object[]{"","","",""});
             String firstName = firstNameEntry.getText();
             String lastName = lastNameEntry.getText();
-            course1.addStudent(firstName, lastName);
+            courseCList.get(activeCourse).addStudent(firstName, lastName);
             rosterTable1.setValueAt(firstName,rosterTableModel1.getRowCount()-1,0);
             rosterTable1.setValueAt(lastName,rosterTableModel1.getRowCount()-1,1);
             rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(rosterTableModel1.getRowCount()-1).getID(),rosterTableModel1.getRowCount()-1,2);
             rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(rosterTableModel1.getRowCount()-1).getOverallGrade(),rosterTableModel1.getRowCount()-1,3);
             
             try{
-                writer.saveCourse(course1, "course1");
+                writer.saveCourse(courseCList.get(activeCourse), courses.get(activeCourse));
             } catch (IOException e){
                 System.out.println("error saving");
             }
@@ -1710,13 +1730,13 @@ public class Window extends JPanel implements ActionListener{
             {    
                 assignmentsTableModel1.addRow(new Object[]{"","",""});
                 int score = Integer.parseInt(assignmentScore.getText());
-                course1.addAssignment(name, catID, score);
+                courseCList.get(activeCourse).addAssignment(name, catID, score);
                 assignmentsTable1.setValueAt(name,assignmentsTable1.getRowCount()-1,0);
                 assignmentsTable1.setValueAt(cat,assignmentsTable1.getRowCount()-1,1);
                 assignmentsTable1.setValueAt(score,assignmentsTable1.getRowCount()-1,2);
 
                 try{
-                    writer.saveCourse(course1, "course1");
+                    writer.saveCourse(courseCList.get(activeCourse), courses.get(activeCourse));
                 } catch (IOException e){
                     System.out.println("error saving");
                 }
@@ -1815,7 +1835,7 @@ public class Window extends JPanel implements ActionListener{
             inputScale[3] = Integer.parseInt(dScoreEntry.getText());
             courseCList.get(activeCourse).getGradebook().setScale(inputScale);
             try{
-                writer.saveCourse(course1, "course1");
+                writer.saveCourse(courseCList.get(activeCourse), courses.get(activeCourse));
             } catch (IOException e){
                 System.out.println("error saving");
             }
@@ -1901,13 +1921,13 @@ public class Window extends JPanel implements ActionListener{
             gradebookTableModel1.addRow(new Object[]{"","","",""});
             String name = newCategory.getText();
             float weight = Float.parseFloat(categoryWeight.getText());
-            course1.addCategory(name, weight);
+            courseCList.get(activeCourse).addCategory(name, weight);
             
             gradebookTable1.setValueAt(name,gradebookTable1.getRowCount()-1,0);
             gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatID().size()-1,gradebookTableModel1.getRowCount()-1,1);
             gradebookTable1.setValueAt(weight,gradebookTable1.getRowCount()-1,2);
             try{
-                writer.saveCourse(course1, "course1");
+                writer.saveCourse(courseCList.get(activeCourse), courses.get(activeCourse));
             } catch (IOException e){
                 System.out.println("error saving");
             }
@@ -1930,7 +1950,7 @@ public class Window extends JPanel implements ActionListener{
         }*/
         if(action.getSource() == whatIfButton1)
         {
-            courseWhatIf1 = course1;
+            courseWhatIf1 = courseCList.get(activeCourse);
             rosterWhatIf1 = courseWhatIf1.getRoster();
             gradebookWhatIf1 = courseWhatIf1.getGradebook();
             assignmentsWhatIf1 = courseWhatIf1.getGradebook().getAssignments();
@@ -2233,12 +2253,12 @@ public class Window extends JPanel implements ActionListener{
         }
         if(action.getSource() == saveWhatIfButton1) {
             try {
-                writer.saveCourse(courseWhatIf1, "course1");
+                writer.saveCourse(courseWhatIf1, courses.get(activeCourse));
             } catch (IOException e) {
                 System.out.println("error saving");
             }
 
-            course1 = courseWhatIf1;
+            courseCList.set(activeCourse, courseWhatIf1);
             //roster1 = courseWhatIf1.getRoster();
             //gradebook1 = courseWhatIf1.getGradebook();
             //assignments1 = courseWhatIf1.getGradebook().getAssignments();
@@ -2378,7 +2398,7 @@ public class Window extends JPanel implements ActionListener{
         }
         if(action.getSource() == gradeButton1)
         {
-            courseWhatIf1 = course1;
+            courseWhatIf1 = courseCList.get(activeCourse);
             rosterWhatIf1 = courseWhatIf1.getRoster();
             gradebookWhatIf1 = courseWhatIf1.getGradebook();
             assignmentsWhatIf1 = courseWhatIf1.getGradebook().getAssignments();
