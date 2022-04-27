@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.lang.ArrayIndexOutOfBoundsException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Vector;
+import javax.swing.table.TableColumn;
 
 
 /*
@@ -298,9 +299,7 @@ public class Window extends JPanel implements ActionListener{
         assignmentsTableModel1.addColumn("Name");
         assignmentsTableModel1.addColumn("Category");
         assignmentsTableModel1.addColumn("Max Score");
-        assignmentsTableModel1.addRow(new Object[]{"","","",""});
-        assignmentsTableModel1.addRow(new Object[]{"","","",""});
-        assignmentsTableModel1.addRow(new Object[]{"","","",""});
+        
 
         assignmentsTable1 = new JTable(assignmentsTableModel1);
         assignmentsTable1.setBackground(Color.lightGray);
@@ -486,9 +485,6 @@ public class Window extends JPanel implements ActionListener{
         rosterTableModel1.addColumn("Last Name");
         rosterTableModel1.addColumn("Student ID");
         rosterTableModel1.addColumn("Average");
-        rosterTableModel1.addRow(new Object[]{"","","",""});
-        rosterTableModel1.addRow(new Object[]{"","","",""});
-        rosterTableModel1.addRow(new Object[]{"","","",""});
 
         rosterTable1 = new JTable(rosterTableModel1);
         rosterTable1.setBackground(Color.lightGray);
@@ -630,9 +626,7 @@ public class Window extends JPanel implements ActionListener{
         gradebookTableModel1.addColumn("Category");
         gradebookTableModel1.addColumn("ID");
         gradebookTableModel1.addColumn("Weight");
-        gradebookTableModel1.addRow(new Object[]{"","",""});
-        gradebookTableModel1.addRow(new Object[]{"","",""});
-        gradebookTableModel1.addRow(new Object[]{"","",""});
+        
 
         gradebookTable1 = new JTable(gradebookTableModel1);
         gradebookTable1.setBackground(Color.lightGray);
@@ -867,9 +861,6 @@ public class Window extends JPanel implements ActionListener{
         
         gradesTableModel1 = new DefaultTableModel();
         gradesTableModel1.addColumn("");
-        gradesTableModel1.addColumn(courseCList.get(activeCourse).getRoster().get(0).getFirstName()+" "+courseCList.get(activeCourse).getRoster().get(0).getLastName());
-        gradesTableModel1.addColumn(courseCList.get(activeCourse).getRoster().get(1).getFirstName()+" "+courseCList.get(activeCourse).getRoster().get(1).getLastName());
-        gradesTableModel1.addColumn(courseCList.get(activeCourse).getRoster().get(2).getFirstName()+" "+courseCList.get(activeCourse).getRoster().get(2).getLastName());
         
         gradesTableModel1.addRow(new Object[]{"","","",""});
         gradesTableModel1.addRow(new Object[]{"","","",""});
@@ -1261,14 +1252,23 @@ public class Window extends JPanel implements ActionListener{
             
             for (int i = 0; i < courseCList.get(activeCourse).getGradebook().getAssignments().size(); i++)
             {
+                assignmentsTableModel1.addRow(new Object[]{"","","",""});
+                
                 assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getAssignments().get(i).getName(),i,0);
                 assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatNames().get(i),i,1);
                 assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getAssignments().get(i).getMaxScore(),i,2);
+
+            }
+            for (int i = 0; i < courseCList.get(activeCourse).getRoster().size(); i++){
+                rosterTableModel1.addRow(new Object[]{"","","",""});
                 
                 rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getFirstName(),i,0);
                 rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getLastName(),i,1);
                 rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getID(),i,2);
-                rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getOverallGrade(),i,3);
+                rosterTable1.setValueAt(courseCList.get(activeCourse).calculateOverallGrade(i),i,3);
+            }
+            for (int i = 0; i < courseCList.get(activeCourse).getGradebook().getCatID().size(); i++){
+                gradebookTableModel1.addRow(new Object[]{"","",""});
                 
                 gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatNames().get(i),i,0);
                 gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatID().get(i),i,1);
@@ -1300,14 +1300,23 @@ public class Window extends JPanel implements ActionListener{
             
             for (int i = 0; i < courseCList.get(activeCourse).getGradebook().getAssignments().size(); i++)
             {
+                assignmentsTableModel1.addRow(new Object[]{"","","",""});
+                
                 assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getAssignments().get(i).getName(),i,0);
                 assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatNames().get(i),i,1);
                 assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getAssignments().get(i).getMaxScore(),i,2);
+
+            }
+            for (int i = 0; i < courseCList.get(activeCourse).getRoster().size(); i++){
+                rosterTableModel1.addRow(new Object[]{"","","",""});
                 
                 rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getFirstName(),i,0);
                 rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getLastName(),i,1);
                 rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getID(),i,2);
-                rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getOverallGrade(),i,3);
+                rosterTable1.setValueAt(courseCList.get(activeCourse).calculateOverallGrade(i),i,3);
+            }
+            for (int i = 0; i < courseCList.get(activeCourse).getGradebook().getCatID().size(); i++){
+                gradebookTableModel1.addRow(new Object[]{"","",""});
                 
                 gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatNames().get(i),i,0);
                 gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatID().get(i),i,1);
@@ -1337,14 +1346,23 @@ public class Window extends JPanel implements ActionListener{
             classLabel.setVisible(true);
             for (int i = 0; i < courseCList.get(activeCourse).getGradebook().getAssignments().size(); i++)
             {
+                assignmentsTableModel1.addRow(new Object[]{"","","",""});
+                
                 assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getAssignments().get(i).getName(),i,0);
                 assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatNames().get(i),i,1);
                 assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getAssignments().get(i).getMaxScore(),i,2);
+
+            }
+            for (int i = 0; i < courseCList.get(activeCourse).getRoster().size(); i++){
+                rosterTableModel1.addRow(new Object[]{"","","",""});
                 
                 rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getFirstName(),i,0);
                 rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getLastName(),i,1);
                 rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getID(),i,2);
-                rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getOverallGrade(),i,3);
+                rosterTable1.setValueAt(courseCList.get(activeCourse).calculateOverallGrade(i),i,3);
+            }
+            for (int i = 0; i < courseCList.get(activeCourse).getGradebook().getCatID().size(); i++){
+                gradebookTableModel1.addRow(new Object[]{"","",""});
                 
                 gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatNames().get(i),i,0);
                 gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatID().get(i),i,1);
@@ -1372,6 +1390,32 @@ public class Window extends JPanel implements ActionListener{
             size =  classLabel.getPreferredSize();
             classLabel.setBounds(50, 50, size.width, size.height);
             classLabel.setVisible(true);
+            
+            for (int i = 0; i < courseCList.get(activeCourse).getGradebook().getAssignments().size(); i++)
+            {
+                assignmentsTableModel1.addRow(new Object[]{"","","",""});
+                
+                assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getAssignments().get(i).getName(),i,0);
+                assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatNames().get(i),i,1);
+                assignmentsTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getAssignments().get(i).getMaxScore(),i,2);
+
+            }
+            for (int i = 0; i < courseCList.get(activeCourse).getRoster().size(); i++){
+                rosterTableModel1.addRow(new Object[]{"","","",""});
+                
+                rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getFirstName(),i,0);
+                rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getLastName(),i,1);
+                rosterTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(i).getID(),i,2);
+                rosterTable1.setValueAt(courseCList.get(activeCourse).calculateOverallGrade(i),i,3);
+            }
+            for (int i = 0; i < courseCList.get(activeCourse).getGradebook().getCatID().size(); i++){
+                gradebookTableModel1.addRow(new Object[]{"","",""});
+                
+                gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatNames().get(i),i,0);
+                gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatID().get(i),i,1);
+                gradebookTable1.setValueAt(courseCList.get(activeCourse).getGradebook().getCatWeights().get(i),i,2);
+            }
+            
         }
         if (action.getSource() == assignmentButton1)
         {
@@ -1572,6 +1616,17 @@ public class Window extends JPanel implements ActionListener{
             whatIfButton1.setVisible(false);
             //whatIfButton2.setVisible(false);
             deleteStudentButton.setVisible(false);
+            
+            for(int i = 0; i< assignmentsTableModel1.getRowCount(); i++){
+                assignmentsTableModel1.removeRow(i);
+            }
+            for(int i = 0; i< rosterTableModel1.getRowCount(); i++){
+                rosterTableModel1.removeRow(i);
+            }
+            for(int i = 0; i< gradebookTableModel1.getRowCount(); i++){
+                gradebookTableModel1.removeRow(i);
+            }
+            
             
             if (class1Button.getText() != null)
                 class1Button.setVisible(true);
@@ -2469,6 +2524,7 @@ public class Window extends JPanel implements ActionListener{
             }
             for (int i = 0; i < courseCList.get(activeCourse).getRoster().size(); i++)
             {
+                gradesTableModel1.addColumn(courseCList.get(activeCourse).getRoster().get(i).getFirstName()+" "+courseCList.get(activeCourse).getRoster().get(i).getLastName());
                 try{
                     gradesTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(0).getScores().get(i), i, 1);
                     gradesTable1.setValueAt(courseCList.get(activeCourse).getRoster().get(1).getScores().get(i), i, 2);
@@ -3191,6 +3247,11 @@ public class Window extends JPanel implements ActionListener{
             gradesPane1.setVisible(false);
             //gradeChangeField.setVisible(false);
             backButton.setVisible(false);
+            
+            for(int i = 1; i < gradesTable1.getColumnCount(); i++){
+                TableColumn tempCol = gradesTable1.getColumnModel().getColumn(i);
+                gradesTable1.removeColumn(tempCol);
+            }
             
             assignmentButton1.setVisible(true);
             rosterButton1.setVisible(true);
