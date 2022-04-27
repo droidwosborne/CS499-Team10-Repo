@@ -82,7 +82,7 @@ public class Main {
         course1.calculateOverallGrade(2);
         WriteSave writeSave= new WriteSave();
         try {
-            writeSave.saveCourse(course1, "course1");
+            writeSave.saveCourse(course1, "class1");
         } catch (IOException e) {
             e.printStackTrace();
         }

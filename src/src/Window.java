@@ -1617,13 +1617,13 @@ public class Window extends JPanel implements ActionListener{
             //whatIfButton2.setVisible(false);
             deleteStudentButton.setVisible(false);
             
-            for(int i = 0; i< assignmentsTableModel1.getRowCount(); i++){
+            for(int i = assignmentsTableModel1.getRowCount()-1; i>= 0; i--){
                 assignmentsTableModel1.removeRow(i);
             }
-            for(int i = 0; i< rosterTableModel1.getRowCount(); i++){
+            for(int i = rosterTableModel1.getRowCount()-1; i>= 0; i--){
                 rosterTableModel1.removeRow(i);
             }
-            for(int i = 0; i< gradebookTableModel1.getRowCount(); i++){
+            for(int i = gradebookTableModel1.getRowCount()-1; i>= 0; i--){
                 gradebookTableModel1.removeRow(i);
             }
             
